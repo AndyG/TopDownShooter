@@ -53,8 +53,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Entities\AfterImage.cs" />
      <Compile Include="Assets\Scripts\Entities\BasicPlayer.cs" />
+     <Compile Include="Assets\Scripts\Entities\Enemy.cs" />
      <Compile Include="Assets\Scripts\Entities\ExamplePlayer.cs" />
      <Compile Include="Assets\Scripts\Utils\OscillateY.cs" />
+     <Compile Include="Assets\Scripts\Utils\Spawner.cs" />
      <Compile Include="Assets\Scripts\Utils\Spin.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
