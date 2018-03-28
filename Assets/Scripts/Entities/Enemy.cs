@@ -38,6 +38,14 @@ public class Enemy : MonoBehaviour, Shootable
     {
       handleShot(bullet);
       Destroy(bullet.gameObject);
+      return;
+    }
+
+    BasicPlayer player = other.GetComponent<BasicPlayer>();
+    if (player != null)
+    {
+      Destroy(player.gameObject);
+      return;
     }
   }
 }
