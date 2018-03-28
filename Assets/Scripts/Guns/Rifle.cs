@@ -36,11 +36,10 @@ public class Rifle : MonoBehaviour
 
     p = c.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
 
-
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
     tempGo.transform.position = transform.position;
     Vector2 direction = transform.position - p;
-    rigidBody.velocity = direction;
+    rigidBody.velocity = direction.normalized * speed;
   }
 }

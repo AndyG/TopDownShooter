@@ -94,6 +94,7 @@ public class BasicPlayer : MonoBehaviour
   {
     if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
     {
+      Debug.Log(dashingSprite);
       spriteRenderer.sprite = dashingSprite;
       dashState = DashState.CHARGING;
       audioSource.PlayOneShot(dashChargeSound);
