@@ -18,7 +18,6 @@ public class Rifle : MonoBehaviour
   void Update()
   {
     Vector2 aimDirection = getAimDirection();
-    Debug.Log(aimDirection);
     Debug.DrawRay(transform.position, aimDirection, Color.green);
     if (Input.GetKeyDown(KeyCode.Space))
     {

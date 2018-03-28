@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114312212651935884}
   - component: {fileID: 50168263099551292}
   - component: {fileID: 61711188068811436}
-  - component: {fileID: 114139241837076534}
+  - component: {fileID: 114066800957610598}
   m_Layer: 0
   m_Name: bulletimage
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527908633070172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.223778, y: -2.4486706, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,7 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.230872, y: 1.1649075}
   m_EdgeRadius: 0
---- !u!114 &114139241837076534
+--- !u!114 &114066800957610598
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,10 +97,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1527908633070172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df971bfa206a5499cb4240b66d862e06, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e11dadd0461d4f0e9e19bb65b7cb01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
 --- !u!114 &114312212651935884
 MonoBehaviour:
   m_ObjectHideFlags: 1

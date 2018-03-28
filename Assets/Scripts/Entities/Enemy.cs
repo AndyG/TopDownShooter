@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, Shootable
 {
 
   public GameObject target;
@@ -21,6 +21,23 @@ public class Enemy : MonoBehaviour
     {
       float step = speed * Time.deltaTime;
       transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+    }
+  }
+
+  public void handleShot(Bullet bullet)
+  {
+    Destroy(this.gameObject);
+  }
+
+  void OnTriggerEnter2D(Collider2D other)
+  {
+    Debug.Log("on trigger enter");
+
+    Bullet bullet = other.GetComponent<Bullet>();
+    if (bullet != null)
+    {
+      handleShot(bullet);
+      Destroy(bullet.gameObject);
     }
   }
 }

@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 909, y: 321}
   m_MaxSize: {x: 22004, y: 10000}
   vertical: 0
-  controlID: 643
+  controlID: 9953
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -232,9 +232,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 5c280000
-    m_LastClickedInstanceID: 10332
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 0e280000
+    m_LastClickedInstanceID: 10254
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: aa50ffff622900001c2500000028000000000000c4370000ce270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 3}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -316,9 +316,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5c280000
-    m_LastClickedID: 10332
-    m_ExpandedIDs: 9efbffff000000005c280000
+    m_SelectedIDs: 0e280000
+    m_LastClickedID: 0
+    m_ExpandedIDs: dc88ffff9efbffff000000005c280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 321}
   m_MaxSize: {x: 4004, y: 8021}
   vertical: 1
-  controlID: 644
+  controlID: 9954
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
