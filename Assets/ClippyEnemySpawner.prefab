@@ -54,4 +54,4 @@ MonoBehaviour:
   spawnObject: {fileID: 1590500638419038, guid: 0f22437fffb11461cb6444740f2b0110,
     type: 2}
   target: {fileID: 0}
-  interval: 0.4
+  interval: 0.8

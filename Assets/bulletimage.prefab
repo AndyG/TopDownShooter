@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4844892755240118}
   - component: {fileID: 212824156410952162}
   - component: {fileID: 114312212651935884}
-  - component: {fileID: 50168263099551292}
   - component: {fileID: 61711188068811436}
   - component: {fileID: 114066800957610598}
+  - component: {fileID: 50938522809980920}
   m_Layer: 0
   m_Name: bulletimage
   m_TagString: Untagged
@@ -39,12 +39,12 @@ Transform:
   m_GameObject: {fileID: 1527908633070172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.223778, y: -2.4486706, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50168263099551292
+--- !u!50 &50938522809980920
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -70,17 +70,17 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527908633070172}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.11543603, y: 0.08245373}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 2.81, y: 1.98}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc4eb722fff4da9868073f9a5a05ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
+  speed: 200
 --- !u!212 &212824156410952162
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -146,8 +146,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 506517ed370dd44389c6c4e08262c3f2, type: 3}
-  m_Color: {r: 0, g: 0.26840773, b: 0.5808823, a: 1}
+  m_Sprite: {fileID: 21300000, guid: f3933031f9d7c4da78e6950bc74d3982, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
