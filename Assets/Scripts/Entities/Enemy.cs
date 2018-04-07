@@ -44,8 +44,7 @@ public class Enemy : MonoBehaviour, Shootable
     BasicPlayer player = other.GetComponent<BasicPlayer>();
     if (player != null)
     {
-      Destroy(player.gameObject);
-      return;
+      player.onHit();
     }
   }
 }
