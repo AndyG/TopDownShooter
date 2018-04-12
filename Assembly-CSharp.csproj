@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Utils\OscillateY.cs" />
      <Compile Include="Assets\Scripts\Utils\Spawner.cs" />
      <Compile Include="Assets\Scripts\Utils\Spin.cs" />
+     <Compile Include="Assets\Scripts\Utils\Track.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

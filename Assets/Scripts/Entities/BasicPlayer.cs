@@ -10,9 +10,6 @@ public class BasicPlayer : MonoBehaviour
 
   public Sprite defaultSprite;
   public Sprite dashingSprite;
-  public AudioSource audioSource;
-  public AudioClip dashChargeSound;
-  public AudioClip dashExecuteSound;
 
   public float topSpeedX = 50f;
   public float topSpeedY = 50f;
@@ -34,9 +31,6 @@ public class BasicPlayer : MonoBehaviour
   private Animator animator;
   private SpriteRenderer spriteRenderer;
 
-  private float dashXForce = 0;
-  private float dashYForce = 0;
-
   // Use this for initialization
   void Start()
   {
@@ -52,14 +46,6 @@ public class BasicPlayer : MonoBehaviour
   {
     switch (dashState)
     {
-      case DashState.CHARGING:
-        dashChargeTime += Time.deltaTime * 60;
-        if (dashChargeTime >= dashChargeDuration)
-        {
-          spriteRenderer.sprite = defaultSprite;
-          executeDash();
-        }
-        break;
       case DashState.READY:
         if (!performDash())
         {
@@ -71,6 +57,7 @@ public class BasicPlayer : MonoBehaviour
         if (timeSinceDashStart > dashDuration)
         {
           dashState = DashState.READY;
+          spriteRenderer.sprite = defaultSprite;
           Debug.Log("setting dash state READY");
           setVelocity(0, 0);
           processMove();
@@ -85,6 +72,12 @@ public class BasicPlayer : MonoBehaviour
 
   public void onHit()
   {
+    if (dashState == DashState.DASHING)
+    {
+      // invincible
+      return;
+    }
+
     SceneManager.LoadScene("TestScene");
   }
 
@@ -102,32 +95,40 @@ public class BasicPlayer : MonoBehaviour
     {
       Debug.Log(dashingSprite);
       spriteRenderer.sprite = dashingSprite;
-      dashState = DashState.CHARGING;
-      audioSource.PlayOneShot(dashChargeSound);
       float horizInput = Input.GetAxis("Horizontal");
       float verticalInput = Input.GetAxis("Vertical");
 
-      dashXForce = (horizInput);
-      dashYForce = (verticalInput);
-      setVelocity(0, 0);
+      float dashXSpeed = 0;
+      if (horizInput < 0)
+      {
+        dashXSpeed = dashSpeed * -1;
+      }
+      else if (horizInput > 0)
+      {
+        dashXSpeed = dashSpeed;
+      }
+
+      float dashYSpeed = 0;
+      if (verticalInput < 0)
+      {
+        dashYSpeed = dashSpeed * -1;
+      }
+      else if (verticalInput > 0)
+      {
+        dashYSpeed = dashSpeed;
+      }
+
+      setVelocity(dashXSpeed, dashYSpeed);
+
+      dashState = DashState.DASHING;
+      timeSinceDashStart = 0f;
+
       return true;
     }
     else
     {
       return false;
     }
-  }
-
-  private void executeDash()
-  {
-    dashChargeTime = 0;
-    dashState = DashState.DASHING;
-    timeSinceDashStart = 0f;
-
-    float forceX = (dashXForce) * dashSpeed;
-    float forceY = (dashYForce) * dashSpeed;
-    Debug.Log("x: " + forceX + ", y: " + forceY);
-    rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
   }
 
   private void processMove()
@@ -205,7 +206,6 @@ public class BasicPlayer : MonoBehaviour
   private enum DashState
   {
     READY,
-    DASHING,
-    CHARGING
+    DASHING
   }
 }
