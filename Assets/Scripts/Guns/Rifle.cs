@@ -17,15 +17,54 @@ public class Rifle : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    Vector2 aimDirection = getAimDirection();
-    Debug.DrawRay(transform.position, aimDirection, Color.green);
-    if (Input.GetKeyDown(KeyCode.Space))
+    Vector2? aimDirection = getAimDirection();
+    if (!aimDirection.HasValue)
     {
-      shoot(aimDirection, speed);
+      return;
+    }
+
+    Vector2 aimDirectionResolved = aimDirection.Value;
+    Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
+    if (Input.GetKeyDown(KeyCode.Space) || isControllerConnected())
+    {
+      shoot(aimDirectionResolved, speed);
     }
   }
 
-  private Vector2 getAimDirection()
+  private Vector2? getAimDirection()
+  {
+    if (isControllerConnected())
+    {
+      return getAimDirectionController();
+    }
+    else
+    {
+      return getAimDirectionMouse();
+    }
+  }
+
+  private bool isControllerConnected()
+  {
+    return true;
+  }
+
+  private Vector2? getAimDirectionController()
+  {
+    float horizInput = Input.GetAxis("RightHorizontal");
+    float verticalInput = Input.GetAxis("RightVertical");
+    float threshold = 0.5f;
+    Vector2 direction = new Vector2(horizInput, verticalInput);
+    if (direction.sqrMagnitude > threshold)
+    {
+      return direction.normalized;
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  private Vector2 getAimDirectionMouse()
   {
     Vector3 p = new Vector3();
     Camera c = Camera.main;
