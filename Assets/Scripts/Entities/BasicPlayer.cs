@@ -21,6 +21,8 @@ public class BasicPlayer : MonoBehaviour
   public float dashSpeed = 30f;
 
   public bool afterImages = true;
+  public GameObject weaponSupplier;
+  public GameObject inputManagerSupplier;
   private Rigidbody2D rigidBody;
 
   private float timeSinceDashStart = 0f;
@@ -30,6 +32,7 @@ public class BasicPlayer : MonoBehaviour
 
   private Animator animator;
   private SpriteRenderer spriteRenderer;
+  private InputManager inputManager;
 
   // Use this for initialization
   void Start()
@@ -39,6 +42,8 @@ public class BasicPlayer : MonoBehaviour
 
     spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     spriteRenderer.sprite = defaultSprite;
+
+    inputManager = inputManagerSupplier.GetComponent<InputManager>();
   }
 
   // Update is called once per frame
@@ -50,6 +55,7 @@ public class BasicPlayer : MonoBehaviour
         if (!performDash())
         {
           processMove();
+          processShoot();
         }
         break;
       case DashState.DASHING:
@@ -91,12 +97,12 @@ public class BasicPlayer : MonoBehaviour
 
   private bool performDash()
   {
-    if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+    if (inputManager.isDashPressed())
     {
       Debug.Log(dashingSprite);
       spriteRenderer.sprite = dashingSprite;
-      float horizInput = Input.GetAxis("Horizontal");
-      float verticalInput = Input.GetAxis("Vertical");
+      float horizInput = inputManager.getMoveAxisHorizontal();
+      float verticalInput = inputManager.getMoveAxisVertical();
 
       float dashXSpeed = 0;
       if (horizInput < 0)
@@ -133,8 +139,8 @@ public class BasicPlayer : MonoBehaviour
 
   private void processMove()
   {
-    float horizInput = Input.GetAxis("Horizontal");
-    float verticalInput = Input.GetAxis("Vertical");
+    float horizInput = inputManager.getMoveAxisHorizontal();
+    float verticalInput = inputManager.getMoveAxisVertical();
 
     if (horizInput == 0)
     {
@@ -202,6 +208,37 @@ public class BasicPlayer : MonoBehaviour
   {
     animator.SetBool("Dashing", dashState == DashState.DASHING);
   }
+
+  private void processShoot()
+  {
+    Vector2? aimDirection = getAimDirection();
+    if (!aimDirection.HasValue)
+    {
+      return;
+    }
+
+    Vector2 aimDirectionResolved = aimDirection.Value;
+    Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
+    Weapon weapon = weaponSupplier.GetComponent<Weapon>();
+    weapon.use(aimDirectionResolved);
+  }
+
+  private Vector2? getAimDirection()
+  {
+    float horizInput = inputManager.getAimAxisHorizontal();
+    float verticalInput = inputManager.getAimAxisVertical();
+    float threshold = 0.5f;
+    Vector2 direction = new Vector2(horizInput, verticalInput);
+    if (direction.sqrMagnitude > threshold)
+    {
+      return direction.normalized;
+    }
+    else
+    {
+      return null;
+    }
+  }
+
 
   private enum DashState
   {
