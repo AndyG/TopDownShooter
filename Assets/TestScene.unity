@@ -1301,7 +1301,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1591888498643534, guid: fb1a4b04bfcc842ff9d7037a708d4993,
     type: 2}
   m_PrefabInternal: {fileID: 322447158}
---- !u!114 &1563721927
+--- !u!114 &1563721926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   dashChargeDuration: 0
   dashSpeed: 26
   afterImages: 1
-  weaponSupplier: {fileID: 1985123491}
+  weaponSupplier: {fileID: 0}
   inputManagerSupplier: {fileID: 434218462}
   barneyRendererSupplier: {fileID: 115245864}
 --- !u!95 &1563721928
@@ -1364,7 +1364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1985123492
 Transform:
   m_ObjectHideFlags: 0

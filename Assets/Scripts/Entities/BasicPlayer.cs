@@ -62,7 +62,16 @@ public class BasicPlayer : MonoBehaviour
         {
           processMove();
           processShoot();
-          barneyRenderer.update(getBucketedAimDirection(getRunDirection()), getBucketedRunDirection(getRunDirection()));
+          Vector2? aimDirection = getAimDirection();
+          Vector2? runDirection = getRunDirection();
+
+          if (!aimDirection.HasValue)
+          {
+            aimDirection = runDirection;
+          }
+
+
+          barneyRenderer.update(getBucketedAimDirection(aimDirection), getBucketedRunDirection(runDirection));
         }
         break;
       case DashState.DASHING:
@@ -168,8 +177,12 @@ public class BasicPlayer : MonoBehaviour
       rigidBody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
     }
 
-    capVelocityX();
-    capVelocityY();
+    capVelocity();
+  }
+
+  private void capVelocity()
+  {
+    rigidBody.velocity = Vector2.ClampMagnitude(rigidBody.velocity, topSpeedX);
   }
 
   /**
@@ -225,8 +238,11 @@ public class BasicPlayer : MonoBehaviour
 
     Vector2 aimDirectionResolved = aimDirection.Value;
     Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
-    Weapon weapon = weaponSupplier.GetComponent<Weapon>();
-    weapon.use(aimDirectionResolved);
+    if (weaponSupplier != null)
+    {
+      Weapon weapon = weaponSupplier.GetComponent<Weapon>();
+      weapon.use(aimDirectionResolved);
+    }
   }
 
   private Vector2? getAimDirection()
@@ -264,25 +280,29 @@ public class BasicPlayer : MonoBehaviour
     float angle = Mathf.Atan2(y, x);
     float angleDegrees = RadianToDegree(angle);
 
+    if (angleDegrees < 0)
+    {
+      angleDegrees += 360;
+    }
+
     BarneyRenderer.RunDirection runDirection = BarneyRenderer.RunDirection.UP;
 
-    if (angleDegrees >= -45 && angleDegrees < 45)
+    if (angleDegrees >= 300 || angleDegrees < 60)
     {
       runDirection = BarneyRenderer.RunDirection.RIGHT;
     }
-    else if (angleDegrees >= 45 && angleDegrees < 135)
+    else if (angleDegrees >= 60 && angleDegrees < 120)
     {
 
       runDirection = BarneyRenderer.RunDirection.UP;
     }
-    else if (angleDegrees >= -135 && angleDegrees < -45)
+    else if (angleDegrees >= 120 && angleDegrees < 240)
     {
-
-      runDirection = BarneyRenderer.RunDirection.DOWN;
+      runDirection = BarneyRenderer.RunDirection.LEFT;
     }
     else
     {
-      runDirection = BarneyRenderer.RunDirection.LEFT;
+      runDirection = BarneyRenderer.RunDirection.DOWN;
     }
 
     return runDirection;
