@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Guns\Weapon.cs" />
      <Compile Include="Assets\Scripts\Input\InputManager.cs" />
      <Compile Include="Assets\Scripts\Input\InputManagerPS4.cs" />
+     <Compile Include="Assets\Scripts\Renderers\BarneyRenderer.cs" />
      <Compile Include="Assets\Scripts\Shootable.cs" />
      <Compile Include="Assets\Scripts\Utils\OscillateY.cs" />
      <Compile Include="Assets\Scripts\Utils\Spawner.cs" />
