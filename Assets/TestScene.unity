@@ -262,7 +262,7 @@ Prefab:
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
@@ -323,7 +323,7 @@ Prefab:
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
@@ -682,22 +682,22 @@ Prefab:
     - target: {fileID: 61133255397877494, guid: fb1a4b04bfcc842ff9d7037a708d4993,
         type: 2}
       propertyPath: m_Offset.x
-      value: 0.009166598
+      value: -0.01075682
       objectReference: {fileID: 0}
     - target: {fileID: 61133255397877494, guid: fb1a4b04bfcc842ff9d7037a708d4993,
         type: 2}
       propertyPath: m_Offset.y
-      value: 0.25236702
+      value: 0.23244381
       objectReference: {fileID: 0}
     - target: {fileID: 61133255397877494, guid: fb1a4b04bfcc842ff9d7037a708d4993,
         type: 2}
       propertyPath: m_Size.y
-      value: 1.504734
+      value: 1.1461124
       objectReference: {fileID: 0}
     - target: {fileID: 61133255397877494, guid: fb1a4b04bfcc842ff9d7037a708d4993,
         type: 2}
       propertyPath: m_Size.x
-      value: 1.4800773
+      value: 0.9620685
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114066724022667740, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
@@ -846,7 +846,7 @@ Prefab:
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
@@ -1209,7 +1209,7 @@ Prefab:
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   dashChargeDuration: 0
   dashSpeed: 26
   afterImages: 1
-  weaponSupplier: {fileID: 0}
+  weaponSupplier: {fileID: 1985123491}
   inputManagerSupplier: {fileID: 434218462}
   barneyRendererSupplier: {fileID: 115245864}
 --- !u!95 &1563721928

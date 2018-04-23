@@ -33,6 +33,7 @@ public class Rifle : MonoBehaviour, Weapon
 
   public void use(Vector2 direction)
   {
+    Debug.Log("USE");
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
     tempGo.transform.position = transform.position;

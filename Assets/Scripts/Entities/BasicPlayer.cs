@@ -39,11 +39,14 @@ public class BasicPlayer : MonoBehaviour
 
   private BarneyRenderer barneyRenderer;
 
+  private OscillateSize oscillateSize;
+
   // Use this for initialization
   void Start()
   {
     rigidBody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
+    oscillateSize = gameObject.GetComponent<OscillateSize>();
 
     // spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     // spriteRenderer.sprite = defaultSprite;
@@ -55,6 +58,9 @@ public class BasicPlayer : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+
+    processGrow();
+
     switch (dashState)
     {
       case DashState.READY:
@@ -109,6 +115,14 @@ public class BasicPlayer : MonoBehaviour
     tempGo.transform.position = transform.position;
     // tempGo.transform.parent = transform;
     // tempGo.transform.localPosition = transform.forward;
+  }
+
+  private void processGrow()
+  {
+    if (inputManager.isGrowPressed())
+    {
+      oscillateSize.setActive(gameObject.transform);
+    }
   }
 
   private bool performDash()
@@ -230,11 +244,13 @@ public class BasicPlayer : MonoBehaviour
 
   private void processShoot()
   {
+    Debug.Log("CHECK1");
     Vector2? aimDirection = getAimDirection();
     if (!aimDirection.HasValue)
     {
       return;
     }
+    Debug.Log("CHECK2");
 
     Vector2 aimDirectionResolved = aimDirection.Value;
     Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
@@ -242,6 +258,7 @@ public class BasicPlayer : MonoBehaviour
     {
       Weapon weapon = weaponSupplier.GetComponent<Weapon>();
       weapon.use(aimDirectionResolved);
+      Debug.Log("CHECK3");
     }
   }
 

@@ -7,6 +7,8 @@ public interface InputManager
   bool isFirePressed();
   bool isDashPressed();
 
+  bool isGrowPressed();
+
   float getMoveAxisHorizontal();
   float getMoveAxisVertical();
   float getAimAxisHorizontal();

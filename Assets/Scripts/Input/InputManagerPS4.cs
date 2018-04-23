@@ -3,11 +3,16 @@ public class InputManagerPS4 : MonoBehaviour, InputManager
 {
   public bool isFirePressed()
   {
-    return false;
+    return Input.GetButtonDown("Fire1");
   }
   public bool isDashPressed()
   {
     return false;
+  }
+
+  public bool isGrowPressed()
+  {
+    return Input.GetKeyDown(KeyCode.A);
   }
 
   public float getMoveAxisHorizontal()

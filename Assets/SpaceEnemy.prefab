@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4787649133401454}
   - component: {fileID: 212727046684472756}
   - component: {fileID: 114690566190748758}
-  - component: {fileID: 61456030176317346}
   - component: {fileID: 95743537605039880}
+  - component: {fileID: 61836134408662616}
   m_Layer: 0
-  m_Name: ClippyEnemy
+  m_Name: SpaceEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,13 +37,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1590500638419038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.04, y: 1.1820278, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalPosition: {x: -6.9986334, y: 3.8490229, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61456030176317346
+--- !u!61 &61836134408662616
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -55,18 +55,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.051238894, y: 0.014639378}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.37, y: 2.53}
+    oldSize: {x: 1.5544043, y: 1.5544043}
     newSize: {x: 3.37, y: 2.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1593735, y: 2.3543205}
+  m_Size: {x: 1.5544043, y: 1.5544043}
   m_EdgeRadius: 0
 --- !u!95 &95743537605039880
 Animator:
@@ -77,7 +77,7 @@ Animator:
   m_GameObject: {fileID: 1590500638419038}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2772d4ffa71434496ac8c9a29e89e90d, type: 2}
+  m_Controller: {fileID: 9100000, guid: d98bb0fb7c68c4b5abef870db079e8b9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e5eb06884a30a428f9da06b2dfbefc17, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdf5bd7b738ac4701b6f7c50e490ddfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
