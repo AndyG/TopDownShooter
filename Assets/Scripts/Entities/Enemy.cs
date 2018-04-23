@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, Shootable
 {
 
+  [SerializeField]
+  private GameObject explosion;
   public GameObject target;
   public float speed;
 
@@ -26,6 +28,11 @@ public class Enemy : MonoBehaviour, Shootable
 
   public void handleShot(Bullet bullet)
   {
+    if (explosion != null)
+    {
+      GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
+      tempGo.transform.position = transform.position;
+    }
     Destroy(this.gameObject);
   }
 

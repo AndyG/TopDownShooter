@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Bullet.cs" />
+     <Compile Include="Assets\DestroyTimed.cs" />
      <Compile Include="Assets\Scripts\Entities\AfterImage.cs" />
      <Compile Include="Assets\Scripts\Entities\BasicPlayer.cs" />
      <Compile Include="Assets\Scripts\Entities\Enemy.cs" />
