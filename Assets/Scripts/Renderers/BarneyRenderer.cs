@@ -13,44 +13,26 @@ public class BarneyRenderer : MonoBehaviour
   private Animator topAnimator;
   private Animator legAnimator;
 
-  private RunDirection lastRunDirection = RunDirection.UP;
-
   void Start()
   {
     topAnimator = topSprite.GetComponent<Animator>();
     legAnimator = legSprite.GetComponent<Animator>();
   }
 
-  public void update(AimDirection? aimDirection, RunDirection? runDirection)
+  public void update(Vector2 aimDirection, Vector2 moveDirection)
   {
-    if (aimDirection != null)
-    {
-      topAnimator.SetInteger("Direction", (int)aimDirection);
-    }
-    if (runDirection != null)
-    {
-      lastRunDirection = runDirection.Value;
-      legAnimator.SetInteger("Direction", (int)runDirection.Value);
-    }
-  }
+    float threshold = 0.5f;
+    bool isAiming = aimDirection.sqrMagnitude >= threshold;
 
-  public enum AimDirection
-  {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    UP_LEFT,
-    UP_RIGHT,
-    DOWN_LEFT,
-    DOWN_RIGHT
-  }
-
-  public enum RunDirection
-  {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    Vector2 resolvedAimDirection = isAiming ? aimDirection : moveDirection;
+    topAnimator.SetFloat("AimDirectionX", resolvedAimDirection.x);
+    topAnimator.SetFloat("AimDirectionY", resolvedAimDirection.y);
+    legAnimator.SetFloat("MoveX", moveDirection.x);
+    legAnimator.SetFloat("MoveY", moveDirection.y);
+    // if (runDirection != null)
+    // {
+    //   lastRunDirection = runDirection.Value;
+    //   legAnimator.SetInteger("Direction", (int)runDirection.Value);
+    // }
   }
 }

@@ -69,7 +69,7 @@ public class BasicPlayer : MonoBehaviour
           processMove();
           processShoot();
           Vector2? aimDirection = getAimDirection();
-          Vector2? runDirection = getRunDirection();
+          Vector2 runDirection = getRunDirection();
 
           if (!aimDirection.HasValue)
           {
@@ -77,7 +77,7 @@ public class BasicPlayer : MonoBehaviour
           }
 
 
-          barneyRenderer.update(getBucketedAimDirection(aimDirection), getBucketedRunDirection(runDirection));
+          barneyRenderer.update(aimDirection.Value, runDirection);
         }
         break;
       case DashState.DASHING:
@@ -278,117 +278,9 @@ public class BasicPlayer : MonoBehaviour
     }
   }
 
-  private Vector2? getRunDirection()
+  private Vector2 getRunDirection()
   {
     return new Vector2(inputManager.getMoveAxisHorizontal(), inputManager.getMoveAxisVertical());
-  }
-
-  private BarneyRenderer.RunDirection? getBucketedRunDirection(Vector2? rawDirection)
-  {
-    if (rawDirection == null)
-    {
-      return null;
-    }
-
-    float y = rawDirection.Value.y;
-    float x = rawDirection.Value.x;
-
-    // actual conversion code:
-    float angle = Mathf.Atan2(y, x);
-    float angleDegrees = RadianToDegree(angle);
-
-    if (angleDegrees < 0)
-    {
-      angleDegrees += 360;
-    }
-
-    BarneyRenderer.RunDirection runDirection = BarneyRenderer.RunDirection.UP;
-
-    if (angleDegrees >= 300 || angleDegrees < 60)
-    {
-      runDirection = BarneyRenderer.RunDirection.RIGHT;
-    }
-    else if (angleDegrees >= 60 && angleDegrees < 120)
-    {
-
-      runDirection = BarneyRenderer.RunDirection.UP;
-    }
-    else if (angleDegrees >= 120 && angleDegrees < 240)
-    {
-      runDirection = BarneyRenderer.RunDirection.LEFT;
-    }
-    else
-    {
-      runDirection = BarneyRenderer.RunDirection.DOWN;
-    }
-
-    return runDirection;
-  }
-
-  private float RadianToDegree(float angle)
-  {
-    return angle * (180.0f / Mathf.PI);
-  }
-
-  private float DegreesToRadians(float angle)
-  {
-    return angle / 180.0f * Mathf.PI;
-  }
-
-  private BarneyRenderer.AimDirection? getBucketedAimDirection(Vector2? rawDirection)
-  {
-    if (rawDirection == null)
-    {
-      return null;
-    }
-
-    float y = rawDirection.Value.y;
-    float x = rawDirection.Value.x;
-
-    // actual conversion code:
-    float angle = Mathf.Atan2(y, x);
-    float angleDegrees = RadianToDegree(angle);
-    if (angleDegrees < 0)
-    {
-      angleDegrees += 360;
-    }
-
-    BarneyRenderer.AimDirection aimDirection = BarneyRenderer.AimDirection.UP;
-
-    if (angleDegrees >= 337.5 || angleDegrees < 22.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.RIGHT;
-    }
-    else if (angleDegrees >= 22.5 && angleDegrees < 67.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.UP_RIGHT;
-    }
-    else if (angleDegrees >= 67.5 && angleDegrees < 112.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.UP;
-    }
-    else if (angleDegrees >= 112.5 && angleDegrees < 157.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.UP_LEFT;
-    }
-    else if (angleDegrees >= 157.5 && angleDegrees < 202.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.LEFT;
-    }
-    else if (angleDegrees >= 202.5 && angleDegrees < 247.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.DOWN_LEFT;
-    }
-    else if (angleDegrees >= 247.5 && angleDegrees < 292.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.DOWN;
-    }
-    else if (angleDegrees >= 292.5 && angleDegrees < 337.5)
-    {
-      aimDirection = BarneyRenderer.AimDirection.DOWN_RIGHT;
-    }
-
-    return aimDirection;
   }
 
   private enum DashState
