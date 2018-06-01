@@ -22,7 +22,6 @@ public class BasicPlayer : MonoBehaviour
 
   public bool afterImages = true;
   public GameObject weaponSupplier;
-  public GameObject inputManagerSupplier;
   private Rigidbody2D rigidBody;
 
   private float timeSinceDashStart = 0f;
@@ -31,8 +30,10 @@ public class BasicPlayer : MonoBehaviour
   private DashState dashState = DashState.READY;
 
   private Animator animator;
-  // private SpriteRenderer spriteRenderer;
   private InputManager inputManager;
+
+  [SerializeField]
+  private GameObject inputManagerProvider;
 
   [SerializeField]
   private GameObject barneyRendererSupplier;
@@ -41,25 +42,26 @@ public class BasicPlayer : MonoBehaviour
 
   private OscillateSize oscillateSize;
 
+  [SerializeField]
+  private SystemInput system;
+
   // Use this for initialization
   void Start()
   {
     rigidBody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
-    oscillateSize = gameObject.GetComponent<OscillateSize>();
 
-    // spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    // spriteRenderer.sprite = defaultSprite;
-
-    inputManager = inputManagerSupplier.GetComponent<InputManager>();
+    inputManager = inputManagerProvider.GetComponent<InputManager>();
     barneyRenderer = barneyRendererSupplier.GetComponent<BarneyRenderer>();
   }
 
   // Update is called once per frame
   void Update()
   {
-
-    processGrow();
+    if (system.gamePaused)
+    {
+      return;
+    }
 
     switch (dashState)
     {
@@ -76,6 +78,7 @@ public class BasicPlayer : MonoBehaviour
             aimDirection = runDirection;
           }
 
+          Debug.Log("x: " + aimDirection.Value.x + " -- y: " + aimDirection.Value.y);
 
           barneyRenderer.update(aimDirection.Value, runDirection);
         }
@@ -115,14 +118,6 @@ public class BasicPlayer : MonoBehaviour
     tempGo.transform.position = transform.position;
     // tempGo.transform.parent = transform;
     // tempGo.transform.localPosition = transform.forward;
-  }
-
-  private void processGrow()
-  {
-    if (inputManager.isGrowPressed())
-    {
-      oscillateSize.setActive(gameObject.transform);
-    }
   }
 
   private bool performDash()
@@ -244,13 +239,11 @@ public class BasicPlayer : MonoBehaviour
 
   private void processShoot()
   {
-    Debug.Log("CHECK1");
     Vector2? aimDirection = getAimDirection();
     if (!aimDirection.HasValue)
     {
       return;
     }
-    Debug.Log("CHECK2");
 
     Vector2 aimDirectionResolved = aimDirection.Value;
     Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
@@ -258,7 +251,6 @@ public class BasicPlayer : MonoBehaviour
     {
       Weapon weapon = weaponSupplier.GetComponent<Weapon>();
       weapon.use(aimDirectionResolved);
-      Debug.Log("CHECK3");
     }
   }
 
@@ -266,9 +258,8 @@ public class BasicPlayer : MonoBehaviour
   {
     float horizInput = inputManager.getAimAxisHorizontal();
     float verticalInput = inputManager.getAimAxisVertical();
-    float threshold = 0.5f;
     Vector2 direction = new Vector2(horizInput, verticalInput);
-    if (direction.sqrMagnitude > threshold)
+    if (direction.x != 0 || direction.y != 0)
     {
       return direction.normalized;
     }

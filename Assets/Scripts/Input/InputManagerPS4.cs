@@ -10,9 +10,9 @@ public class InputManagerPS4 : MonoBehaviour, InputManager
     return false;
   }
 
-  public bool isGrowPressed()
+  public bool isPausePressed()
   {
-    return Input.GetKeyDown(KeyCode.A);
+    return Input.GetKeyDown("joystick button 9");
   }
 
   public float getMoveAxisHorizontal()

@@ -8,15 +8,22 @@ public class Rifle : MonoBehaviour, Weapon
   public GameObject projectile;
   public float speed;
 
+  [SerializeField]
+  [Range(1, 30)]
+  private float rateOfFire = 1;
+
+  private float timeSinceLastShot;
+
   // Use this for initialization
   void Start()
   {
-
+    timeSinceLastShot = rateOfFire;
   }
 
   // Update is called once per frame
   void Update()
   {
+    timeSinceLastShot += Time.deltaTime;
     // Vector2? aimDirection = getAimDirection();
     // if (!aimDirection.HasValue)
     // {
@@ -29,15 +36,22 @@ public class Rifle : MonoBehaviour, Weapon
     // {
     //   shoot(aimDirectionResolved, speed);
     // }
+
   }
 
   public void use(Vector2 direction)
   {
+    if (timeSinceLastShot < (1 / rateOfFire))
+    {
+      return;
+    }
     Debug.Log("USE");
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
     tempGo.transform.position = transform.position;
     rigidBody.velocity = direction * speed;
+
+    timeSinceLastShot = 0;
   }
 
   // private Vector2? getAimDirection()
