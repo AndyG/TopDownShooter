@@ -38,7 +38,7 @@ BlendTree:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Player Movement
+  m_Name: Player Aiming
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: d60b425a2cb6a49f6bcfa3b9f1dbcaa5, type: 2}
@@ -117,7 +117,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Player Movement
+  m_Name: Player Aiming
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
