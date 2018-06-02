@@ -78,7 +78,6 @@ public class BasicPlayer : MonoBehaviour
             aimDirection = runDirection;
           }
 
-          Debug.Log("x: " + aimDirection.Value.x + " -- y: " + aimDirection.Value.y);
 
           barneyRenderer.update(aimDirection.Value, runDirection);
         }
@@ -259,6 +258,7 @@ public class BasicPlayer : MonoBehaviour
     float horizInput = inputManager.getAimAxisHorizontal();
     float verticalInput = inputManager.getAimAxisVertical();
     Vector2 direction = new Vector2(horizInput, verticalInput);
+    Debug.Log("Base direction: " + direction);
     if (direction.x != 0 || direction.y != 0)
     {
       return direction.normalized;
