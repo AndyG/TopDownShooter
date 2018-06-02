@@ -43,7 +43,10 @@ public class BasicPlayer : MonoBehaviour
   private OscillateSize oscillateSize;
 
   [SerializeField]
-  private SystemInput system;
+  private GameSystem system;
+
+  [SerializeField]
+  private GameObject explosion;
 
   // Use this for initialization
   void Start()
@@ -58,7 +61,7 @@ public class BasicPlayer : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (system.gamePaused)
+    if (Time.timeScale <= 0)
     {
       return;
     }
@@ -108,7 +111,19 @@ public class BasicPlayer : MonoBehaviour
       return;
     }
 
-    SceneManager.LoadScene("TestScene");
+    explode();
+    system.HandlePlayerDeath();
+  }
+
+  private void explode()
+  {
+
+    if (explosion != null)
+    {
+      GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
+      tempGo.transform.position = transform.position;
+    }
+    Destroy(this.gameObject);
   }
 
   private void leaveAfterImage()

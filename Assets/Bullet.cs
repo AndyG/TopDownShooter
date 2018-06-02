@@ -19,7 +19,6 @@ public class Bullet : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D other)
   {
-    Debug.Log("on trigger enter");
     Shootable shootable = other.GetComponent<Shootable>();
     if (shootable != null)
     {
