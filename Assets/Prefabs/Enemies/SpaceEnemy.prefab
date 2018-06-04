@@ -99,6 +99,9 @@ MonoBehaviour:
   explosion: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
   target: {fileID: 0}
   speed: 3
+  powerupDrop: {fileID: 1108940709713972, guid: c69d984557bac46129601224c8cbfe9d,
+    type: 2}
+  powerupChance: 0.25
 --- !u!212 &212727046684472756
 SpriteRenderer:
   m_ObjectHideFlags: 1

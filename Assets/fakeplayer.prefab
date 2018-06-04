@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1527908633070172, guid: 945661b94b38743b3bfb91b1a8bfcb91, type: 2}
   speed: 10
+  baseRateOfFire: 5
   rateOfFire: 5
 --- !u!114 &114757670549414242
 MonoBehaviour:
@@ -293,8 +294,11 @@ MonoBehaviour:
   dashSpeed: 26
   afterImages: 1
   weaponSupplier: {fileID: 1774595894804688}
-  inputManagerSupplier: {fileID: 0}
+  inputManagerProvider: {fileID: 0}
   barneyRendererSupplier: {fileID: 1411608780433174}
+  system: {fileID: 0}
+  explosion: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
+  isPoweredUp: 0
 --- !u!212 &212201214389079616
 SpriteRenderer:
   m_ObjectHideFlags: 1

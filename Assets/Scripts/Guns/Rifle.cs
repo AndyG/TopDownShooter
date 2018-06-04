@@ -5,25 +5,39 @@ using UnityEngine;
 public class Rifle : MonoBehaviour, Weapon
 {
 
+  private static float MAX_RATE_OF_FIRE = 30;
+  private static float POWER_UP_DURATION_SECONDS = 5;
+
   public GameObject projectile;
   public float speed;
 
   [SerializeField]
   [Range(1, 30)]
+  private float baseRateOfFire = 5;
+
+  [SerializeField]
   private float rateOfFire = 1;
 
   private float timeSinceLastShot;
+  private float timeSincePowerUp;
 
   // Use this for initialization
   void Start()
   {
+    rateOfFire = baseRateOfFire;
     timeSinceLastShot = rateOfFire;
+    timeSincePowerUp = 0;
   }
 
   // Update is called once per frame
   void Update()
   {
     timeSinceLastShot += Time.deltaTime;
+    timeSincePowerUp += Time.deltaTime;
+    if (timeSincePowerUp >= POWER_UP_DURATION_SECONDS)
+    {
+      rateOfFire = baseRateOfFire;
+    }
     // Vector2? aimDirection = getAimDirection();
     // if (!aimDirection.HasValue)
     // {
@@ -52,6 +66,12 @@ public class Rifle : MonoBehaviour, Weapon
     rigidBody.velocity = direction * speed;
 
     timeSinceLastShot = 0;
+  }
+
+  public void powerUp()
+  {
+    timeSincePowerUp = 0;
+    rateOfFire = MAX_RATE_OF_FIRE;
   }
 
   // private Vector2? getAimDirection()

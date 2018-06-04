@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Entities\Enemy.cs" />
      <Compile Include="Assets\Scripts\Entities\ExamplePlayer.cs" />
      <Compile Include="Assets\Scripts\Entities\OscillateSize.cs" />
+     <Compile Include="Assets\Scripts\Entities\Pickups\PickupNut.cs" />
+     <Compile Include="Assets\Scripts\Entities\Pickups\PickupReceiver.cs" />
      <Compile Include="Assets\Scripts\Guns\Rifle.cs" />
      <Compile Include="Assets\Scripts\Guns\Weapon.cs" />
      <Compile Include="Assets\Scripts\Input\InputManager.cs" />

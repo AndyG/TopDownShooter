@@ -10,6 +10,13 @@ public class Enemy : MonoBehaviour, Shootable
   public GameObject target;
   public float speed;
 
+  [SerializeField]
+  private GameObject powerupDrop;
+
+  [SerializeField]
+  [Range(0, 1.0f)]
+  private float powerupChance = 0.1f;
+
   // Use this for initialization
   void Start()
   {
@@ -31,6 +38,13 @@ public class Enemy : MonoBehaviour, Shootable
     if (explosion != null)
     {
       GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
+      tempGo.transform.position = transform.position;
+    }
+
+    float rand = Random.Range(0, 1.0f);
+    if (rand < powerupChance)
+    {
+      GameObject tempGo = GameObject.Instantiate(powerupDrop, Vector3.zero, Quaternion.identity) as GameObject;
       tempGo.transform.position = transform.position;
     }
     Destroy(this.gameObject);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BasicPlayer : MonoBehaviour
+public class BasicPlayer : MonoBehaviour, PickupReceiver
 {
 
   public GameObject SpawnObject;
@@ -27,6 +27,8 @@ public class BasicPlayer : MonoBehaviour
   private float timeSinceDashStart = 0f;
   private float dashChargeTime = 0f;
 
+  private float timeSincePowerUp = 0f;
+
   private DashState dashState = DashState.READY;
 
   private Animator animator;
@@ -48,6 +50,9 @@ public class BasicPlayer : MonoBehaviour
   [SerializeField]
   private GameObject explosion;
 
+  [SerializeField]
+  private bool isPoweredUp;
+
   // Use this for initialization
   void Start()
   {
@@ -64,6 +69,13 @@ public class BasicPlayer : MonoBehaviour
     if (Time.timeScale <= 0)
     {
       return;
+    }
+
+    timeSincePowerUp += Time.deltaTime;
+    if (isPoweredUp && timeSincePowerUp > 5)
+    {
+      barneyRenderer.setColorFilter(Color.white);
+      isPoweredUp = false;
     }
 
     switch (dashState)
@@ -113,6 +125,15 @@ public class BasicPlayer : MonoBehaviour
 
     explode();
     system.HandlePlayerDeath();
+  }
+
+  public void onPickup()
+  {
+    Weapon weapon = weaponSupplier.GetComponent<Weapon>();
+    weapon.powerUp();
+    barneyRenderer.setColorFilter(Color.red);
+    isPoweredUp = true;
+    timeSincePowerUp = 0;
   }
 
   private void explode()

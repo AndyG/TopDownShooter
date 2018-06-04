@@ -10,13 +10,18 @@ public class BarneyRenderer : MonoBehaviour
   [SerializeField]
   private GameObject topSprite;
 
+  private SpriteRenderer topSpriteRenderer;
+  private SpriteRenderer legSpriteRenderer;
+
   private Animator topAnimator;
   private Animator legAnimator;
 
   void Start()
   {
     topAnimator = topSprite.GetComponent<Animator>();
+    topSpriteRenderer = topSprite.GetComponent<SpriteRenderer>();
     legAnimator = legSprite.GetComponent<Animator>();
+    legSpriteRenderer = legSprite.GetComponent<SpriteRenderer>();
   }
 
   public void update(Vector2 aimDirection, Vector2 moveDirection)
@@ -34,5 +39,11 @@ public class BarneyRenderer : MonoBehaviour
     //   lastRunDirection = runDirection.Value;
     //   legAnimator.SetInteger("Direction", (int)runDirection.Value);
     // }
+  }
+
+  public void setColorFilter(UnityEngine.Color color)
+  {
+    topSpriteRenderer.color = color;
+    legSpriteRenderer.color = color;
   }
 }

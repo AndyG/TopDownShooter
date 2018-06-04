@@ -16,14 +16,4 @@ public class Bullet : MonoBehaviour
   {
 
   }
-
-  void OnTriggerEnter2D(Collider2D other)
-  {
-    Shootable shootable = other.GetComponent<Shootable>();
-    if (shootable != null)
-    {
-      shootable.handleShot(this);
-      Destroy(this.gameObject);
-    }
-  }
 }
