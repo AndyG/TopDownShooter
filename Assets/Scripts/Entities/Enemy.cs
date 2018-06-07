@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, Shootable
+public class Enemy : MonoBehaviour, Shootable, Bombable
 {
 
   [SerializeField]
@@ -17,10 +17,18 @@ public class Enemy : MonoBehaviour, Shootable
   [Range(0, 1.0f)]
   private float powerupChance = 0.1f;
 
+  [SerializeField]
+  private int hp = 5;
+
+  private UnityEngine.Color baseColor;
+
+  private SpriteRenderer spriteRenderer;
+
   // Use this for initialization
   void Start()
   {
-
+    spriteRenderer = GetComponent<SpriteRenderer>();
+    baseColor = spriteRenderer.material.GetColor("_Color");
   }
 
   // Update is called once per frame
@@ -33,21 +41,23 @@ public class Enemy : MonoBehaviour, Shootable
     }
   }
 
+  public void onBombed()
+  {
+    die();
+  }
+
   public void handleShot(Bullet bullet)
   {
-    if (explosion != null)
+    hp--;
+    if (hp <= 0)
     {
-      GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
-      tempGo.transform.position = transform.position;
+      die();
     }
-
-    float rand = Random.Range(0, 1.0f);
-    if (rand < powerupChance)
+    else
     {
-      GameObject tempGo = GameObject.Instantiate(powerupDrop, Vector3.zero, Quaternion.identity) as GameObject;
-      tempGo.transform.position = transform.position;
+      spriteRenderer.material.SetColor("_Color", Color.blue);
+      StartCoroutine(hitFlash());
     }
-    Destroy(this.gameObject);
   }
 
   void OnTriggerEnter2D(Collider2D other)
@@ -67,5 +77,35 @@ public class Enemy : MonoBehaviour, Shootable
     {
       player.onHit();
     }
+
+    Bomb bomb = other.GetComponent<Bomb>();
+    if (bomb != null)
+    {
+      onBombed();
+    }
+  }
+
+  private void die()
+  {
+    if (explosion != null)
+    {
+      GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
+      tempGo.transform.position = transform.position;
+    }
+
+    float rand = Random.Range(0, 1.0f);
+    if (rand < powerupChance)
+    {
+      GameObject tempGo = GameObject.Instantiate(powerupDrop, Vector3.zero, Quaternion.identity) as GameObject;
+      tempGo.transform.position = transform.position;
+    }
+    Destroy(this.gameObject);
+  }
+
+  private IEnumerator hitFlash()
+  {
+    yield return new WaitForSeconds(0.1f);
+    spriteRenderer.material.SetColor("_Color", baseColor);
+    yield return null;
   }
 }

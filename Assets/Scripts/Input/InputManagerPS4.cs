@@ -10,6 +10,14 @@ public class InputManagerPS4 : MonoBehaviour, InputManager
     return false;
   }
 
+  public bool isButton0Pressed()
+  {
+    return Input.GetKeyDown("joystick button 1")
+    || Input.GetKeyDown("joystick button 4")
+    || Input.GetKeyDown("joystick button 5")
+    || Input.GetKeyDown("joystick button 6")
+    || Input.GetKeyDown("joystick button 7");
+  }
   public bool isButton1Pressed()
   {
     return Input.GetKeyDown("joystick button 1");

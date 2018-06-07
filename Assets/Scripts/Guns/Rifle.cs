@@ -5,8 +5,11 @@ using UnityEngine;
 public class Rifle : MonoBehaviour, Weapon
 {
 
-  private static float MAX_RATE_OF_FIRE = 30;
+  private static float MAX_RATE_OF_FIRE = 20;
   private static float POWER_UP_DURATION_SECONDS = 5;
+
+  [SerializeField]
+  private float puScale = 4;
 
   public GameObject projectile;
   public float speed;
@@ -19,14 +22,14 @@ public class Rifle : MonoBehaviour, Weapon
   private float rateOfFire = 1;
 
   private float timeSinceLastShot;
-  private float timeSincePowerUp;
+  private float timeSincePowerUp = POWER_UP_DURATION_SECONDS;
 
   // Use this for initialization
   void Start()
   {
     rateOfFire = baseRateOfFire;
     timeSinceLastShot = rateOfFire;
-    timeSincePowerUp = 0;
+    timeSincePowerUp = POWER_UP_DURATION_SECONDS;
   }
 
   // Update is called once per frame
@@ -63,9 +66,18 @@ public class Rifle : MonoBehaviour, Weapon
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
     tempGo.transform.position = transform.position;
+    if (isPoweredUp())
+    {
+      tempGo.transform.localScale = new Vector3(puScale, puScale, tempGo.transform.localScale.z);
+    }
     rigidBody.velocity = direction * speed;
 
     timeSinceLastShot = 0;
+  }
+
+  private bool isPoweredUp()
+  {
+    return timeSincePowerUp < POWER_UP_DURATION_SECONDS;
   }
 
   public void powerUp()

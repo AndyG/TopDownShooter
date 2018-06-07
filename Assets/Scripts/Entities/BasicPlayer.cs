@@ -5,11 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class BasicPlayer : MonoBehaviour, PickupReceiver
 {
+  [SerializeField]
+  private int bombCount = 3;
 
+  [SerializeField]
+  private Camera camera;
   public GameObject SpawnObject;
 
   public Sprite defaultSprite;
   public Sprite dashingSprite;
+
+  [SerializeField]
+  private GameObject bomb;
 
   public float topSpeedX = 50f;
   public float topSpeedY = 50f;
@@ -69,6 +76,11 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver
     if (Time.timeScale <= 0)
     {
       return;
+    }
+
+    if (inputManager.isButton0Pressed())
+    {
+      dropBomb();
     }
 
     timeSincePowerUp += Time.deltaTime;
@@ -281,11 +293,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver
     }
 
     Vector2 aimDirectionResolved = aimDirection.Value;
-    Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
+    // Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
     if (weaponSupplier != null)
     {
       Weapon weapon = weaponSupplier.GetComponent<Weapon>();
       weapon.use(aimDirectionResolved);
+      if (isPoweredUp)
+      {
+        camera.GetComponent<CameraControl>().Shake(1.6f, 50, 500f);
+      }
     }
   }
 
@@ -294,7 +310,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver
     float horizInput = inputManager.getAimAxisHorizontal();
     float verticalInput = inputManager.getAimAxisVertical();
     Vector2 direction = new Vector2(horizInput, verticalInput);
-    Debug.Log("Base direction: " + direction);
+    // Debug.Log("Base direction: " + direction);
     if (direction.x != 0 || direction.y != 0)
     {
       return direction.normalized;
@@ -314,5 +330,17 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver
   {
     READY,
     DASHING
+  }
+
+  private void dropBomb()
+  {
+    if (bombCount > 0)
+    {
+      GameObject tempGo = GameObject.Instantiate(bomb, Vector3.zero, Quaternion.identity) as GameObject;
+      tempGo.transform.position = transform.position;
+
+      camera.GetComponent<CameraControl>().Shake(0.8f, 50, 270f);
+      bombCount--;
+    }
   }
 }

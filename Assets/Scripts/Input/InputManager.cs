@@ -7,6 +7,7 @@ public interface InputManager
   bool isFirePressed();
   bool isDashPressed();
 
+  bool isButton0Pressed();
   bool isButton1Pressed();
   bool isPausePressed();
 

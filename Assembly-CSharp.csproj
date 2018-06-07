@@ -52,10 +52,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Bullet.cs" />
+     <Compile Include="Assets\DeathScreen.cs" />
      <Compile Include="Assets\DestroyTimed.cs" />
      <Compile Include="Assets\SamplePlayer.cs" />
+     <Compile Include="Assets\Scripts\CameraControl.cs" />
      <Compile Include="Assets\Scripts\Entities\AfterImage.cs" />
      <Compile Include="Assets\Scripts\Entities\BasicPlayer.cs" />
+     <Compile Include="Assets\Scripts\Entities\Bomb.cs" />
+     <Compile Include="Assets\Scripts\Entities\Bombable.cs" />
      <Compile Include="Assets\Scripts\Entities\Enemy.cs" />
      <Compile Include="Assets\Scripts\Entities\ExamplePlayer.cs" />
      <Compile Include="Assets\Scripts\Entities\OscillateSize.cs" />

@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class GameSystem : MonoBehaviour
 {
 
+  private float timeAlive;
+
   [SerializeField]
   private GameObject inputManagerProvider;
 
@@ -23,11 +25,13 @@ public class GameSystem : MonoBehaviour
   void Start()
   {
     inputManager = inputManagerProvider.GetComponent<InputManager>();
+    timeAlive = 0f;
   }
 
   // Update is called once per frame
   void Update()
   {
+    timeAlive += Time.deltaTime;
     if (gameState != GameState.DEAD)
     {
       if (inputManager.isPausePressed())
@@ -55,6 +59,7 @@ public class GameSystem : MonoBehaviour
   {
     gameState = GameState.DEAD;
     deathScreenCanvas.gameObject.SetActive(true);
+    deathScreenCanvas.gameObject.GetComponentInChildren<DeathScreen>().setDead(timeAlive);
   }
 
   private void pauseGame()
