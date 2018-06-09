@@ -300,7 +300,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver
       weapon.use(aimDirectionResolved);
       if (isPoweredUp)
       {
-        camera.GetComponent<CameraControl>().Shake(1.6f, 50, 500f);
+        camera.GetComponent<CameraControl>().Shake(0.05f, 20, 500f);
       }
     }
   }
