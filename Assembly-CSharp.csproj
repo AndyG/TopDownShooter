@@ -73,9 +73,11 @@
      <Compile Include="Assets\Scripts\Shootable.cs" />
      <Compile Include="Assets\Scripts\System\GameSystem.cs" />
      <Compile Include="Assets\Scripts\Utils\OscillateY.cs" />
-     <Compile Include="Assets\Scripts\Utils\Spawner.cs" />
      <Compile Include="Assets\Scripts\Utils\Spin.cs" />
      <Compile Include="Assets\Scripts\Utils\Track.cs" />
+     <Compile Include="Assets\Scripts\Waves\Spawner.cs" />
+     <Compile Include="Assets\Scripts\Waves\SpawnerConfig.cs" />
+     <Compile Include="Assets\Scripts\Waves\SpawnObject.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

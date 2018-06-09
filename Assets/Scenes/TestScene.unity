@@ -369,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &245626971
 Transform:
   m_ObjectHideFlags: 0
@@ -792,6 +792,10 @@ Prefab:
       propertyPath: m_Size.x
       value: 0.79992723
       objectReference: {fileID: 0}
+    - target: {fileID: 1591888498643534, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
   m_IsPrefabParent: 0
@@ -834,41 +838,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
-      propertyPath: m_Name
-      value: Spawner
-      objectReference: {fileID: 0}
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1563721923}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: interval
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Name
+      value: Spawner
       objectReference: {fileID: 0}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObject
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: 0f22437fffb11461cb6444740f2b0110,
-        type: 2}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObject2
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: d9b80e2adb7c0425ea530cf3c531253d,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
   m_IsPrefabParent: 0
