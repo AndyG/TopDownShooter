@@ -15,6 +15,11 @@ public class Rifle : MonoBehaviour, Weapon
   public float speed;
 
   [SerializeField]
+  GameObject weaponUserProvider;
+
+  private WeaponUser weaponUser;
+
+  [SerializeField]
   [Range(1, 30)]
   private float baseRateOfFire = 5;
 
@@ -36,6 +41,8 @@ public class Rifle : MonoBehaviour, Weapon
     rateOfFire = baseRateOfFire;
     timeSinceLastShot = rateOfFire;
     timeSincePowerUp = POWER_UP_DURATION_SECONDS;
+
+    weaponUser = weaponUserProvider.GetComponent<WeaponUser>();
   }
 
   // Update is called once per frame
@@ -68,6 +75,8 @@ public class Rifle : MonoBehaviour, Weapon
       spawnBullet(dirA);
       spawnBullet(dirB);
     }
+
+    weaponUser.OnUse(direction);
 
     // // Introduce variance if user is shooting too fast.
     // if (aimVariance != 0 && timeSinceLastShot < aimResetTime)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BasicPlayer : MonoBehaviour, PickupReceiver
+public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 {
   [SerializeField]
   private int bombCount = 3;
@@ -342,5 +342,11 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver
       camera.GetComponent<CameraControl>().Shake(0.8f, 50, 270f);
       bombCount--;
     }
+  }
+
+  public void OnUse(Vector3 direction)
+  {
+    // float force = 3;
+    // rigidBody.AddForce(-direction * force, ForceMode2D.Impulse);
   }
 }
