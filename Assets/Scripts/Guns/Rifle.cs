@@ -21,6 +21,12 @@ public class Rifle : MonoBehaviour, Weapon
   [SerializeField]
   private float rateOfFire = 1;
 
+  [SerializeField]
+  private float aimVariance = 5f;
+
+  [SerializeField]
+  private float aimResetTime = 0.2f;
+
   private float timeSinceLastShot;
   private float timeSincePowerUp = POWER_UP_DURATION_SECONDS;
 
@@ -41,19 +47,6 @@ public class Rifle : MonoBehaviour, Weapon
     {
       rateOfFire = baseRateOfFire;
     }
-    // Vector2? aimDirection = getAimDirection();
-    // if (!aimDirection.HasValue)
-    // {
-    //   return;
-    // }
-
-    // Vector2 aimDirectionResolved = aimDirection.Value;
-    // Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
-    // if (Input.GetKeyDown(KeyCode.Space) || isControllerConnected())
-    // {
-    //   shoot(aimDirectionResolved, speed);
-    // }
-
   }
 
   public void use(Vector2 direction)
@@ -62,7 +55,34 @@ public class Rifle : MonoBehaviour, Weapon
     {
       return;
     }
-    Debug.Log("USE");
+
+    Quaternion rotationA = Quaternion.AngleAxis(-15, Vector3.back);
+    Quaternion rotationB = Quaternion.AngleAxis(15, Vector3.back);
+
+    Vector3 dirA = rotationA * direction;
+    Vector3 dirB = rotationB * direction;
+    spawnBullet(direction);
+
+    if (isPoweredUp())
+    {
+      spawnBullet(dirA);
+      spawnBullet(dirB);
+    }
+
+    // // Introduce variance if user is shooting too fast.
+    // if (aimVariance != 0 && timeSinceLastShot < aimResetTime)
+    // {
+    // float angle = Random.Range(-aimVariance, aimVariance);
+    //   Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.back);
+    //   direction = rotation * direction;
+    // }
+
+    // rigidBody.velocity = direction * speed;
+    // timeSinceLastShot = 0;
+  }
+
+  private void spawnBullet(Vector3 direction)
+  {
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
     tempGo.transform.position = transform.position;
@@ -70,8 +90,8 @@ public class Rifle : MonoBehaviour, Weapon
     {
       tempGo.transform.localScale = new Vector3(puScale, puScale, tempGo.transform.localScale.z);
     }
-    rigidBody.velocity = direction * speed;
 
+    rigidBody.velocity = direction * speed;
     timeSinceLastShot = 0;
   }
 
@@ -85,23 +105,6 @@ public class Rifle : MonoBehaviour, Weapon
     timeSincePowerUp = 0;
     rateOfFire = MAX_RATE_OF_FIRE;
   }
-
-  // private Vector2? getAimDirection()
-  // {
-  //   if (isControllerConnected())
-  //   {
-  //     return getAimDirectionController();
-  //   }
-  //   else
-  //   {
-  //     return getAimDirectionMouse();
-  //   }
-  // }
-
-  // private bool isControllerConnected()
-  // {
-  //   return true;
-  // }
 
   private Vector2 getAimDirectionMouse()
   {

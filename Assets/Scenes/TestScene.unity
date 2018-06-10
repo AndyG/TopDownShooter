@@ -833,11 +833,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 245626971}
     m_Modifications:
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4922292116099412, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_LocalPosition.x
       value: -16.06
@@ -878,28 +873,6 @@ Prefab:
     - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_Name
       value: Spawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[2].gameObject
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: c5c5c3d7d1d014ec18904bb9a7db3a47,
-        type: 2}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[2].weight
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[3].gameObject
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: 2442b6794cdbd47748fb783e3be1d6bb,
-        type: 2}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[3].weight
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
@@ -1466,11 +1439,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 245626971}
     m_Modifications:
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4922292116099412, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_LocalPosition.x
       value: -20.508797
@@ -1503,56 +1471,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
-      propertyPath: m_Name
-      value: Spawner (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1563721923}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: interval
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114486683363467238, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObject2
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: d9b80e2adb7c0425ea530cf3c531253d,
-        type: 2}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[2].gameObject
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: c5c5c3d7d1d014ec18904bb9a7db3a47,
-        type: 2}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[2].weight
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[3].gameObject
-      value: 
-      objectReference: {fileID: 1590500638419038, guid: 2442b6794cdbd47748fb783e3be1d6bb,
-        type: 2}
-    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
-        type: 2}
-      propertyPath: spawnObjects.Array.data[3].weight
-      value: 1
+      propertyPath: m_Name
+      value: Spawner (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
