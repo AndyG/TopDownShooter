@@ -54,6 +54,7 @@
      <Compile Include="Assets\Bullet.cs" />
      <Compile Include="Assets\DeathScreen.cs" />
      <Compile Include="Assets\DestroyTimed.cs" />
+     <Compile Include="Assets\RayToTarget.cs" />
      <Compile Include="Assets\SamplePlayer.cs" />
      <Compile Include="Assets\Scripts\CameraControl.cs" />
      <Compile Include="Assets\Scripts\Entities\AfterImage.cs" />
@@ -65,6 +66,8 @@
      <Compile Include="Assets\Scripts\Entities\OscillateSize.cs" />
      <Compile Include="Assets\Scripts\Entities\Pickups\PickupNut.cs" />
      <Compile Include="Assets\Scripts\Entities\Pickups\PickupReceiver.cs" />
+     <Compile Include="Assets\Scripts\Entities\SplittingEnemy.cs" />
+     <Compile Include="Assets\Scripts\Entities\Targeter.cs" />
      <Compile Include="Assets\Scripts\Guns\Rifle.cs" />
      <Compile Include="Assets\Scripts\Guns\Weapon.cs" />
      <Compile Include="Assets\Scripts\Input\InputManager.cs" />

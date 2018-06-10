@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, Shootable, Bombable
+public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
 {
 
   [SerializeField]
   private GameObject explosion;
-  public GameObject target;
-  public float speed;
+
+  [SerializeField]
+  private GameObject target;
+
+  [SerializeField]
+  private float speed;
 
   [SerializeField]
   private GameObject powerupDrop;
@@ -24,11 +28,29 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
 
   private SpriteRenderer spriteRenderer;
 
+  [SerializeField]
+  private bool zigZag;
+
+  [SerializeField]
+  private float zigZagTargetingTime = 1f;
+
+  [SerializeField]
+  private float zigZagTravelTime = 0.5f;
+
+  private float zigZagCurrentTravelTime = 0f;
+
+  [SerializeField]
+  private Vector3 zigZagTargetPos;
+
+  private bool zigZagTargeting = false;
+  private bool hasBegunZigZagging = false;
+
   // Use this for initialization
   void Start()
   {
     spriteRenderer = GetComponent<SpriteRenderer>();
     baseColor = spriteRenderer.material.GetColor("_Color");
+    zigZagTargetPos = transform.position;
   }
 
   // Update is called once per frame
@@ -36,14 +58,39 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
   {
     if (target != null)
     {
-      float step = speed * Time.deltaTime;
-      transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+      if (!zigZag)
+      {
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+      }
+      else
+      {
+        if (!hasBegunZigZagging)
+        {
+          zigZagTargetPos = computeZigZagTargetPos();
+          zigZagTargeting = false;
+          zigZagCurrentTravelTime = 0f;
+          hasBegunZigZagging = true;
+        }
+        else if (!zigZagTargeting)
+        {
+          float step = speed * Time.deltaTime;
+          transform.position = Vector3.MoveTowards(transform.position, zigZagTargetPos, step);
+
+          float distanceFromTarget = Vector3.Distance(transform.position, zigZagTargetPos);
+          zigZagCurrentTravelTime += Time.deltaTime;
+          if (zigZagCurrentTravelTime >= zigZagTravelTime)
+          {
+            StartCoroutine(delayedComputeZigZagTargetPos());
+          }
+        }
+      }
     }
   }
 
   public void onBombed()
   {
-    die();
+    die(true);
   }
 
   public void handleShot(Bullet bullet)
@@ -51,7 +98,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
     hp--;
     if (hp <= 0)
     {
-      die();
+      die(false);
     }
     else
     {
@@ -62,8 +109,6 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
 
   void OnTriggerEnter2D(Collider2D other)
   {
-    Debug.Log("on trigger enter");
-
     Bullet bullet = other.GetComponent<Bullet>();
     if (bullet != null)
     {
@@ -85,7 +130,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
     }
   }
 
-  private void die()
+  private void die(bool wasBomb)
   {
     if (explosion != null)
     {
@@ -99,7 +144,22 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
       GameObject tempGo = GameObject.Instantiate(powerupDrop, Vector3.zero, Quaternion.identity) as GameObject;
       tempGo.transform.position = transform.position;
     }
+
+    onDeath(wasBomb);
+
     Destroy(this.gameObject);
+  }
+
+  private void onDeath(bool wasBomb)
+  {
+    if (!wasBomb)
+    {
+      SplittingEnemy splittingEnemy = gameObject.GetComponent<SplittingEnemy>();
+      if (splittingEnemy != null)
+      {
+        splittingEnemy.spawnObjects(target);
+      }
+    }
   }
 
   private IEnumerator hitFlash()
@@ -107,5 +167,32 @@ public class Enemy : MonoBehaviour, Shootable, Bombable
     yield return new WaitForSeconds(0.1f);
     spriteRenderer.material.SetColor("_Color", baseColor);
     yield return null;
+  }
+
+  private IEnumerator delayedComputeZigZagTargetPos()
+  {
+    zigZagTargeting = true;
+    yield return new WaitForSeconds(zigZagTargetingTime);
+    zigZagTargetPos = computeZigZagTargetPos();
+    zigZagTargeting = false;
+    zigZagCurrentTravelTime = 0f;
+  }
+
+  private Vector3 computeZigZagTargetPos()
+  {
+    Vector3 position = transform.position;
+    Vector3 targetPosition = target.transform.position;
+
+    Vector3 direction = (targetPosition - position).normalized;
+    float angle = Random.Range(-45f, 45f);
+    Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.back);
+    Vector3 angledDirection = rotation * direction;
+
+    return transform.position + (angledDirection * speed);
+  }
+
+  public void SetTarget(GameObject gameObject)
+  {
+    this.target = gameObject;
   }
 }

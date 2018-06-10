@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 245626971}
     m_Modifications:
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4922292116099412, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_LocalPosition.x
       value: 16.89
@@ -187,6 +192,28 @@ Prefab:
       value: 
       objectReference: {fileID: 1590500638419038, guid: d9b80e2adb7c0425ea530cf3c531253d,
         type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: c5c5c3d7d1d014ec18904bb9a7db3a47,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: 2442b6794cdbd47748fb783e3be1d6bb,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].weight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
   m_IsPrefabParent: 0
@@ -794,7 +821,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1591888498643534, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
@@ -806,6 +833,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 245626971}
     m_Modifications:
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4922292116099412, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_LocalPosition.x
       value: -16.06
@@ -846,6 +878,28 @@ Prefab:
     - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_Name
       value: Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: c5c5c3d7d1d014ec18904bb9a7db3a47,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: 2442b6794cdbd47748fb783e3be1d6bb,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].weight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
@@ -1206,7 +1260,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1412,6 +1466,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 245626971}
     m_Modifications:
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4922292116099412, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_LocalPosition.x
       value: -20.508797
@@ -1473,6 +1532,28 @@ Prefab:
       value: 
       objectReference: {fileID: 1590500638419038, guid: d9b80e2adb7c0425ea530cf3c531253d,
         type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: c5c5c3d7d1d014ec18904bb9a7db3a47,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: 2442b6794cdbd47748fb783e3be1d6bb,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].weight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
   m_IsPrefabParent: 0
@@ -1950,7 +2031,7 @@ GameObject:
   - component: {fileID: 1754849441}
   - component: {fileID: 1754849440}
   - component: {fileID: 1754849439}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap_Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32272,6 +32353,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 245626971}
     m_Modifications:
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4922292116099412, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_LocalPosition.x
       value: 20.24
@@ -32333,6 +32419,28 @@ Prefab:
       value: 
       objectReference: {fileID: 1590500638419038, guid: d9b80e2adb7c0425ea530cf3c531253d,
         type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: c5c5c3d7d1d014ec18904bb9a7db3a47,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[2].weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].gameObject
+      value: 
+      objectReference: {fileID: 1590500638419038, guid: 2442b6794cdbd47748fb783e3be1d6bb,
+        type: 2}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].weight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
   m_IsPrefabParent: 0

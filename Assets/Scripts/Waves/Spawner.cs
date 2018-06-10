@@ -34,8 +34,9 @@ public class Spawner : MonoBehaviour
   {
     GameObject spawnObject = spawnerConfig.GetRandomSpawnObject();
     GameObject tempGo = GameObject.Instantiate(spawnObject, Vector3.zero, Quaternion.identity) as GameObject;
-    Enemy enemyScript = tempGo.GetComponent<Enemy>();
     tempGo.transform.position = transform.position;
-    enemyScript.target = target;
+
+    Targeter targeter = tempGo.GetComponent<Targeter>();
+    targeter.SetTarget(target);
   }
 }

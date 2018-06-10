@@ -98,11 +98,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
   target: {fileID: 0}
-  speed: 3
+  speed: 2.2
   powerupDrop: {fileID: 1108940709713972, guid: c69d984557bac46129601224c8cbfe9d,
     type: 2}
   powerupChance: 0.694
   hp: 8
+  zigZag: 0
+  zigZagTargetingTime: 1
+  zigZagTravelTime: 0.5
+  zigZagTargetPos: {x: 0, y: 0, z: 0}
 --- !u!212 &212727046684472756
 SpriteRenderer:
   m_ObjectHideFlags: 1
