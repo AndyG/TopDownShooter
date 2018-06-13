@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Rewired;
 
 public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 {
+
+  [SerializeField]
+  private int playerId = 0;
+
   [SerializeField]
   private int bombCount = 3;
 
@@ -39,10 +44,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private DashState dashState = DashState.READY;
 
   private Animator animator;
-  private InputManager inputManager;
-
-  [SerializeField]
-  private GameObject inputManagerProvider;
 
   [SerializeField]
   private GameObject barneyRendererSupplier;
@@ -60,14 +61,17 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private bool isPoweredUp;
 
+  private Player player;
+
   // Use this for initialization
   void Start()
   {
     rigidBody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
 
-    inputManager = inputManagerProvider.GetComponent<InputManager>();
     barneyRenderer = barneyRendererSupplier.GetComponent<BarneyRenderer>();
+
+    player = ReInput.players.GetPlayer(playerId);
   }
 
   // Update is called once per frame
@@ -78,7 +82,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       return;
     }
 
-    if (inputManager.isButton0Pressed())
+    if (player.GetButtonDown("Skill 1"))
     {
       dropBomb();
     }
@@ -90,41 +94,18 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       isPoweredUp = false;
     }
 
-    switch (dashState)
+    processMove();
+    processShoot();
+    Vector2? aimDirection = getAimDirection();
+    Vector2 runDirection = getRunDirection();
+
+    if (!aimDirection.HasValue)
     {
-      case DashState.READY:
-        if (!performDash())
-        {
-          processMove();
-          processShoot();
-          Vector2? aimDirection = getAimDirection();
-          Vector2 runDirection = getRunDirection();
-
-          if (!aimDirection.HasValue)
-          {
-            aimDirection = runDirection;
-          }
-
-
-          barneyRenderer.update(aimDirection.Value, runDirection);
-        }
-        break;
-      case DashState.DASHING:
-        timeSinceDashStart += Time.deltaTime * 60;
-        if (timeSinceDashStart > dashDuration)
-        {
-          dashState = DashState.READY;
-          // spriteRenderer.sprite = defaultSprite;
-          Debug.Log("setting dash state READY");
-          setVelocity(0, 0);
-          processMove();
-        }
-        else
-        {
-          leaveAfterImage();
-        }
-        break;
+      aimDirection = runDirection;
     }
+
+
+    barneyRenderer.update(aimDirection.Value, runDirection);
   }
 
   public void onHit()
@@ -167,51 +148,51 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     // tempGo.transform.localPosition = transform.forward;
   }
 
-  private bool performDash()
-  {
-    if (inputManager.isDashPressed())
-    {
-      // spriteRenderer.sprite = dashingSprite;
-      float horizInput = inputManager.getMoveAxisHorizontal();
-      float verticalInput = inputManager.getMoveAxisVertical();
+  // private bool performDash()
+  // {
+  //   if (inputManager.isDashPressed())
+  //   {
+  //     // spriteRenderer.sprite = dashingSprite;
+  //     float horizInput = inputManager.getMoveAxisHorizontal();
+  //     float verticalInput = inputManager.getMoveAxisVertical();
 
-      float dashXSpeed = 0;
-      if (horizInput < 0)
-      {
-        dashXSpeed = dashSpeed * -1;
-      }
-      else if (horizInput > 0)
-      {
-        dashXSpeed = dashSpeed;
-      }
+  //     float dashXSpeed = 0;
+  //     if (horizInput < 0)
+  //     {
+  //       dashXSpeed = dashSpeed * -1;
+  //     }
+  //     else if (horizInput > 0)
+  //     {
+  //       dashXSpeed = dashSpeed;
+  //     }
 
-      float dashYSpeed = 0;
-      if (verticalInput < 0)
-      {
-        dashYSpeed = dashSpeed * -1;
-      }
-      else if (verticalInput > 0)
-      {
-        dashYSpeed = dashSpeed;
-      }
+  //     float dashYSpeed = 0;
+  //     if (verticalInput < 0)
+  //     {
+  //       dashYSpeed = dashSpeed * -1;
+  //     }
+  //     else if (verticalInput > 0)
+  //     {
+  //       dashYSpeed = dashSpeed;
+  //     }
 
-      setVelocity(dashXSpeed, dashYSpeed);
+  //     setVelocity(dashXSpeed, dashYSpeed);
 
-      dashState = DashState.DASHING;
-      timeSinceDashStart = 0f;
+  //     dashState = DashState.DASHING;
+  //     timeSinceDashStart = 0f;
 
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
+  //     return true;
+  //   }
+  //   else
+  //   {
+  //     return false;
+  //   }
+  // }
 
   private void processMove()
   {
-    float horizInput = inputManager.getMoveAxisHorizontal();
-    float verticalInput = inputManager.getMoveAxisVertical();
+    float horizInput = player.GetAxis("Move Horizontal");
+    float verticalInput = player.GetAxis("Move Vertical");
 
     if (horizInput == 0)
     {
@@ -307,8 +288,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private Vector2? getAimDirection()
   {
-    float horizInput = inputManager.getAimAxisHorizontal();
-    float verticalInput = inputManager.getAimAxisVertical();
+    float horizInput = player.GetAxis("Aim Horizontal"); ;
+    float verticalInput = player.GetAxis("Aim Vertical");
     Vector2 direction = new Vector2(horizInput, verticalInput);
     // Debug.Log("Base direction: " + direction);
     if (direction.x != 0 || direction.y != 0)
@@ -323,7 +304,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private Vector2 getRunDirection()
   {
-    return new Vector2(inputManager.getMoveAxisHorizontal(), inputManager.getMoveAxisVertical());
+    return new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical"));
   }
 
   private enum DashState

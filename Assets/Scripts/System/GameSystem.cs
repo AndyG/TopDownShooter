@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Rewired;
 
 public class GameSystem : MonoBehaviour
 {
@@ -8,8 +9,6 @@ public class GameSystem : MonoBehaviour
 
   [SerializeField]
   private GameObject inputManagerProvider;
-
-  private InputManager inputManager;
 
   [SerializeField]
   private Canvas pauseCanvas;
@@ -20,12 +19,14 @@ public class GameSystem : MonoBehaviour
   [SerializeField]
   private GameState gameState = GameState.RUNNING;
 
+  private Player player;
+
 
   // Use this for initialization
   void Start()
   {
-    inputManager = inputManagerProvider.GetComponent<InputManager>();
     timeAlive = 0f;
+    player = ReInput.players.GetPlayer(0);
   }
 
   // Update is called once per frame
@@ -34,7 +35,7 @@ public class GameSystem : MonoBehaviour
     timeAlive += Time.deltaTime;
     if (gameState != GameState.DEAD)
     {
-      if (inputManager.isPausePressed())
+      if (player.GetButtonDown("Pause"))
       {
         if (gameState == GameState.PAUSED)
         {
@@ -45,13 +46,14 @@ public class GameSystem : MonoBehaviour
           pauseGame();
         }
       }
-    }
-    else
-    {
-      if (inputManager.isButton1Pressed() || inputManager.isPausePressed())
+      else
       {
-        reloadScene();
+        Debug.Log("pause not pressed" + Random.Range(0f, 1f));
       }
+    }
+    else if (player.GetButtonDown("Confirm"))
+    {
+      reloadScene();
     }
   }
 
