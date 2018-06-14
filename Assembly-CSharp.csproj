@@ -123,6 +123,8 @@
      <Compile Include="Assets\Scripts\Entities\Pickups\PickupReceiver.cs" />
      <Compile Include="Assets\Scripts\Entities\SplittingEnemy.cs" />
      <Compile Include="Assets\Scripts\Entities\Targeter.cs" />
+     <Compile Include="Assets\Scripts\Graphics\SortOrderY.cs" />
+     <Compile Include="Assets\Scripts\Graphics\SortOrderYTilemap.cs" />
      <Compile Include="Assets\Scripts\Guns\Rifle.cs" />
      <Compile Include="Assets\Scripts\Guns\Weapon.cs" />
      <Compile Include="Assets\Scripts\Guns\WeaponUser.cs" />

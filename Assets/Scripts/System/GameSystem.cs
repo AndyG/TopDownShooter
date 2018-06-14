@@ -46,10 +46,6 @@ public class GameSystem : MonoBehaviour
           pauseGame();
         }
       }
-      else
-      {
-        Debug.Log("pause not pressed" + Random.Range(0f, 1f));
-      }
     }
     else if (player.GetButtonDown("Confirm"))
     {

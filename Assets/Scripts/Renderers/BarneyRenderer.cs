@@ -34,11 +34,6 @@ public class BarneyRenderer : MonoBehaviour
     topAnimator.SetFloat("AimDirectionY", resolvedAimDirection.y);
     legAnimator.SetFloat("MoveX", moveDirection.x);
     legAnimator.SetFloat("MoveY", moveDirection.y);
-    // if (runDirection != null)
-    // {
-    //   lastRunDirection = runDirection.Value;
-    //   legAnimator.SetInteger("Direction", (int)runDirection.Value);
-    // }
   }
 
   public void setColorFilter(UnityEngine.Color color)
