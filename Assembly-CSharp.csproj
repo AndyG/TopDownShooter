@@ -271,6 +271,15 @@
  <Reference Include="TextMeshPro-2017.3-Runtime">
  <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
  </Reference>
+ <Reference Include="Rewired_Core">
+ <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
+ </Reference>
+ <Reference Include="Rewired_OSX_Lib">
+ <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/Rewired/Internal/Libraries/Runtime/Rewired_OSX_Lib.dll</HintPath>
+ </Reference>
+ <Reference Include="Rewired_Editor">
+ <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>/Users/andersongarron/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
@@ -291,15 +300,6 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>/Users/andersongarron/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="Rewired_Core">
- <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
- </Reference>
- <Reference Include="Rewired_OSX_Lib">
- <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/Rewired/Internal/Libraries/Runtime/Rewired_OSX_Lib.dll</HintPath>
- </Reference>
- <Reference Include="Rewired_Editor">
- <HintPath>/Users/andersongarron/UnityProjects/TopDownShooter/Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
