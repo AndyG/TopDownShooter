@@ -9,6 +9,9 @@ public class Rifle : MonoBehaviour, Weapon
   private static float POWER_UP_DURATION_SECONDS = 5;
 
   [SerializeField]
+  private Transform gunPosition;
+
+  [SerializeField]
   private float puScale = 4;
 
   public GameObject projectile;
@@ -63,38 +66,34 @@ public class Rifle : MonoBehaviour, Weapon
       return;
     }
 
-    Quaternion rotationA = Quaternion.AngleAxis(-15, Vector3.back);
-    Quaternion rotationB = Quaternion.AngleAxis(15, Vector3.back);
+    // Introduce variance if user is shooting too fast.
+    if (aimVariance != 0 && timeSinceLastShot < aimResetTime)
+    {
+      float angle = Random.Range(-aimVariance, aimVariance);
+      Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.back);
+      direction = rotation * direction;
+    }
 
-    Vector3 dirA = rotationA * direction;
-    Vector3 dirB = rotationB * direction;
     spawnBullet(direction);
 
     if (isPoweredUp())
     {
+      Quaternion rotationA = Quaternion.AngleAxis(-15, Vector3.back);
+      Quaternion rotationB = Quaternion.AngleAxis(15, Vector3.back);
+      Vector3 dirA = rotationA * direction;
+      Vector3 dirB = rotationB * direction;
       spawnBullet(dirA);
       spawnBullet(dirB);
     }
 
     weaponUser.OnUse(direction);
-
-    // // Introduce variance if user is shooting too fast.
-    // if (aimVariance != 0 && timeSinceLastShot < aimResetTime)
-    // {
-    // float angle = Random.Range(-aimVariance, aimVariance);
-    //   Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.back);
-    //   direction = rotation * direction;
-    // }
-
-    // rigidBody.velocity = direction * speed;
-    // timeSinceLastShot = 0;
   }
 
   private void spawnBullet(Vector3 direction)
   {
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
-    tempGo.transform.position = transform.position;
+    tempGo.transform.position = gunPosition.position;
     if (isPoweredUp())
     {
       tempGo.transform.localScale = new Vector3(puScale, puScale, tempGo.transform.localScale.z);

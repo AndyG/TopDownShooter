@@ -30,8 +30,9 @@ public class BarneyRenderer : MonoBehaviour
     bool isAiming = aimDirection.sqrMagnitude >= threshold;
 
     Vector2 resolvedAimDirection = isAiming ? aimDirection : moveDirection;
-    topAnimator.SetFloat("AimDirectionX", resolvedAimDirection.x);
-    topAnimator.SetFloat("AimDirectionY", resolvedAimDirection.y);
+    Vector2 bucketedAimDirection = getBucketedAimDirection(resolvedAimDirection);
+    topAnimator.SetFloat("AimDirectionX", bucketedAimDirection.x);
+    topAnimator.SetFloat("AimDirectionY", bucketedAimDirection.y);
     legAnimator.SetFloat("MoveX", moveDirection.x);
     legAnimator.SetFloat("MoveY", moveDirection.y);
   }
@@ -40,5 +41,63 @@ public class BarneyRenderer : MonoBehaviour
   {
     topSpriteRenderer.color = color;
     legSpriteRenderer.color = color;
+  }
+
+  private Vector2 getBucketedAimDirection(Vector2 rawDirection)
+  {
+    float y = rawDirection.y;
+    float x = rawDirection.x;
+
+    // actual conversion code:
+    float angle = Mathf.Atan2(y, x);
+    float angleDegrees = RadianToDegree(angle);
+    if (angleDegrees < 0)
+    {
+      angleDegrees += 360;
+    }
+
+    if (angleDegrees >= 337.5 || angleDegrees < 22.5)
+    {
+      return new Vector2(1, 0);
+    }
+    else if (angleDegrees >= 22.5 && angleDegrees < 67.5)
+    {
+      return new Vector2(1, 1);
+    }
+    else if (angleDegrees >= 67.5 && angleDegrees < 112.5)
+    {
+      return new Vector2(0, 1);
+    }
+    else if (angleDegrees >= 112.5 && angleDegrees < 157.5)
+    {
+      return new Vector2(-1, 1);
+    }
+    else if (angleDegrees >= 157.5 && angleDegrees < 202.5)
+    {
+      return new Vector2(-1, 0);
+    }
+    else if (angleDegrees >= 202.5 && angleDegrees < 247.5)
+    {
+      return new Vector2(-1, -1);
+    }
+    else if (angleDegrees >= 247.5 && angleDegrees < 292.5)
+    {
+      return new Vector2(0, -1);
+    }
+    // else if (angleDegrees >= 292.5 && angleDegrees < 337.5)
+    else
+    {
+      return new Vector2(1, -1);
+    }
+  }
+
+  private float RadianToDegree(float angle)
+  {
+    return angle * (180.0f / Mathf.PI);
+  }
+
+  private float DegreesToRadians(float angle)
+  {
+    return angle / 180.0f * Mathf.PI;
   }
 }

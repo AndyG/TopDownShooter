@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61711188068811436}
   - component: {fileID: 114066800957610598}
   - component: {fileID: 50938522809980920}
+  - component: {fileID: 114429865261936722}
   m_Layer: 0
   m_Name: bulletimage
   m_TagString: Untagged
@@ -112,6 +113,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
+--- !u!114 &114429865261936722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527908633070172}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486392d457504eecb3edaeb986a961c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionOffset: 0
 --- !u!212 &212824156410952162
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -145,7 +158,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: e2a60edeabb23425ca0ebd39d6d704df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
