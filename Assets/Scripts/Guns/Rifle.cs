@@ -13,8 +13,8 @@ public class Rifle : MonoBehaviour, Weapon
 
   private int nextShootState = 1;
 
-  [SerializeField]
-  private Animator muzzleFlashAnimator;
+  // [SerializeField]
+  // private Animator muzzleFlashAnimator;
 
   [SerializeField]
   private Transform bulletOrigin;
@@ -74,9 +74,9 @@ public class Rifle : MonoBehaviour, Weapon
       return;
     }
 
-    muzzleFlashAnimator.SetInteger("ShootState", 1);
-    nextShootState = (nextShootState == 2) ? 1 : 2;
-    StartCoroutine(StopShootAnim());
+    // muzzleFlashAnimator.SetInteger("ShootState", 2);
+    // nextShootState = (nextShootState == 2) ? 1 : 2;
+    // StartCoroutine(StopShootAnim());
 
     // Introduce variance if user is shooting too fast.
     if (aimVariance != 0 && timeSinceLastShot < aimResetTime)
@@ -107,7 +107,7 @@ public class Rifle : MonoBehaviour, Weapon
     {
       yield return 0;
     }
-    muzzleFlashAnimator.SetInteger("ShootState", 0);
+    // muzzleFlashAnimator.SetInteger("ShootState", 0);
   }
 
   private void spawnBullet(Vector3 direction)

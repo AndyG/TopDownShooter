@@ -212,7 +212,7 @@ Prefab:
     - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: spawnObjects.Array.data[3].weight
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &245626971
 Transform:
   m_ObjectHideFlags: 0
@@ -803,6 +803,26 @@ Prefab:
       propertyPath: gunPosition
       value: 
       objectReference: {fileID: 1795333857}
+    - target: {fileID: 114212187514541794, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: bulletOrigin
+      value: 
+      objectReference: {fileID: 1795333857}
+    - target: {fileID: 114212187514541794, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1596509113}
+    - target: {fileID: 114212187514541794, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: muzzleFlashAnimator
+      value: 
+      objectReference: {fileID: 1596509114}
+    - target: {fileID: 114212187514541794, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: muzzleFlashFrames
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
   m_IsPrefabParent: 0
@@ -857,6 +877,11 @@ Prefab:
     - target: {fileID: 1654001373982498, guid: 4998fd32e15354711b550eb806baa386, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].weight
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
@@ -1965,6 +1990,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
+        type: 2}
+      propertyPath: spawnObjects.Array.data[3].weight
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
   m_IsPrefabParent: 0
@@ -2080,6 +2110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596509112}
   - component: {fileID: 1596509113}
+  - component: {fileID: 1596509114}
   m_Layer: 0
   m_Name: GunPosition
   m_TagString: Untagged
@@ -2145,6 +2176,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!95 &1596509114
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1596509111}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50cc61f10d06e4a7a84aeadc8e47502b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1609204854
 GameObject:
   m_ObjectHideFlags: 0
@@ -32957,7 +33005,7 @@ Prefab:
     - target: {fileID: 114944714996980090, guid: 4998fd32e15354711b550eb806baa386,
         type: 2}
       propertyPath: spawnObjects.Array.data[3].weight
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4998fd32e15354711b550eb806baa386, type: 2}
