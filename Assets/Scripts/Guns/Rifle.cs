@@ -9,7 +9,15 @@ public class Rifle : MonoBehaviour, Weapon
   private static float POWER_UP_DURATION_SECONDS = 5;
 
   [SerializeField]
-  private Transform gunPosition;
+  private int muzzleFlashFrames = 2;
+
+  private int nextShootState = 1;
+
+  [SerializeField]
+  private Animator muzzleFlashAnimator;
+
+  [SerializeField]
+  private Transform bulletOrigin;
 
   [SerializeField]
   private float puScale = 4;
@@ -66,6 +74,10 @@ public class Rifle : MonoBehaviour, Weapon
       return;
     }
 
+    muzzleFlashAnimator.SetInteger("ShootState", 1);
+    nextShootState = (nextShootState == 2) ? 1 : 2;
+    StartCoroutine(StopShootAnim());
+
     // Introduce variance if user is shooting too fast.
     if (aimVariance != 0 && timeSinceLastShot < aimResetTime)
     {
@@ -89,11 +101,20 @@ public class Rifle : MonoBehaviour, Weapon
     weaponUser.OnUse(direction);
   }
 
+  private IEnumerator StopShootAnim()
+  {
+    for (int i = 0; i < muzzleFlashFrames; i++)
+    {
+      yield return 0;
+    }
+    muzzleFlashAnimator.SetInteger("ShootState", 0);
+  }
+
   private void spawnBullet(Vector3 direction)
   {
     GameObject tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as GameObject;
     Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
-    tempGo.transform.position = gunPosition.position;
+    tempGo.transform.position = bulletOrigin.position;
     if (isPoweredUp())
     {
       tempGo.transform.localScale = new Vector3(puScale, puScale, tempGo.transform.localScale.z);

@@ -112,8 +112,9 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     Bullet bullet = other.GetComponent<Bullet>();
     if (bullet != null)
     {
-      handleShot(bullet);
-      Destroy(bullet.gameObject);
+      // handleShot(bullet);
+      die(true);
+      // Destroy(bullet.gameObject);
       return;
     }
 

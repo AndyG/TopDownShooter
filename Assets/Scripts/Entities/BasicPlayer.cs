@@ -140,55 +140,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     Destroy(this.gameObject);
   }
 
-  private void leaveAfterImage()
-  {
-    GameObject tempGo = GameObject.Instantiate(SpawnObject, Vector3.zero, Quaternion.identity) as GameObject;
-    tempGo.transform.position = transform.position;
-    // tempGo.transform.parent = transform;
-    // tempGo.transform.localPosition = transform.forward;
-  }
-
-  // private bool performDash()
-  // {
-  //   if (inputManager.isDashPressed())
-  //   {
-  //     // spriteRenderer.sprite = dashingSprite;
-  //     float horizInput = inputManager.getMoveAxisHorizontal();
-  //     float verticalInput = inputManager.getMoveAxisVertical();
-
-  //     float dashXSpeed = 0;
-  //     if (horizInput < 0)
-  //     {
-  //       dashXSpeed = dashSpeed * -1;
-  //     }
-  //     else if (horizInput > 0)
-  //     {
-  //       dashXSpeed = dashSpeed;
-  //     }
-
-  //     float dashYSpeed = 0;
-  //     if (verticalInput < 0)
-  //     {
-  //       dashYSpeed = dashSpeed * -1;
-  //     }
-  //     else if (verticalInput > 0)
-  //     {
-  //       dashYSpeed = dashSpeed;
-  //     }
-
-  //     setVelocity(dashXSpeed, dashYSpeed);
-
-  //     dashState = DashState.DASHING;
-  //     timeSinceDashStart = 0f;
-
-  //     return true;
-  //   }
-  //   else
-  //   {
-  //     return false;
-  //   }
-  // }
-
   private void processMove()
   {
     float horizInput = player.GetAxis("Move Horizontal");
