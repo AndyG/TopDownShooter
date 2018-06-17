@@ -131,6 +131,7 @@
      <Compile Include="Assets\Scripts\Renderers\BarneyRenderer.cs" />
      <Compile Include="Assets\Scripts\Shootable.cs" />
      <Compile Include="Assets\Scripts\System\GameSystem.cs" />
+     <Compile Include="Assets\Scripts\System\HUD.cs" />
      <Compile Include="Assets\Scripts\Utils\OscillateY.cs" />
      <Compile Include="Assets\Scripts\Utils\Spin.cs" />
      <Compile Include="Assets\Scripts\Utils\Track.cs" />

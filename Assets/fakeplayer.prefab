@@ -503,6 +503,7 @@ MonoBehaviour:
   defaultSprite: {fileID: 21300000, guid: 506517ed370dd44389c6c4e08262c3f2, type: 3}
   dashingSprite: {fileID: 21300000, guid: 3477b5b9c79d741a9be71b6007b4bdf4, type: 3}
   bomb: {fileID: 1262921295499614, guid: bb29652b1a42b4ae7b0f00e1ab4c4f8b, type: 2}
+  hud: {fileID: 0}
   topSpeedX: 10
   topSpeedY: 10
   acceleration: 10000

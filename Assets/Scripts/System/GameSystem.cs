@@ -17,10 +17,12 @@ public class GameSystem : MonoBehaviour
   private Canvas deathScreenCanvas;
 
   [SerializeField]
+  private Canvas uiCanvas;
+
+  [SerializeField]
   private GameState gameState = GameState.RUNNING;
 
   private Player player;
-
 
   // Use this for initialization
   void Start()
@@ -56,6 +58,7 @@ public class GameSystem : MonoBehaviour
   public void HandlePlayerDeath()
   {
     gameState = GameState.DEAD;
+    uiCanvas.gameObject.SetActive(false);
     deathScreenCanvas.gameObject.SetActive(true);
     deathScreenCanvas.gameObject.GetComponentInChildren<DeathScreen>().setDead(timeAlive);
   }

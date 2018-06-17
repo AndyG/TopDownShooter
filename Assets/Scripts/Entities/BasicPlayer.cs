@@ -23,6 +23,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private GameObject bomb;
 
+  [SerializeField]
+  private HUD hud;
+
   public float topSpeedX = 50f;
   public float topSpeedY = 50f;
   public float acceleration = 10f;
@@ -72,6 +75,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     barneyRenderer = barneyRendererSupplier.GetComponent<BarneyRenderer>();
 
     player = ReInput.players.GetPlayer(playerId);
+
+    hud.setBombCount(bombCount);
   }
 
   // Update is called once per frame
@@ -273,6 +278,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
       camera.GetComponent<CameraControl>().Shake(0.8f, 50, 270f);
       bombCount--;
+      hud.setBombCount(bombCount);
     }
   }
 
