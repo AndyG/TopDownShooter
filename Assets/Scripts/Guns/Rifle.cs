@@ -9,12 +9,12 @@ public class Rifle : MonoBehaviour, Weapon
   private static float POWER_UP_DURATION_SECONDS = 5;
 
   [SerializeField]
-  private int muzzleFlashFrames = 2;
+  private float muzzleFlashDurationSecs = 0.1f;
 
   private int nextShootState = 1;
 
-  // [SerializeField]
-  // private Animator muzzleFlashAnimator;
+  [SerializeField]
+  private Animator muzzleFlashAnimator;
 
   [SerializeField]
   private Transform bulletOrigin;
@@ -46,6 +46,9 @@ public class Rifle : MonoBehaviour, Weapon
   private float timeSinceLastShot;
   private float timeSincePowerUp = POWER_UP_DURATION_SECONDS;
 
+  private bool shotThisFrame = false;
+  private bool muzzleFlashLocked = false;
+
   // Use this for initialization
   void Start()
   {
@@ -67,6 +70,26 @@ public class Rifle : MonoBehaviour, Weapon
     }
   }
 
+  void LateUpdate()
+  {
+    if (!muzzleFlashLocked)
+    {
+      if (shotThisFrame)
+      {
+        muzzleFlashAnimator.SetInteger("ShootState", nextShootState);
+        nextShootState = (nextShootState == 2) ? 1 : 2;
+        muzzleFlashLocked = true;
+        StartCoroutine(UnlockMuzzleFlash());
+      }
+      else
+      {
+        muzzleFlashAnimator.SetInteger("ShootState", 0);
+      }
+    }
+
+    shotThisFrame = false;
+  }
+
   public void use(Vector2 direction)
   {
     if (timeSinceLastShot < (1 / rateOfFire))
@@ -74,9 +97,7 @@ public class Rifle : MonoBehaviour, Weapon
       return;
     }
 
-    // muzzleFlashAnimator.SetInteger("ShootState", 2);
-    // nextShootState = (nextShootState == 2) ? 1 : 2;
-    // StartCoroutine(StopShootAnim());
+    shotThisFrame = true;
 
     // Introduce variance if user is shooting too fast.
     if (aimVariance != 0 && timeSinceLastShot < aimResetTime)
@@ -101,13 +122,10 @@ public class Rifle : MonoBehaviour, Weapon
     weaponUser.OnUse(direction);
   }
 
-  private IEnumerator StopShootAnim()
+  private IEnumerator UnlockMuzzleFlash()
   {
-    for (int i = 0; i < muzzleFlashFrames; i++)
-    {
-      yield return 0;
-    }
-    // muzzleFlashAnimator.SetInteger("ShootState", 0);
+    yield return new WaitForSeconds(muzzleFlashDurationSecs);
+    muzzleFlashLocked = false;
   }
 
   private void spawnBullet(Vector3 direction)
