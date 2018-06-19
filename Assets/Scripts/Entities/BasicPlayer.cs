@@ -7,6 +7,12 @@ using Rewired;
 public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 {
 
+  public delegate void OnPlayerDeath();
+  public event OnPlayerDeath OnPlayerDeathEvent;
+
+  public delegate void OnBombCountChanged(int bombBount);
+  public event OnBombCountChanged OnBombCountChangedEvent;
+
   [SerializeField]
   private int playerId = 0;
 
@@ -22,9 +28,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   [SerializeField]
   private GameObject bomb;
-
-  [SerializeField]
-  private HUD hud;
 
   public float topSpeedX = 50f;
   public float topSpeedY = 50f;
@@ -56,9 +59,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private OscillateSize oscillateSize;
 
   [SerializeField]
-  private GameSystem system;
-
-  [SerializeField]
   private GameObject explosion;
 
   [SerializeField]
@@ -75,8 +75,12 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     barneyRenderer = barneyRendererSupplier.GetComponent<BarneyRenderer>();
 
     player = ReInput.players.GetPlayer(playerId);
+    setBombCount(bombCount);
+  }
 
-    hud.setBombCount(bombCount);
+  void OnEnable()
+  {
+    setBombCount(bombCount);
   }
 
   // Update is called once per frame
@@ -122,7 +126,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     }
 
     explode();
-    system.HandlePlayerDeath();
+    OnPlayerDeathEvent();
   }
 
   public void onPickup()
@@ -277,14 +281,29 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       tempGo.transform.position = transform.position;
 
       camera.GetComponent<CameraControl>().Shake(0.8f, 50, 270f);
-      bombCount--;
-      hud.setBombCount(bombCount);
+      setBombCount(bombCount - 1);
     }
   }
 
+  private void setBombCount(int bombCount)
+  {
+    this.bombCount = bombCount;
+    if (OnBombCountChangedEvent != null)
+    {
+      OnBombCountChangedEvent(bombCount);
+    }
+  }
+
+  public int getBombCount()
+  {
+    return bombCount;
+  }
+
+  public float forceAction = 0.05f;
   public void OnUse(Vector3 direction)
   {
-    // float force = 3;
+    Vector3 position = transform.position;
+    transform.position += -direction * forceAction;
     // rigidBody.AddForce(-direction * force, ForceMode2D.Impulse);
   }
 }

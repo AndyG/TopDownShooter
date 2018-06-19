@@ -22,6 +22,9 @@ public class GameSystem : MonoBehaviour
   [SerializeField]
   private GameState gameState = GameState.RUNNING;
 
+  [SerializeField]
+  private BasicPlayer basicPlayer;
+
   private Player player;
 
   // Use this for initialization
@@ -29,6 +32,16 @@ public class GameSystem : MonoBehaviour
   {
     timeAlive = 0f;
     player = ReInput.players.GetPlayer(0);
+  }
+
+  void OnEnable()
+  {
+    basicPlayer.OnPlayerDeathEvent += HandlePlayerDeath;
+  }
+
+  void OnDisable()
+  {
+    basicPlayer.OnPlayerDeathEvent -= HandlePlayerDeath;
   }
 
   // Update is called once per frame
