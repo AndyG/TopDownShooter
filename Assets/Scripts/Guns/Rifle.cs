@@ -43,6 +43,11 @@ public class Rifle : MonoBehaviour, Weapon
   [SerializeField]
   private float aimResetTime = 0.2f;
 
+  [SerializeField]
+  private AudioClip audioClip;
+
+  private AudioSource audioSource;
+
   private float timeSinceLastShot;
   private float timeSincePowerUp = POWER_UP_DURATION_SECONDS;
 
@@ -57,6 +62,7 @@ public class Rifle : MonoBehaviour, Weapon
     timeSincePowerUp = POWER_UP_DURATION_SECONDS;
 
     weaponUser = weaponUserProvider.GetComponent<WeaponUser>();
+    audioSource = gameObject.GetComponent<AudioSource>();
   }
 
   // Update is called once per frame
@@ -80,6 +86,7 @@ public class Rifle : MonoBehaviour, Weapon
         nextShootState = (nextShootState == 2) ? 1 : 2;
         muzzleFlashLocked = true;
         StartCoroutine(UnlockMuzzleFlash());
+        audioSource.PlayOneShot(audioClip);
       }
       else
       {
