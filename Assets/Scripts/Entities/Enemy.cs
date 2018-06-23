@@ -24,7 +24,10 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
   [SerializeField]
   private int hp = 5;
 
-  private UnityEngine.Color baseColor;
+  [SerializeField]
+  private Material hitFlashMaterial;
+
+  private Material baseMaterial;
 
   private SpriteRenderer spriteRenderer;
 
@@ -49,7 +52,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
   void Start()
   {
     spriteRenderer = GetComponent<SpriteRenderer>();
-    baseColor = spriteRenderer.material.GetColor("_Color");
+    baseMaterial = spriteRenderer.material;
     zigZagTargetPos = transform.position;
   }
 
@@ -102,7 +105,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     }
     else
     {
-      spriteRenderer.material.SetColor("_Color", Color.blue);
+      spriteRenderer.material = hitFlashMaterial;
       StartCoroutine(hitFlash());
     }
   }
@@ -166,8 +169,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
   private IEnumerator hitFlash()
   {
     yield return new WaitForSeconds(0.1f);
-    spriteRenderer.material.SetColor("_Color", baseColor);
-    yield return null;
+    spriteRenderer.material = baseMaterial;
   }
 
   private IEnumerator delayedComputeZigZagTargetPos()

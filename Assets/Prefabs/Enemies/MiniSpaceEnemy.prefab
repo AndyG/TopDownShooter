@@ -102,6 +102,7 @@ MonoBehaviour:
   powerupDrop: {fileID: 0}
   powerupChance: 0
   hp: 1
+  hitFlashMaterial: {fileID: 2100000, guid: e20fae8d35e5347b086920ba853dd3cc, type: 2}
   zigZag: 1
   zigZagTargetingTime: 0.2
   zigZagTravelTime: 0.26

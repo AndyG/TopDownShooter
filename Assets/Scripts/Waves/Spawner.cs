@@ -37,6 +37,9 @@ public class Spawner : MonoBehaviour
     tempGo.transform.position = transform.position;
 
     Targeter targeter = tempGo.GetComponent<Targeter>();
-    targeter.SetTarget(target);
+    if (targeter != null)
+    {
+      targeter.SetTarget(target);
+    }
   }
 }

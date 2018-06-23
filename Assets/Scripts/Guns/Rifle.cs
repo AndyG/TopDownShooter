@@ -125,8 +125,6 @@ public class Rifle : MonoBehaviour, Weapon
       spawnBullet(dirA);
       spawnBullet(dirB);
     }
-
-    weaponUser.OnUse(direction);
   }
 
   private IEnumerator UnlockMuzzleFlash()
