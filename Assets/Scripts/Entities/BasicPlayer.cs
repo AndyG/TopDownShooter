@@ -13,6 +13,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public delegate void OnBombCountChanged(int bombBount);
   public event OnBombCountChanged OnBombCountChangedEvent;
 
+  public LevelChanger levelChanger;
+
   [SerializeField]
   private int playerId = 0;
 
@@ -93,7 +95,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     if (player.GetButtonDown("Skill 1"))
     {
-      dropBomb();
+      Debug.Log("pressed skill 1");
+      levelChanger.FadeToScene(1);
+      // dropBomb();
     }
 
     timeSincePowerUp += Time.deltaTime;
