@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 50696930029359252}
   - component: {fileID: 61133255397877494}
   - component: {fileID: 114924555136596688}
+  - component: {fileID: 114154721365009086}
   - component: {fileID: 61805865632381662}
   - component: {fileID: 114858228734469348}
   m_Layer: 0
@@ -430,6 +431,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114154721365009086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591888498643534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefb70e9465fc43b4b5cb613cb9934e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
 --- !u!114 &114212187514541794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,21 +526,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f66633f8ae994cc6a1d421290d463d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
   bombCount: 6
   camera: {fileID: 0}
   SpawnObject: {fileID: 1758916409861008, guid: d60a79b33387a4787b80b012de2e3493,
     type: 2}
   defaultSprite: {fileID: 21300000, guid: 506517ed370dd44389c6c4e08262c3f2, type: 3}
-  dashingSprite: {fileID: 21300000, guid: 3477b5b9c79d741a9be71b6007b4bdf4, type: 3}
   bomb: {fileID: 1262921295499614, guid: bb29652b1a42b4ae7b0f00e1ab4c4f8b, type: 2}
   topSpeedX: 10
   topSpeedY: 10
   acceleration: 10000
-  dashDuration: 12
-  dashChargeDuration: 0
-  dashSpeed: 26
-  afterImages: 1
   weaponSupplier: {fileID: 1774595894804688}
   barneyRendererSupplier: {fileID: 1411608780433174}
   isPoweredUp: 0

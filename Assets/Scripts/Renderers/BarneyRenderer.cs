@@ -10,6 +10,11 @@ public class BarneyRenderer : MonoBehaviour
   [SerializeField]
   private GameObject topSprite;
 
+  private Material defaultMaterial;
+
+  [SerializeField]
+  private Material hitFlashMaterial;
+
   private SpriteRenderer topSpriteRenderer;
   private SpriteRenderer legSpriteRenderer;
 
@@ -41,6 +46,12 @@ public class BarneyRenderer : MonoBehaviour
   {
     topSpriteRenderer.color = color;
     legSpriteRenderer.color = color;
+  }
+
+  public void FlashWhite(float duration)
+  {
+    topSpriteRenderer.material = hitFlashMaterial;
+    legSpriteRenderer.material = hitFlashMaterial;
   }
 
   private Vector2 getBucketedAimDirection(Vector2 rawDirection)

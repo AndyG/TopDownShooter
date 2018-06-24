@@ -13,8 +13,13 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public delegate void OnBombCountChanged(int bombBount);
   public event OnBombCountChanged OnBombCountChangedEvent;
 
+  private PlayerInput playerInput;
+
   [SerializeField]
-  private int playerId = 0;
+  private float hitInvulDuration = 0.05f;
+
+  [SerializeField]
+  private bool inputLocked = false;
 
   [SerializeField]
   private int bombCount = 3;
@@ -24,7 +29,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public GameObject SpawnObject;
 
   public Sprite defaultSprite;
-  public Sprite dashingSprite;
 
   [SerializeField]
   private GameObject bomb;
@@ -33,21 +37,10 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public float topSpeedY = 50f;
   public float acceleration = 10f;
 
-  public float dashDuration = 10f;
-  public float dashChargeDuration = 30f;
-
-  public float dashSpeed = 30f;
-
-  public bool afterImages = true;
   public GameObject weaponSupplier;
   private Rigidbody2D rigidBody;
 
-  private float timeSinceDashStart = 0f;
-  private float dashChargeTime = 0f;
-
   private float timeSincePowerUp = 0f;
-
-  private DashState dashState = DashState.READY;
 
   private Animator animator;
 
@@ -63,17 +56,16 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private bool isPoweredUp;
 
-  private Player player;
 
   // Use this for initialization
   void Start()
   {
     rigidBody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
+    playerInput = gameObject.GetComponent<PlayerInput>();
 
     barneyRenderer = barneyRendererSupplier.GetComponent<BarneyRenderer>();
 
-    player = ReInput.players.GetPlayer(playerId);
     setBombCount(bombCount);
 
     explosion = gameObject.GetComponent<Explosion>();
@@ -92,9 +84,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       return;
     }
 
-    if (player.GetButtonDown("Skill 1"))
+    if (!inputLocked)
     {
-      dropBomb();
+      playerInput.GatherInput();
     }
 
     timeSincePowerUp += Time.deltaTime;
@@ -104,29 +96,32 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       isPoweredUp = false;
     }
 
+    if (playerInput.DidPressSkill1())
+    {
+      dropBomb();
+    }
+
     processMove();
     processShoot();
     Vector2? aimDirection = getAimDirection();
-    Vector2 runDirection = getRunDirection();
+    Vector2 runDirection = playerInput.GetRunDirection();
 
     if (!aimDirection.HasValue)
     {
       aimDirection = runDirection;
     }
 
-
     barneyRenderer.update(aimDirection.Value, runDirection);
   }
 
-  public void onHit()
+  public void onHit(GameObject other)
   {
-    if (dashState == DashState.DASHING)
-    {
-      // invincible
-      return;
-    }
+    Vector3 knockbackDir = this.transform.position - other.transform.position;
+    rigidBody.AddForce(knockbackDir * 30, ForceMode2D.Impulse);
+    inputLocked = true;
+    barneyRenderer.FlashWhite(hitInvulDuration);
 
-    die();
+    // die();
   }
 
   public void onPickup()
@@ -151,8 +146,11 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private void processMove()
   {
-    float horizInput = player.GetAxis("Move Horizontal");
-    float verticalInput = player.GetAxis("Move Vertical");
+    if (inputLocked) return;
+
+    Vector2 moveDirection = playerInput.GetRunDirection();
+    float horizInput = moveDirection.x;
+    float verticalInput = moveDirection.y;
 
     if (horizInput == 0)
     {
@@ -222,7 +220,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private void updateAnimator()
   {
-    animator.SetBool("Dashing", dashState == DashState.DASHING);
   }
 
   private void processShoot()
@@ -234,7 +231,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     }
 
     Vector2 aimDirectionResolved = aimDirection.Value;
-    // Debug.DrawRay(transform.position, aimDirectionResolved, Color.green);
     if (weaponSupplier != null)
     {
       Weapon weapon = weaponSupplier.GetComponent<Weapon>();
@@ -248,29 +244,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private Vector2? getAimDirection()
   {
-    float horizInput = player.GetAxis("Aim Horizontal"); ;
-    float verticalInput = player.GetAxis("Aim Vertical");
-    Vector2 direction = new Vector2(horizInput, verticalInput);
-    // Debug.Log("Base direction: " + direction);
-    if (direction.x != 0 || direction.y != 0)
+    Vector2 aimDirection = playerInput.GetAimDirection();
+    if (aimDirection.x != 0 || aimDirection.y != 0)
     {
-      return direction.normalized;
+      return aimDirection;
     }
     else
     {
       return null;
     }
-  }
-
-  private Vector2 getRunDirection()
-  {
-    return new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical"));
-  }
-
-  private enum DashState
-  {
-    READY,
-    DASHING
   }
 
   private void dropBomb()

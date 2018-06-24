@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     BasicPlayer player = other.GetComponent<BasicPlayer>();
     if (player != null)
     {
-      player.onHit();
+      player.onHit(gameObject);
     }
 
     Bomb bomb = other.GetComponent<Bomb>();
