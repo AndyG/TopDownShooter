@@ -50,6 +50,18 @@ public class BarneyRenderer : MonoBehaviour
     legSpriteRenderer.color = color;
   }
 
+  public void SetEnabled(bool enabled)
+  {
+    topSpriteRenderer.enabled = true;
+    legSpriteRenderer.enabled = true;
+  }
+
+  public void ToggleEnabled()
+  {
+    topSpriteRenderer.enabled = !topSpriteRenderer.enabled;
+    legSpriteRenderer.enabled = !legSpriteRenderer.enabled;
+  }
+
   public void SetNormal()
   {
     topSpriteRenderer.material = defaultMaterial;

@@ -464,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &245626971
 Transform:
   m_ObjectHideFlags: 0
@@ -523,11 +523,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4679135824096686, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -10.47
+      value: -6.83
       objectReference: {fileID: 0}
     - target: {fileID: 4679135824096686, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7.77
+      value: 8.74
       objectReference: {fileID: 0}
     - target: {fileID: 4679135824096686, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
       propertyPath: m_LocalPosition.z
@@ -557,11 +557,26 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 212644772183629490, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 212201214389079616, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 114924555136596688, guid: fb1a4b04bfcc842ff9d7037a708d4993,
         type: 2}
       propertyPath: camera
       value: 
       objectReference: {fileID: 931027990}
+    - target: {fileID: 114924555136596688, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: hitPoints
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
   m_IsPrefabParent: 0
@@ -2312,7 +2327,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1221867871
 Prefab:
@@ -2351,7 +2366,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4877467583861268, guid: 0c765a10ade594fb583a42ca77db89de, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1940369510366710, guid: 0c765a10ade594fb583a42ca77db89de, type: 2}
       propertyPath: m_IsActive

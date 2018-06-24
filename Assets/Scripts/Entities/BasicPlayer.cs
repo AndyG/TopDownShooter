@@ -13,8 +13,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public delegate void OnBombCountChanged(int bombBount);
   public event OnBombCountChanged OnBombCountChangedEvent;
 
-  private PlayerInput playerInput;
+  private delegate void OnHitKnockbackEnded();
 
+  private PlayerInput playerInput;
 
   [SerializeField]
   private bool inputLocked = false;
@@ -54,6 +55,10 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private bool isPoweredUp;
 
+  [Header("Stats")]
+  [SerializeField]
+  private int hitPoints = 3;
+
   [Header("On Hit")]
   [SerializeField]
   private float hitKnockbackDurationSecs = 0.05f;
@@ -63,6 +68,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   [SerializeField]
   private float hitKnockbackForce = 20;
+
+  [SerializeField]
+  private bool isInvulnerable;
+
+  [SerializeField]
+  [Tooltip("How fast the character flashes after taking damage.")]
+  private float flashInterval = 0.05f;
+
+  private bool hitThisFrame = false;
 
   // Use this for initialization
   void Start()
@@ -121,14 +135,35 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     barneyRenderer.update(aimDirection.Value, runDirection);
   }
 
-  public void onHit(GameObject other)
+  void LateUpdate()
   {
-    Vector3 knockbackDir = this.transform.position - other.transform.position;
-    StartCoroutine(HitKnockback(knockbackDir));
+    hitThisFrame = false;
   }
 
-  private IEnumerator HitKnockback(Vector2 direction)
+  public void onHit(GameObject other)
   {
+    if (isInvulnerable || hitThisFrame)
+    {
+      return;
+    }
+
+    hitThisFrame = true;
+
+    hitPoints--;
+    if (hitPoints <= 0)
+    {
+      die();
+    }
+    else
+    {
+      Vector3 knockbackDir = (this.transform.position - other.transform.position).normalized;
+      StartCoroutine(HitKnockback(knockbackDir, _OnHitKnockbackEnded));
+    }
+  }
+
+  private IEnumerator HitKnockback(Vector2 direction, OnHitKnockbackEnded onEnded)
+  {
+    isInvulnerable = true;
     setVelocity(0f, 0f);
     rigidBody.AddForce(direction * hitKnockbackForce, ForceMode2D.Impulse);
     inputLocked = true;
@@ -138,6 +173,32 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     inputLocked = false;
     barneyRenderer.SetNormal();
+    onEnded();
+  }
+
+  private void _OnHitKnockbackEnded()
+  {
+    StartCoroutine(_OnHitKnockbackEndedCoroutine());
+  }
+
+  private IEnumerator _OnHitKnockbackEndedCoroutine()
+  {
+    float timeInvul = 0f;
+    float toggleTimer = 0f;
+    while (timeInvul < hitInvulDuration)
+    {
+      timeInvul += Time.deltaTime;
+      toggleTimer += Time.deltaTime;
+      if (toggleTimer > flashInterval)
+      {
+        barneyRenderer.ToggleEnabled();
+        toggleTimer = 0f;
+      }
+      yield return null;
+    }
+
+    barneyRenderer.SetEnabled(true);
+    isInvulnerable = false;
   }
 
   public void onPickup()
@@ -297,10 +358,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     return bombCount;
   }
 
-  public float forceAction = 0.05f;
+  // Weapon was used.
   public void OnUse(Vector3 direction)
   {
-    Vector3 position = transform.position;
-    transform.position += -direction * forceAction;
   }
 }

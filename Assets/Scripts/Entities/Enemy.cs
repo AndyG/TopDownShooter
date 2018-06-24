@@ -110,7 +110,17 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     }
   }
 
+  void OnTriggerStay2D(Collider2D other)
+  {
+    HandleCollision(other);
+  }
+
   void OnTriggerEnter2D(Collider2D other)
+  {
+    HandleCollision(other);
+  }
+
+  private void HandleCollision(Collider2D other)
   {
     Bullet bullet = other.GetComponent<Bullet>();
     if (bullet != null)
