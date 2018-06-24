@@ -15,8 +15,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private PlayerInput playerInput;
 
-  [SerializeField]
-  private float hitInvulDuration = 0.05f;
 
   [SerializeField]
   private bool inputLocked = false;
@@ -56,6 +54,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private bool isPoweredUp;
 
+  [Header("On Hit")]
+  [SerializeField]
+  private float hitKnockbackDurationSecs = 0.05f;
+
+  [SerializeField]
+  private float hitInvulDuration = 0.05f;
+
+  [SerializeField]
+  private float hitKnockbackForce = 20;
 
   // Use this for initialization
   void Start()
@@ -117,11 +124,20 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public void onHit(GameObject other)
   {
     Vector3 knockbackDir = this.transform.position - other.transform.position;
-    rigidBody.AddForce(knockbackDir * 30, ForceMode2D.Impulse);
-    inputLocked = true;
-    barneyRenderer.FlashWhite(hitInvulDuration);
+    StartCoroutine(HitKnockback(knockbackDir));
+  }
 
-    // die();
+  private IEnumerator HitKnockback(Vector2 direction)
+  {
+    setVelocity(0f, 0f);
+    rigidBody.AddForce(direction * hitKnockbackForce, ForceMode2D.Impulse);
+    inputLocked = true;
+    barneyRenderer.FlashWhite();
+
+    yield return new WaitForSeconds(hitKnockbackDurationSecs);
+
+    inputLocked = false;
+    barneyRenderer.SetNormal();
   }
 
   public void onPickup()

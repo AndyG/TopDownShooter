@@ -27,6 +27,8 @@ public class BarneyRenderer : MonoBehaviour
     topSpriteRenderer = topSprite.GetComponent<SpriteRenderer>();
     legAnimator = legSprite.GetComponent<Animator>();
     legSpriteRenderer = legSprite.GetComponent<SpriteRenderer>();
+
+    defaultMaterial = topSpriteRenderer.material;
   }
 
   public void update(Vector2 aimDirection, Vector2 moveDirection)
@@ -48,7 +50,13 @@ public class BarneyRenderer : MonoBehaviour
     legSpriteRenderer.color = color;
   }
 
-  public void FlashWhite(float duration)
+  public void SetNormal()
+  {
+    topSpriteRenderer.material = defaultMaterial;
+    legSpriteRenderer.material = defaultMaterial;
+  }
+
+  public void FlashWhite()
   {
     topSpriteRenderer.material = hitFlashMaterial;
     legSpriteRenderer.material = hitFlashMaterial;
