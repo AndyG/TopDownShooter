@@ -58,8 +58,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private OscillateSize oscillateSize;
 
-  [SerializeField]
-  private GameObject explosion;
+  private Explosion explosion;
 
   [SerializeField]
   private bool isPoweredUp;
@@ -76,6 +75,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     player = ReInput.players.GetPlayer(playerId);
     setBombCount(bombCount);
+
+    explosion = gameObject.GetComponent<Explosion>();
   }
 
   void OnEnable()
@@ -125,8 +126,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       return;
     }
 
-    explode();
-    OnPlayerDeathEvent();
+    die();
   }
 
   public void onPickup()
@@ -138,15 +138,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     timeSincePowerUp = 0;
   }
 
-  private void explode()
+  private void die()
   {
-
     if (explosion != null)
     {
-      GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
-      tempGo.transform.position = transform.position;
+      explosion.Explode();
     }
+
     Destroy(this.gameObject);
+    OnPlayerDeathEvent();
   }
 
   private void processMove()

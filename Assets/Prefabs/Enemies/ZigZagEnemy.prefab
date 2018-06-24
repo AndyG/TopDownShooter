@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114690566190748758}
   - component: {fileID: 95743537605039880}
   - component: {fileID: 61836134408662616}
+  - component: {fileID: 114586823696085268}
   m_Layer: 0
   m_Name: ZigZagEnemy
   m_TagString: Untagged
@@ -85,6 +86,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114586823696085268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590500638419038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7f0539f852142688d104f290be7153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prototype: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
 --- !u!114 &114690566190748758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39317f900c4c94ca0b3640860463c98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
   target: {fileID: 0}
   speed: 15.48
   powerupDrop: {fileID: 1108940709713972, guid: c69d984557bac46129601224c8cbfe9d,

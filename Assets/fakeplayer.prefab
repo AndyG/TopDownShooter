@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 61133255397877494}
   - component: {fileID: 114924555136596688}
   - component: {fileID: 61805865632381662}
+  - component: {fileID: 114858228734469348}
   m_Layer: 0
   m_Name: fakeplayer
   m_TagString: Untagged
@@ -108,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4272732020301306}
   - component: {fileID: 114212187514541794}
+  - component: {fileID: 82667420916781522}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -179,7 +181,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1591888498643534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.368233, y: -1.3910177, z: 0}
+  m_LocalPosition: {x: -10.47, y: 7.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4272732020301306}
@@ -297,6 +299,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.636611}
   m_EdgeRadius: 0
+--- !u!82 &82667420916781522
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774595894804688}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95416659443985242
 Animator:
   serializedVersion: 3
@@ -370,7 +452,7 @@ MonoBehaviour:
   rateOfFire: 7
   aimVariance: 5
   aimResetTime: 0.2
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 5be583f84f3da4d37a43aeb495ccea43, type: 3}
 --- !u!114 &114559337187501802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,6 +478,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legSprite: {fileID: 1243185221378308}
   topSprite: {fileID: 1122326243943746}
+--- !u!114 &114858228734469348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591888498643534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7f0539f852142688d104f290be7153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prototype: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
 --- !u!114 &114880425946364674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,9 +513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f66633f8ae994cc6a1d421290d463d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelChanger: {fileID: 0}
   playerId: 0
-  bombCount: 0
+  bombCount: 6
   camera: {fileID: 0}
   SpawnObject: {fileID: 1758916409861008, guid: d60a79b33387a4787b80b012de2e3493,
     type: 2}
@@ -437,7 +530,6 @@ MonoBehaviour:
   afterImages: 1
   weaponSupplier: {fileID: 1774595894804688}
   barneyRendererSupplier: {fileID: 1411608780433174}
-  explosion: {fileID: 1259485901517892, guid: 7c36cbc7fe00e498daafa53815e53900, type: 2}
   isPoweredUp: 0
   forceAction: 0
 --- !u!212 &212139375237937580

@@ -6,9 +6,6 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
 {
 
   [SerializeField]
-  private GameObject explosion;
-
-  [SerializeField]
   private GameObject target;
 
   [SerializeField]
@@ -30,6 +27,8 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
   private Material baseMaterial;
 
   private SpriteRenderer spriteRenderer;
+
+  private Explosion explosion;
 
   [SerializeField]
   private bool zigZag;
@@ -54,6 +53,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     spriteRenderer = GetComponent<SpriteRenderer>();
     baseMaterial = spriteRenderer.material;
     zigZagTargetPos = transform.position;
+    explosion = GetComponent<Explosion>();
   }
 
   // Update is called once per frame
@@ -116,7 +116,6 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     if (bullet != null)
     {
       handleShot(bullet);
-      // die(true);
       Destroy(bullet.gameObject);
       return;
     }
@@ -138,8 +137,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
   {
     if (explosion != null)
     {
-      GameObject tempGo = GameObject.Instantiate(explosion, Vector3.zero, Quaternion.identity) as GameObject;
-      tempGo.transform.position = transform.position;
+      explosion.Explode();
     }
 
     float rand = Random.Range(0, 1.0f);
@@ -150,7 +148,6 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     }
 
     onDeath(wasBomb);
-
     Destroy(this.gameObject);
   }
 
