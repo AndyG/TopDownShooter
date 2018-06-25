@@ -71,7 +71,6 @@ public class GameSystem : MonoBehaviour
   public void HandlePlayerDeath()
   {
     gameState = GameState.DEAD;
-    uiCanvas.gameObject.SetActive(false);
     deathScreenCanvas.gameObject.SetActive(true);
     deathScreenCanvas.gameObject.GetComponentInChildren<DeathScreen>().setDead(timeAlive);
   }

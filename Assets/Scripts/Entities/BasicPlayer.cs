@@ -13,6 +13,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public delegate void OnBombCountChanged(int bombBount);
   public event OnBombCountChanged OnBombCountChangedEvent;
 
+  public delegate void OnHitPointsChanged(int hitPoints);
+  public event OnHitPointsChanged OnHitPointsChangedEvent;
+
   private delegate void OnHitKnockbackEnded();
 
   private PlayerInput playerInput;
@@ -150,6 +153,12 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     hitThisFrame = true;
 
     hitPoints--;
+
+    if (OnHitPointsChangedEvent != null)
+    {
+      OnHitPointsChangedEvent(hitPoints);
+    }
+
     if (hitPoints <= 0)
     {
       die();
