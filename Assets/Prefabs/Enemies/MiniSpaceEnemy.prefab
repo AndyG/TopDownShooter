@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4787649133401454}
   - component: {fileID: 212727046684472756}
   - component: {fileID: 114690566190748758}
-  - component: {fileID: 95743537605039880}
   - component: {fileID: 61836134408662616}
   - component: {fileID: 114681054676084232}
+  - component: {fileID: 95260355640785774}
   m_Layer: 8
   m_Name: MiniSpaceEnemy
   m_TagString: Untagged
@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1590500638419038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.9986334, y: 3.8490229, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -7.339319, y: 1.7918513, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -60,16 +60,16 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.875, y: 1.875}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 3.37, y: 2.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5544043, y: 1.5544043}
+  m_Size: {x: 0.94477415, y: 0.7396957}
   m_EdgeRadius: 0
---- !u!95 &95743537605039880
+--- !u!95 &95260355640785774
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -78,7 +78,7 @@ Animator:
   m_GameObject: {fileID: 1590500638419038}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d98bb0fb7c68c4b5abef870db079e8b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 09477f88785c11a4c9a534cc93aaae05, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -86,6 +86,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114681054676084232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +133,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -153,8 +155,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: bdf5bd7b738ac4701b6f7c50e490ddfa, type: 3}
-  m_Color: {r: 1, g: 0.9353448, b: 0.12068963, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 217e58150c303694dbc40e9a6e46afc0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
