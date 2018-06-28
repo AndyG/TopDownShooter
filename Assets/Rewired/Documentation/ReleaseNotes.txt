@@ -1,3 +1,171 @@
+1.1.15.0:
+
+    Changes:
+      - More properties on ActionElementMap can be modified directly.
+      - Added "Activate Action Buttons on Negative Value" option the Rewired Editor.
+
+    API Changes:
+      - Added ActionElementMap.elementIdentifierId public setter.
+      - Added ActionElementMap.actionId public setter.
+      - Added ActionElementMap.axisRange public setter.
+      - Added ActionElementMap.axisContribution public setter.
+      - Added ActionElementMap.keyboardKeyCode public setter.
+      - Added ActionElementMap.keyCode public setter.
+      - Added ActionElementMap.modifierKey1 public setter.
+      - Added ActionElementMap.modifierKey2 public setter.
+      - Added ActionElementMap.modifierKey3 public setter.
+      - Added ReInput.ConfigHelper.activateActionButtonsOnNegativeValue property.
+      - Added TiltControl.SetRestOrientation method.
+      
+    New PlayMaker Actions:
+      - RewiredGetControllerCount
+      - RewiredConfigGetUseXInput
+      - RewiredConfigSetUseXInput
+      - RewiredConfigGetUpdateLoop
+      - RewiredConfigSetUpdateLoop
+      - RewiredConfigGetWindowsStandalonePrimaryInputSource
+      - RewiredConfigSetWindowsStandalonePrimaryInputSource
+      - RewiredConfigGetOSXStandalonePrimaryInputSource
+      - RewiredConfigSetOSXStandalonePrimaryInputSource
+      - RewiredConfigGetLinuxStandalonePrimaryInputSource
+      - RewiredConfigSetLinuxStandalonePrimaryInputSource
+      - RewiredConfigGetWindowsUWPPrimaryInputSource
+      - RewiredConfigSetWindowsUWPPrimaryInputSource
+      - RewiredConfigGetWindowsUWPSupportHIDDevices
+      - RewiredConfigSetWindowsUWPSupportHIDDevices
+      - RewiredConfigGetXboxOnePrimaryInputSource
+      - RewiredConfigSetXboxOnePrimaryInputSource
+      - RewiredConfigGetPS4PrimaryInputSource
+      - RewiredConfigSetPS4PrimaryInputSource
+      - RewiredConfigGetWebGLPrimaryInputSource
+      - RewiredConfigSetWebGLPrimaryInputSource
+      - RewiredConfigGetAlwaysUseUnityInput
+      - RewiredConfigSetAlwaysUseUnityInput
+      - RewiredConfigGetDisableNativeInput
+      - RewiredConfigSetDisableNativeInput
+      - RewiredConfigGetNativeMouseSupport
+      - RewiredConfigSetNativeMouseSupport
+      - RewiredConfigGetNativeKeyboardSupport
+      - RewiredConfigSetNativeKeyboardSupport
+      - RewiredConfigGetEnhancedDeviceSupport
+      - RewiredConfigSetEnhancedDeviceSupport
+      - RewiredConfigGetJoystickRefreshRate
+      - RewiredConfigSetJoystickRefreshRate
+      - RewiredConfigGetIgnoreInputWhenAppNotInFocus
+      - RewiredConfigSetIgnoreInputWhenAppNotInFocus
+      - RewiredConfigGetAndroidSupportUnknownGamepads
+      - RewiredConfigSetAndroidSupportUnknownGamepads
+      - RewiredConfigGetDefaultJoystickAxis2DDeadZoneType
+      - RewiredConfigSetDefaultJoystickAxis2DDeadZoneType
+      - RewiredConfigGetForce4WayHats
+      - RewiredConfigSetForce4WayHats
+      - RewiredConfigGetActivateActionButtonsOnNegativeValue
+      - RewiredConfigSetActivateActionButtonsOnNegativeValue
+      - RewiredConfigGetThrottleCalibrationMode
+      - RewiredConfigSetThrottleCalibrationMode
+      - RewiredConfigGetDeferControllerConnectedEventsOnStart
+      - RewiredConfigSetDeferControllerConnectedEventsOnStart
+      - RewiredConfigGetAutoAssignJoysticks
+      - RewiredConfigSetAutoAssignJoysticks
+      - RewiredConfigGetMaxJoysticksPerPlayer
+      - RewiredConfigSetMaxJoysticksPerPlayer
+      - RewiredConfigGetDistributeJoysticksEvenly
+      - RewiredConfigSetDistributeJoysticksEvenly
+      - RewiredConfigGetAssignJoysticksToPlayingPlayersOnly
+      - RewiredConfigSetAssignJoysticksToPlayingPlayersOnly
+      - RewiredConfigGetReassignJoystickToPreviousOwnerOnReconnect
+      - RewiredConfigSetReassignJoystickToPreviousOwnerOnReconnect
+      - RewiredConfigGetLogLevel
+      - RewiredConfigSetLogLevel
+      - RewiredActionElementMapSetActionId
+      - RewiredActionElementMapSetElementIdentifierId
+      - RewiredActionElementMapSetAxisRange
+      - RewiredActionElementMapSetAxisContribution
+      - RewiredActionElementMapSetKeyboardKeyCode
+      - RewiredActionElementMapSetModifierKey1
+      - RewiredActionElementMapSetModifierKey2
+      - RewiredActionElementMapSetModifierKey3
+      - RewiredActionElementMapSetKeyCode   
+      - RewiredActionElementMapGetActionDescriptiveName
+      - RewiredControllerImpelementsTemplate
+    
+    New Behavior Designer Tasks:
+      - RewiredGetControllerCount
+      - RewiredConfigGetUseXInput
+      - RewiredConfigSetUseXInput
+      - RewiredConfigGetUpdateLoop
+      - RewiredConfigSetUpdateLoop
+      - RewiredConfigGetWindowsStandalonePrimaryInputSource
+      - RewiredConfigSetWindowsStandalonePrimaryInputSource
+      - RewiredConfigGetOSXStandalonePrimaryInputSource
+      - RewiredConfigSetOSXStandalonePrimaryInputSource
+      - RewiredConfigGetLinuxStandalonePrimaryInputSource
+      - RewiredConfigSetLinuxStandalonePrimaryInputSource
+      - RewiredConfigGetWindowsUWPPrimaryInputSource
+      - RewiredConfigSetWindowsUWPPrimaryInputSource
+      - RewiredConfigGetWindowsUWPSupportHIDDevices
+      - RewiredConfigSetWindowsUWPSupportHIDDevices
+      - RewiredConfigGetXboxOnePrimaryInputSource
+      - RewiredConfigSetXboxOnePrimaryInputSource
+      - RewiredConfigGetPS4PrimaryInputSource
+      - RewiredConfigSetPS4PrimaryInputSource
+      - RewiredConfigGetWebGLPrimaryInputSource
+      - RewiredConfigSetWebGLPrimaryInputSource
+      - RewiredConfigGetAlwaysUseUnityInput
+      - RewiredConfigSetAlwaysUseUnityInput
+      - RewiredConfigGetDisableNativeInput
+      - RewiredConfigSetDisableNativeInput
+      - RewiredConfigGetNativeMouseSupport
+      - RewiredConfigSetNativeMouseSupport
+      - RewiredConfigGetNativeKeyboardSupport
+      - RewiredConfigSetNativeKeyboardSupport
+      - RewiredConfigGetEnhancedDeviceSupport
+      - RewiredConfigSetEnhancedDeviceSupport
+      - RewiredConfigGetJoystickRefreshRate
+      - RewiredConfigSetJoystickRefreshRate
+      - RewiredConfigGetIgnoreInputWhenAppNotInFocus
+      - RewiredConfigSetIgnoreInputWhenAppNotInFocus
+      - RewiredConfigGetAndroidSupportUnknownGamepads
+      - RewiredConfigSetAndroidSupportUnknownGamepads
+      - RewiredConfigGetDefaultJoystickAxis2DDeadZoneType
+      - RewiredConfigSetDefaultJoystickAxis2DDeadZoneType
+      - RewiredConfigGetForce4WayHats
+      - RewiredConfigSetForce4WayHats
+      - RewiredConfigGetActivateActionButtonsOnNegativeValue
+      - RewiredConfigSetActivateActionButtonsOnNegativeValue
+      - RewiredConfigGetThrottleCalibrationMode
+      - RewiredConfigSetThrottleCalibrationMode
+      - RewiredConfigGetDeferControllerConnectedEventsOnStart
+      - RewiredConfigSetDeferControllerConnectedEventsOnStart
+      - RewiredConfigGetAutoAssignJoysticks
+      - RewiredConfigSetAutoAssignJoysticks
+      - RewiredConfigGetMaxJoysticksPerPlayer
+      - RewiredConfigSetMaxJoysticksPerPlayer
+      - RewiredConfigGetDistributeJoysticksEvenly
+      - RewiredConfigSetDistributeJoysticksEvenly
+      - RewiredConfigGetAssignJoysticksToPlayingPlayersOnly
+      - RewiredConfigSetAssignJoysticksToPlayingPlayersOnly
+      - RewiredConfigGetReassignJoystickToPreviousOwnerOnReconnect
+      - RewiredConfigSetReassignJoystickToPreviousOwnerOnReconnect
+      - RewiredConfigGetLogLevel
+      - RewiredConfigSetLogLevel
+      - RewiredActionElementMapSetActionId
+      - RewiredActionElementMapSetElementIdentifierId
+      - RewiredActionElementMapSetAxisRange
+      - RewiredActionElementMapSetAxisContribution
+      - RewiredActionElementMapSetKeyboardKeyCode
+      - RewiredActionElementMapSetModifierKey1
+      - RewiredActionElementMapSetModifierKey2
+      - RewiredActionElementMapSetModifierKey3
+      - RewiredActionElementMapSetKeyCode
+      - RewiredActionElementMapGetActionDescriptiveName
+      - RewiredControllerImpelementsTemplate
+      
+    Bug Fixes:
+      - Fixed exception thrown when a Touch/Tilt control is created while no GameObject is selected and no TouchController or CustomController component exists in the scene.
+      - Fixed extremely rare ObjectDisposedException thrown in a build when application exits on Windows Standalone + Raw Input / Direct Input.
+      - UnityInputOverride now returns true when an Action's value is negative to be consistent with how UnityEngine.Input.GetButton functions work.
+
 1.1.14.4:
 
     Changes:

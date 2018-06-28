@@ -1934,6 +1934,11 @@
             </summary>
             <param name="callback">The callback delegate.</param>
         </member>
+        <member name="M:Rewired.ComponentControls.TiltControl.SetRestOrientation">
+            <summary>
+            Sets the current horizontal and forward rest angles to the current orientation of the device.
+            </summary>
+        </member>
         <member name="P:Rewired.ComponentControls.TiltControl.axesToUse">
             <summary>
             The axis directions in which movement is allowed. You can restrict movement to one or both axes.
@@ -5626,22 +5631,27 @@
             The target Controller Element.
             </summary>
         </member>
-        <member name="T:Rewired.Utils.Classes.Utility.IPoolableObject">
+        <member name="T:Rewired.Utils.Classes.Utility.IPoolableObject_Internal">
             <summary>
             Interface for a simple poolable object that maintains a reference to its parent pool so it can be returned easily.
             </summary>
         </member>
-        <member name="M:Rewired.Utils.Classes.Utility.IPoolableObject.Return">
+        <member name="T:Rewired.Interfaces.IPoolableObject">
             <summary>
-            Return the object to its pool.
+            Interface for a poolable object.
             </summary>
         </member>
-        <member name="M:Rewired.Utils.Classes.Utility.IPoolableObject.Clear">
+        <member name="M:Rewired.Interfaces.IPoolableObject.Return">
+            <summary>
+            Returns the object to its pool if it is a member of one.
+            </summary>
+        </member>
+        <member name="M:Rewired.Utils.Classes.Utility.IPoolableObject_Internal.Clear">
             <summary>
             Clear the object.
             </summary>
         </member>
-        <member name="P:Rewired.Utils.Classes.Utility.IPoolableObject.pool">
+        <member name="P:Rewired.Utils.Classes.Utility.IPoolableObject_Internal.pool">
             <summary>
             The object's parent pool.
             </summary>
@@ -7284,6 +7294,9 @@
         <member name="P:Rewired.ActionElementMap.elementIdentifierId">
             <summary>
             The controller element identifier id bound to the Action.
+            Warning: Do not change this value during iteration of the list of element mappings in a Controller Map.
+            If the element type changes based on the new element identifier id, the element mapping list will be changed
+            resulting in an InvalidOperationException during iteration.
             </summary>
         </member>
         <member name="P:Rewired.ActionElementMap.axisRange">
@@ -14419,6 +14432,14 @@
             This setting can be changed without resetting Rewired.
             </summary>
         </member>
+        <member name="P:Rewired.ReInput.ConfigHelper.activateActionButtonsOnNegativeValue">
+            <summary>
+            Determines how button values are calculated by Player Actions.
+            If enabled, Actions with either a negative or positive Axis value will return True when queried with player.GetButton.
+            If disabled, Actions with a negative Axis value will always return False when queried with player.GetButton, and must be queried with player.GetNegativeButton.
+            This setting can be changed without resetting Rewired.
+            </summary>
+        </member>
         <member name="P:Rewired.ReInput.ConfigHelper.throttleCalibrationMode">
             <summary>
             Determines how throttles on recognized controllers are calibrated.
@@ -15961,7 +15982,7 @@
         <member name="M:Rewired.Utils.Classes.Data.ADictionary`2.GetNextIndex(System.Int32)">
             <summary>
             Gets the index of the next valid entry.
-            Usage: for(int i = dict.IndexOfFirst; dict.TryGetValue(i, out value); i = dict.GetNextIndex(i);) { }
+            Usage: for(int i = dict.IndexOfFirst; dict.TryGetValueAt(i, out value); i = dict.GetNextIndex(i);) { }
             </summary>
             <param name="index">The index.</param>
             <returns>Returns the index of the next valid entry in the collection. Returns -1 if no more valid entries were found.</returns>

@@ -393,6 +393,10 @@
       <p>This setting only applies to joysticks on recognized controllers.</p></td>
   </tr>
   <tr>
+    <td valign="top"><a name="settings-activate-action-buttons-on-negative-value" id="settings-activate-action-buttons-on-negative-value"></a>Activate Action Buttons on Negative Value</td>
+    <td valign="top">Determines how button values are calculated by Player Actions. If enabled, Actions with either a negative or positive Axis value will return True when queried with player.GetButton. If disabled, Actions with a negative Axis value will always return False when queried with player.GetButton, and must be queried with player.GetNegativeButton.</td>
+  </tr>
+  <tr>
     <td valign="top">Force 4-Way Hats</td>
     <td valign="top">Force all 8-way hats on recognized joysticks to be treated as 4-way hats. If enabled, the corner directions on all hats will activate the adjacent 2 cardinal direction buttons instead of the corner button. This is useful if you need joystick hats to behave like D-Pads instead of 8-way hats.</td>
   </tr>
