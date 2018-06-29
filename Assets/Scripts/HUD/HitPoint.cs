@@ -22,4 +22,13 @@ public class HitPoint : MonoBehaviour
       animator.SetTrigger("Destroy");
     }
   }
+
+  public void Recover()
+  {
+    if (destroyed)
+    {
+      destroyed = false;
+      animator.SetTrigger("Recover");
+    }
+  }
 }

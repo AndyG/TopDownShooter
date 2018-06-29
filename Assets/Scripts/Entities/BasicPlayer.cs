@@ -81,6 +81,14 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private bool hitThisFrame = false;
 
+
+  private float timeSinceHPRegen = 0f;
+
+  [Header("HP Regen")]
+  [SerializeField]
+  [Range(0f, 10f)]
+  private float HpRegenInterval = 5f;
+
   // Use this for initialization
   void Start()
   {
@@ -119,6 +127,21 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       barneyRenderer.setColorFilter(Color.white);
       isPoweredUp = false;
     }
+
+    if (hitPoints < 3)
+    {
+      timeSinceHPRegen += Time.deltaTime;
+      if (timeSinceHPRegen > HpRegenInterval)
+      {
+        regenHP();
+        timeSinceHPRegen = 0;
+      }
+    }
+    else
+    {
+      timeSinceHPRegen = 0;
+    }
+
 
     if (playerInput.DidPressSkill1())
     {
@@ -370,5 +393,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   // Weapon was used.
   public void OnUse(Vector3 direction)
   {
+  }
+
+
+  private void regenHP()
+  {
+    hitPoints++;
+    if (OnHitPointsChangedEvent != null)
+    {
+      OnHitPointsChangedEvent(hitPoints);
+    }
   }
 }

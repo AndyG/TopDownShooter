@@ -45,14 +45,23 @@ public class HUD : MonoBehaviour
 
   private void setHitPointCount(int hitPoints)
   {
+    if (hitPoints == 3)
+    {
+      hitPoint3.Recover();
+      hitPoint2.Recover();
+      hitPoint1.Recover();
+    }
     if (hitPoints <= 2)
     {
       hitPoint3.Destroy();
+      hitPoint2.Recover();
+      hitPoint1.Recover();
     }
 
     if (hitPoints <= 1)
     {
       hitPoint2.Destroy();
+      hitPoint1.Recover();
     }
 
     if (hitPoints <= 0)
