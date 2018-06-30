@@ -106,7 +106,7 @@ public class BarneyRenderer : MonoBehaviour
       gunAnimator.SetInteger("GunState", 0);
     }
 
-    float yRotation = (direction.x > 0) ? 0f : 180f;
+    float yRotation = (direction.x >= 0) ? 0f : 180f;
     float zRotation = 0f;
     if (direction.x != 0 && direction.y != 0)
     {
