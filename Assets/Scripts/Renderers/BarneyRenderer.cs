@@ -48,8 +48,11 @@ public class BarneyRenderer : MonoBehaviour
     Vector2 resolvedAimDirection = isAiming ? aimDirection : moveDirection;
     float angleDegrees = DirectionToAngleDegrees(resolvedAimDirection);
     Vector2 bucketedAimDirection = getBucketedAimDirection(angleDegrees);
+
+    float animAimDirectionY = (bucketedAimDirection.x == 0f) ? bucketedAimDirection.y : 0f;
     topAnimator.SetFloat("AimDirectionX", bucketedAimDirection.x);
-    topAnimator.SetFloat("AimDirectionY", bucketedAimDirection.y);
+    topAnimator.SetFloat("AimDirectionY", animAimDirectionY);
+
     legAnimator.SetFloat("MoveX", moveDirection.x);
     legAnimator.SetFloat("MoveY", moveDirection.y);
 

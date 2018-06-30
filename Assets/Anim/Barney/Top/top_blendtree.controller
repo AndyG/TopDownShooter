@@ -50,7 +50,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: e4c3ece62bee846e796386c3e6174add, type: 2}
-    m_Threshold: 0.14285715
+    m_Threshold: 0.33333334
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -58,7 +58,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 356e08dad075a48ba83b364984f3030d, type: 2}
-    m_Threshold: 0.2857143
+    m_Threshold: 0.6666667
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -66,40 +66,8 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 3d70c589db5bf48a6ba7959c1dac589d, type: 2}
-    m_Threshold: 0.42857143
-    m_Position: {x: 0, y: 1}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: MoveX
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 368f531b08f834d0b86dabade9e40316, type: 2}
-    m_Threshold: 0.5714286
-    m_Position: {x: -0.68, y: -0.75}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: MoveX
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 44969dffa5502485cb2905810d5cbdf0, type: 2}
-    m_Threshold: 0.71428573
-    m_Position: {x: 0.68, y: -0.78}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: MoveX
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1d511a0610a584954864e1949299b000, type: 2}
-    m_Threshold: 0.85714287
-    m_Position: {x: -0.67, y: 0.7}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: MoveX
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 74a2e7b73c2774afdbce047d90c6c5b9, type: 2}
     m_Threshold: 1
-    m_Position: {x: 0.74, y: 0.65}
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: MoveX
@@ -117,7 +85,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Gun
+  m_Name: Player Aiming
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
