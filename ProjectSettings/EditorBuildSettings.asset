@@ -6,8 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6e45d52f956dc4772931c5afdaf62fb7
+  - enabled: 1
     path: Assets/Scenes/GrassArena1.unity
     guid: 43d8f5d1eeb384b8993af6e87728e472
-  - enabled: 1
-    path: Assets/Scenes/GrassArena2.unity
-    guid: 311c2572fa715453888ab5d1c7b5b536
+  m_configObjects: {}
