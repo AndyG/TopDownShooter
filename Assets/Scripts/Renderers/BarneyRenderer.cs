@@ -3,17 +3,17 @@ using UnityEngine;
 public class BarneyRenderer : MonoBehaviour
 {
   [Header("Sprites")]
-
   [SerializeField]
   private GameObject legSprite;
-
   [SerializeField]
   private GameObject topSprite;
+  [SerializeField]
+  private GameObject fullBodySprite;
 
-  private Material defaultMaterial;
-
+  [Header("Materials")]
   [SerializeField]
   private Material hitFlashMaterial;
+  private Material defaultMaterial;
 
   private SpriteRenderer topSpriteRenderer;
   private SpriteRenderer legSpriteRenderer;
@@ -31,17 +31,22 @@ public class BarneyRenderer : MonoBehaviour
     defaultMaterial = topSpriteRenderer.material;
   }
 
-  public void update(Vector2 aimDirection, Vector2 moveDirection)
+  public void update(Vector2 aimDirection, Vector2 moveDirection, bool isDashing)
   {
-    float threshold = 0.5f;
-    bool isAiming = aimDirection.sqrMagnitude >= threshold;
-
-    Vector2 resolvedAimDirection = isAiming ? aimDirection : moveDirection;
-    Vector2 bucketedAimDirection = getBucketedAimDirection(resolvedAimDirection);
-    topAnimator.SetFloat("AimDirectionX", bucketedAimDirection.x);
-    topAnimator.SetFloat("AimDirectionY", bucketedAimDirection.y);
-    legAnimator.SetFloat("MoveX", moveDirection.x);
-    legAnimator.SetFloat("MoveY", moveDirection.y);
+    if (isDashing)
+    {
+      UpdateDash(moveDirection);
+      fullBodySprite.SetActive(true);
+      topSprite.SetActive(false);
+      legSprite.SetActive(false);
+    }
+    else
+    {
+      UpdateNormalState(aimDirection, moveDirection);
+      fullBodySprite.SetActive(false);
+      topSprite.SetActive(true);
+      legSprite.SetActive(true);
+    }
   }
 
   public void setColorFilter(UnityEngine.Color color)
@@ -72,6 +77,24 @@ public class BarneyRenderer : MonoBehaviour
   {
     topSpriteRenderer.material = hitFlashMaterial;
     legSpriteRenderer.material = hitFlashMaterial;
+  }
+
+  private void UpdateNormalState(Vector2 aimDirection, Vector2 moveDirection)
+  {
+    float threshold = 0.5f;
+    bool isAiming = aimDirection.sqrMagnitude >= threshold;
+
+    Vector2 resolvedAimDirection = isAiming ? aimDirection : moveDirection;
+    Vector2 bucketedAimDirection = getBucketedAimDirection(resolvedAimDirection);
+    topAnimator.SetFloat("AimDirectionX", bucketedAimDirection.x);
+    topAnimator.SetFloat("AimDirectionY", bucketedAimDirection.y);
+    legAnimator.SetFloat("MoveX", moveDirection.x);
+    legAnimator.SetFloat("MoveY", moveDirection.y);
+  }
+
+  private void UpdateDash(Vector2 moveDirection)
+  {
+    Vector2 bucketedMoveDirection = getBucketedAimDirection(moveDirection);
   }
 
   private Vector2 getBucketedAimDirection(Vector2 rawDirection)

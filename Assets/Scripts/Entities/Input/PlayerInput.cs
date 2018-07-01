@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
   private Vector2 runDirection;
   private Vector2 aimDirection;
   private bool pressedSkill1;
+  private bool pressedDash;
 
   void Awake()
   {
@@ -25,6 +26,7 @@ public class PlayerInput : MonoBehaviour
     pressedSkill1 = _GetPressedSkill1();
     runDirection = _GetRunDirection();
     aimDirection = _GetAimDirection();
+    pressedDash = _GetPressedDash();
   }
 
   void LateUpdate()
@@ -37,6 +39,7 @@ public class PlayerInput : MonoBehaviour
     pressedSkill1 = false;
     runDirection = Vector2.zero;
     aimDirection = Vector2.zero;
+    pressedDash = false;
   }
 
   #region Getters
@@ -53,6 +56,11 @@ public class PlayerInput : MonoBehaviour
   public Vector2 GetAimDirection()
   {
     return aimDirection;
+  }
+
+  public bool DidPressDash()
+  {
+    return pressedDash;
   }
   #endregion
 
@@ -74,6 +82,11 @@ public class PlayerInput : MonoBehaviour
   private Vector2 _GetRunDirection()
   {
     return new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical")).normalized;
+  }
+
+  private bool _GetPressedDash()
+  {
+    return player.GetButtonDown("Dash");
   }
   #endregion
 }

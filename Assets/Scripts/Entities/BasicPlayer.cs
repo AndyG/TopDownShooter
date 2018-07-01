@@ -46,12 +46,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private Animator animator;
 
-  [SerializeField]
-  private GameObject barneyRendererSupplier;
-
   private BarneyRenderer barneyRenderer;
-
-  private OscillateSize oscillateSize;
 
   private Explosion explosion;
 
@@ -79,20 +74,28 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private HitPointManager hitPointManager;
 
+  [Header("Dash")]
+  [SerializeField]
+  private float dashForce = 20f;
+  [SerializeField]
+  private float dashDurationSecs = 0.25f;
+  private bool isDashing;
+
+  private IEnumerator currentDashCoroutine;
+
   // Use this for initialization
   void Start()
   {
     rigidBody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
     playerInput = gameObject.GetComponent<PlayerInput>();
-
-    barneyRenderer = barneyRendererSupplier.GetComponent<BarneyRenderer>();
-
-    setBombCount(bombCount);
+    barneyRenderer = gameObject.GetComponentInChildren<BarneyRenderer>();
 
     explosion = gameObject.GetComponent<Explosion>();
     hitPointManager = gameObject.GetComponent<HitPointManager>();
     hitPointManager.OnHitPointsChangedEvent += _OnHitPointsChanged;
+
+    setBombCount(bombCount);
   }
 
   void OnEnable()
@@ -120,22 +123,29 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       isPoweredUp = false;
     }
 
-    if (playerInput.DidPressSkill1())
-    {
-      dropBomb();
-    }
-
-    processMove();
-    processShoot();
     Vector2? aimDirection = getAimDirection();
     Vector2 runDirection = playerInput.GetRunDirection();
-
-    if (!aimDirection.HasValue)
+    if (playerInput.DidPressDash())
     {
-      aimDirection = runDirection;
+      PerformDash(runDirection);
+    }
+    else
+    {
+      if (playerInput.DidPressSkill1())
+      {
+        dropBomb();
+      }
+
+      processMove();
+      processShoot();
+
+      if (!aimDirection.HasValue)
+      {
+        aimDirection = runDirection;
+      }
     }
 
-    barneyRenderer.update(aimDirection.Value, runDirection);
+    barneyRenderer.update(aimDirection.Value, runDirection, isDashing);
   }
 
   void LateUpdate()
@@ -150,8 +160,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       return;
     }
 
-    hitThisFrame = true;
+    StopDash();
 
+    hitThisFrame = true;
     hitPointManager.decrement();
 
     Vector3 knockbackDir = (this.transform.position - other.transform.position).normalized;
@@ -305,10 +316,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     }
   }
 
-  private void updateAnimator()
-  {
-  }
-
   private void processShoot()
   {
     Vector2? aimDirection = getAimDirection();
@@ -361,6 +368,36 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     {
       OnBombCountChangedEvent(bombCount);
     }
+  }
+
+  private void PerformDash(Vector2 direction)
+  {
+    currentDashCoroutine = PerformDashCoroutine(direction);
+    StartCoroutine(currentDashCoroutine);
+  }
+
+  private void StopDash()
+  {
+    isDashing = false;
+    if (currentDashCoroutine != null)
+    {
+      StopCoroutine(currentDashCoroutine);
+    }
+  }
+
+  private IEnumerator PerformDashCoroutine(Vector2 direction)
+  {
+    isDashing = true;
+    inputLocked = true;
+
+    setVelocity(0f, 0f);
+    rigidBody.AddForce(direction * dashForce, ForceMode2D.Impulse);
+
+    yield return new WaitForSeconds(dashDurationSecs);
+
+    isDashing = false;
+    inputLocked = false;
+    currentDashCoroutine = null;
   }
 
   public int getBombCount()

@@ -81,6 +81,7 @@ public class GameSystem : MonoBehaviour
     gameState = GameState.PAUSED;
     pauseCanvas.gameObject.SetActive(true);
   }
+
   private void unpauseGame()
   {
     Time.timeScale = 1;
