@@ -58,10 +58,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private bool isPoweredUp;
 
-  [Header("Stats")]
-  [SerializeField]
-  private int hitPoints = 3;
-
   [Header("On Hit")]
   [SerializeField]
   private float hitKnockbackDurationSecs = 0.05f;
@@ -81,13 +77,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private bool hitThisFrame = false;
 
-
-  private float timeSinceHPRegen = 0f;
-
-  [Header("HP Regen")]
-  [SerializeField]
-  [Range(0f, 10f)]
-  private float HpRegenInterval = 5f;
+  private HitPointManager hitPointManager;
 
   // Use this for initialization
   void Start()
@@ -101,6 +91,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     setBombCount(bombCount);
 
     explosion = gameObject.GetComponent<Explosion>();
+    hitPointManager = gameObject.GetComponent<HitPointManager>();
+    hitPointManager.OnHitPointsChangedEvent += _OnHitPointsChanged;
   }
 
   void OnEnable()
@@ -127,21 +119,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       barneyRenderer.setColorFilter(Color.white);
       isPoweredUp = false;
     }
-
-    if (hitPoints < 3)
-    {
-      timeSinceHPRegen += Time.deltaTime;
-      if (timeSinceHPRegen > HpRegenInterval)
-      {
-        regenHP();
-        timeSinceHPRegen = 0;
-      }
-    }
-    else
-    {
-      timeSinceHPRegen = 0;
-    }
-
 
     if (playerInput.DidPressSkill1())
     {
@@ -175,21 +152,22 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     hitThisFrame = true;
 
-    hitPoints--;
+    hitPointManager.decrement();
 
-    if (OnHitPointsChangedEvent != null)
-    {
-      OnHitPointsChangedEvent(hitPoints);
-    }
+    Vector3 knockbackDir = (this.transform.position - other.transform.position).normalized;
+    StartCoroutine(HitKnockback(knockbackDir, _OnHitKnockbackEnded));
+  }
 
+  private void _OnHitPointsChanged(int hitPoints)
+  {
     if (hitPoints <= 0)
     {
       die();
     }
-    else
+
+    if (OnHitPointsChangedEvent != null)
     {
-      Vector3 knockbackDir = (this.transform.position - other.transform.position).normalized;
-      StartCoroutine(HitKnockback(knockbackDir, _OnHitKnockbackEnded));
+      OnHitPointsChangedEvent(hitPoints);
     }
   }
 
@@ -393,15 +371,5 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   // Weapon was used.
   public void OnUse(Vector3 direction)
   {
-  }
-
-
-  private void regenHP()
-  {
-    hitPoints++;
-    if (OnHitPointsChangedEvent != null)
-    {
-      OnHitPointsChangedEvent(hitPoints);
-    }
   }
 }
