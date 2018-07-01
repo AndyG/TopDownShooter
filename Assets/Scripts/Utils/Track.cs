@@ -25,7 +25,7 @@ public class Track : MonoBehaviour
     }
   }
 
-  void LateUpdate()
+  void FixedUpdate()
   {
     if (isSmooth)
     {
