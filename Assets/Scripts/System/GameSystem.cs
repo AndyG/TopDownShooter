@@ -64,6 +64,7 @@ public class GameSystem : MonoBehaviour
     }
     else if (player.GetButtonDown("Confirm"))
     {
+      Debug.Log("pressed confirm");
       reloadScene();
     }
   }
@@ -91,7 +92,7 @@ public class GameSystem : MonoBehaviour
 
   private void reloadScene()
   {
-    SceneManager.LoadScene("TestScene");
+    SceneManager.LoadScene("GrassArena1");
   }
 
   public enum GameState
