@@ -20,19 +20,24 @@ public class BarneyRenderer : MonoBehaviour
 
   private Animator topAnimator;
   private Animator legAnimator;
+  private Animator fullBodyAnimator;
 
   void Start()
   {
     topAnimator = topSprite.GetComponent<Animator>();
     topSpriteRenderer = topSprite.GetComponent<SpriteRenderer>();
+
     legAnimator = legSprite.GetComponent<Animator>();
     legSpriteRenderer = legSprite.GetComponent<SpriteRenderer>();
+
+    fullBodyAnimator = fullBodySprite.GetComponent<Animator>();
 
     defaultMaterial = topSpriteRenderer.material;
   }
 
   public void update(Vector2 aimDirection, Vector2 moveDirection, bool isDashing)
   {
+    fullBodyAnimator.SetBool("PlayerDashing", isDashing);
     if (isDashing)
     {
       UpdateDash(moveDirection);
@@ -94,7 +99,11 @@ public class BarneyRenderer : MonoBehaviour
 
   private void UpdateDash(Vector2 moveDirection)
   {
+    Debug.Log("moveDirRaw" + moveDirection.ToString());
     Vector2 bucketedMoveDirection = getBucketedAimDirection(moveDirection);
+    Debug.Log("moveDir" + bucketedMoveDirection.ToString());
+    fullBodyAnimator.SetFloat("MovementDirectionX", bucketedMoveDirection.x);
+    fullBodyAnimator.SetFloat("MovementDirectionY", bucketedMoveDirection.y);
   }
 
   private Vector2 getBucketedAimDirection(Vector2 rawDirection)

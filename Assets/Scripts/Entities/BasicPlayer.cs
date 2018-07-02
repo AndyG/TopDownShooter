@@ -81,6 +81,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private float dashDurationSecs = 0.25f;
   private bool isDashing;
 
+  private Vector2 currentDashDirection;
+
   private IEnumerator currentDashCoroutine;
 
   // Use this for initialization
@@ -124,10 +126,24 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     }
 
     Vector2? aimDirection = getAimDirection();
-    Vector2 runDirection = playerInput.GetRunDirection();
+    Vector2 moveDirection;
+    if (isDashing)
+    {
+      moveDirection = currentDashDirection;
+    }
+    else
+    {
+      moveDirection = playerInput.GetRunDirection();
+    }
+
+    if (!aimDirection.HasValue)
+    {
+      aimDirection = moveDirection;
+    }
+
     if (playerInput.DidPressDash())
     {
-      PerformDash(runDirection);
+      PerformDash(moveDirection);
     }
     else
     {
@@ -138,14 +154,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
       processMove();
       processShoot();
-
-      if (!aimDirection.HasValue)
-      {
-        aimDirection = runDirection;
-      }
     }
 
-    barneyRenderer.update(aimDirection.Value, runDirection, isDashing);
+    barneyRenderer.update(aimDirection.Value, moveDirection, isDashing);
   }
 
   void LateUpdate()
@@ -390,6 +401,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     isDashing = true;
     inputLocked = true;
 
+    currentDashDirection = direction;
+
     setVelocity(0f, 0f);
     rigidBody.AddForce(direction * dashForce, ForceMode2D.Impulse);
 
@@ -398,6 +411,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     isDashing = false;
     inputLocked = false;
     currentDashCoroutine = null;
+    currentDashDirection = Vector2.zero;
   }
 
   public int getBombCount()
