@@ -122,11 +122,13 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
 
   private void HandleCollision(Collider2D other)
   {
+    BasicPlayer targetPlayer = target.GetComponent<BasicPlayer>();
     Bullet bullet = other.GetComponent<Bullet>();
     if (bullet != null)
     {
       handleShot(bullet);
       Destroy(bullet.gameObject);
+      targetPlayer.OnEnemyKilled();
       return;
     }
 
@@ -139,6 +141,7 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
     Bomb bomb = other.GetComponent<Bomb>();
     if (bomb != null)
     {
+      targetPlayer.OnEnemyKilled();
       onBombed();
     }
   }

@@ -16,6 +16,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public delegate void OnHitPointsChanged(int hitPoints);
   public event OnHitPointsChanged OnHitPointsChangedEvent;
 
+  public delegate void OnKillCountChanged(int killCount);
+  public event OnKillCountChanged OnKillCountChangedEvent;
+
   private delegate void OnHitKnockbackEnded();
 
   private PlayerInput playerInput;
@@ -80,6 +83,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   [SerializeField]
   private float dashDurationSecs = 0.25f;
   private bool isDashing;
+
+  private int killCount;
 
   private IEnumerator currentDashCoroutine;
 
@@ -167,6 +172,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     Vector3 knockbackDir = (this.transform.position - other.transform.position).normalized;
     StartCoroutine(HitKnockback(knockbackDir, _OnHitKnockbackEnded));
+  }
+
+  public void OnEnemyKilled()
+  {
+    killCount++;
+    if (OnKillCountChangedEvent != null)
+    {
+      OnKillCountChangedEvent(killCount);
+    }
   }
 
   private void _OnHitPointsChanged(int hitPoints)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class HUD : MonoBehaviour
   [SerializeField]
   private HitPoint hitPoint3;
 
+  [SerializeField]
+  private Text killCountText;
+
   void Awake()
   {
     text = GetComponentInChildren<TextMeshProUGUI>();
@@ -30,12 +34,14 @@ public class HUD : MonoBehaviour
     player.OnBombCountChangedEvent += setBombCount;
     player.OnHitPointsChangedEvent += setHitPointCount;
     setBombCount(player.getBombCount());
+    player.OnKillCountChangedEvent += OnEnemyKilled;
   }
 
   void OnDisable()
   {
     player.OnBombCountChangedEvent -= setBombCount;
     player.OnHitPointsChangedEvent -= setHitPointCount;
+    player.OnKillCountChangedEvent -= OnEnemyKilled;
   }
 
   private void setBombCount(int bombCount)
@@ -68,5 +74,10 @@ public class HUD : MonoBehaviour
     {
       hitPoint1.Destroy();
     }
+  }
+
+  public void OnEnemyKilled(int killCount)
+  {
+    killCountText.text= "Kills: " + killCount;
   }
 }
