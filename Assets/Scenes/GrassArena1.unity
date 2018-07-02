@@ -17234,6 +17234,11 @@ Prefab:
       propertyPath: camera
       value: 
       objectReference: {fileID: 931027990}
+    - target: {fileID: 114311391319196486, guid: fb1a4b04bfcc842ff9d7037a708d4993,
+        type: 2}
+      propertyPath: regenTimeSecs
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb1a4b04bfcc842ff9d7037a708d4993, type: 2}
   m_IsPrefabParent: 0
