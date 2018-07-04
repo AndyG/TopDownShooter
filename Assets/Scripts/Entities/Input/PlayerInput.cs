@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
   private Vector2 runDirection;
   private Vector2 aimDirection;
   private bool pressedSkill1;
+  private bool pressedSkill2;
   private bool pressedDash;
 
   void Awake()
@@ -24,6 +25,7 @@ public class PlayerInput : MonoBehaviour
   public void GatherInput()
   {
     pressedSkill1 = _GetPressedSkill1();
+    pressedSkill2 = _GetPressedSkill2();
     runDirection = _GetRunDirection();
     aimDirection = _GetAimDirection();
     pressedDash = _GetPressedDash();
@@ -48,6 +50,11 @@ public class PlayerInput : MonoBehaviour
     return pressedSkill1;
   }
 
+  public bool DidPressSkill2()
+  {
+    return pressedSkill2;
+  }
+
   public Vector2 GetRunDirection()
   {
     return runDirection;
@@ -69,6 +76,11 @@ public class PlayerInput : MonoBehaviour
   private bool _GetPressedSkill1()
   {
     return player.GetButtonDown("Skill 1");
+  }
+
+  private bool _GetPressedSkill2()
+  {
+    return player.GetButtonDown("Skill 2");
   }
 
   private Vector2 _GetAimDirection()

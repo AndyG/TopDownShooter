@@ -81,7 +81,14 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private float dashDurationSecs = 0.25f;
   private bool isDashing;
 
+  [Header("Weapons")]
+  [SerializeField]
+  private RocketLauncher rocketLauncher;
+
   private Vector2 currentDashDirection;
+
+  private bool skillsLocked = false;
+  private IEnumerator lockSkillsCoroutine;
 
   // Use this for initialization
   void Start()
@@ -91,6 +98,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     playerInput = gameObject.GetComponent<PlayerInput>();
     barneyRenderer = gameObject.GetComponentInChildren<BarneyRenderer>();
 
+    rocketLauncher = gameObject.GetComponentInChildren<RocketLauncher>();
     explosion = gameObject.GetComponent<Explosion>();
     hitPointManager = gameObject.GetComponent<HitPointManager>();
     hitPointManager.OnHitPointsChangedEvent += _OnHitPointsChanged;
@@ -146,13 +154,23 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     }
     else
     {
-      if (playerInput.DidPressSkill1())
-      {
-        dropBomb();
-      }
-
       processMove();
-      processShoot();
+
+      if (!skillsLocked)
+      {
+        if (playerInput.DidPressSkill1())
+        {
+          dropBomb();
+        }
+        else if (playerInput.DidPressSkill2())
+        {
+          fireRocket();
+        }
+        else
+        {
+          processShoot();
+        }
+      }
     }
 
     barneyRenderer.update(aimDirection.Value, moveDirection, isDashing);
@@ -346,6 +364,26 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     }
   }
 
+  private void fireRocket()
+  {
+    Vector2? aimDirection = getAimDirection();
+    if (!aimDirection.HasValue)
+    {
+      return;
+    }
+
+    Vector2 aimDirectionResolved = aimDirection.Value;
+    if (rocketLauncher != null)
+    {
+      bool used = rocketLauncher.Use(aimDirectionResolved);
+      if (used)
+      {
+        camera.GetComponent<CameraControl>().Shake(0.15f, 15, 500f);
+        LockSkills(1f);
+      }
+    }
+  }
+
   private Vector2? getAimDirection()
   {
     Vector2 aimDirection = playerInput.GetAimDirection();
@@ -411,6 +449,35 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     StopDash();
     inputLocked = false;
     currentDashDirection = Vector2.zero;
+  }
+
+  private void LockSkills(float timeLocked)
+  {
+    if (lockSkillsCoroutine != null)
+    {
+      StopCoroutine(lockSkillsCoroutine);
+    }
+
+    lockSkillsCoroutine = LockSkillsEnumerator(timeLocked);
+    StartCoroutine(lockSkillsCoroutine);
+  }
+
+  private IEnumerator LockSkillsEnumerator(float timeLocked)
+  {
+    skillsLocked = true;
+    yield return new WaitForSeconds(timeLocked);
+    skillsLocked = false;
+    lockSkillsCoroutine = null;
+  }
+
+  private void UnlockSkills()
+  {
+    if (lockSkillsCoroutine != null)
+    {
+      StopCoroutine(lockSkillsCoroutine);
+    }
+
+    skillsLocked = false;
   }
 
   // Weapon was used.
