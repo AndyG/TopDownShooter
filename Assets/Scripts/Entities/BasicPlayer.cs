@@ -378,7 +378,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       bool used = rocketLauncher.Use(aimDirectionResolved);
       if (used)
       {
-        camera.GetComponent<CameraControl>().Shake(0.15f, 15, 500f);
+        camera.GetComponent<CameraControl>().Shake(0.30f, 15, 500f);
         LockSkills(1f);
       }
     }

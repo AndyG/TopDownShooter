@@ -11,10 +11,13 @@ public class RocketLauncher : MonoBehaviour
   private Transform bulletOrigin;
 
   [SerializeField]
-  public Rocket projectile;
+  private Rocket projectile;
 
   [SerializeField]
-  public float speed;
+  private float speed;
+
+  [SerializeField]
+  private GameObject muzzleFlashPrototype;
 
   [SerializeField]
   [Range(1, 30)]
@@ -57,11 +60,14 @@ public class RocketLauncher : MonoBehaviour
 
   private void spawnBullet(Vector3 direction)
   {
-    Rocket tempGo = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as Rocket;
-    Rigidbody2D rigidBody = tempGo.GetComponent<Rigidbody2D>();
-    tempGo.transform.position = bulletOrigin.position;
+    Rocket rocket = GameObject.Instantiate(projectile, Vector3.zero, Quaternion.identity) as Rocket;
+    rocket.transform.position = bulletOrigin.position;
+    rocket.SetDirection(direction);
 
-    tempGo.SetDirection(direction);
+    GameObject muzzleFlash = GameObject.Instantiate(muzzleFlashPrototype, Vector3.zero, Quaternion.identity) as GameObject;
+    muzzleFlash.transform.position = bulletOrigin.position;
+    float rot_z = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 180;
+    muzzleFlash.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
 
     timeSinceLastShot = 0;
   }

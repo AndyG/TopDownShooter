@@ -48,3 +48,6 @@ TagManager:
   - name: Player
     uniqueID: 2425400175
     locked: 0
+  - name: Particle Effects
+    uniqueID: 3138414683
+    locked: 0
