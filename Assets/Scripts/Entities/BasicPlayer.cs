@@ -83,8 +83,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private Vector2 currentDashDirection;
 
-  private IEnumerator currentDashCoroutine;
-
   // Use this for initialization
   void Start()
   {
@@ -98,6 +96,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     hitPointManager.OnHitPointsChangedEvent += _OnHitPointsChanged;
 
     setBombCount(bombCount);
+    ListenForDashEnded();
   }
 
   void OnEnable()
@@ -383,21 +382,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private void PerformDash(Vector2 direction)
   {
-    currentDashCoroutine = PerformDashCoroutine(direction);
-    StartCoroutine(currentDashCoroutine);
-  }
-
-  private void StopDash()
-  {
-    isDashing = false;
-    if (currentDashCoroutine != null)
-    {
-      StopCoroutine(currentDashCoroutine);
-    }
-  }
-
-  private IEnumerator PerformDashCoroutine(Vector2 direction)
-  {
     isDashing = true;
     inputLocked = true;
 
@@ -405,18 +389,28 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     setVelocity(0f, 0f);
     rigidBody.AddForce(direction * dashForce, ForceMode2D.Impulse);
+  }
 
-    yield return new WaitForSeconds(dashDurationSecs);
-
+  private void StopDash()
+  {
     isDashing = false;
-    inputLocked = false;
-    currentDashCoroutine = null;
-    currentDashDirection = Vector2.zero;
   }
 
   public int getBombCount()
   {
     return bombCount;
+  }
+
+  private void ListenForDashEnded()
+  {
+    gameObject.GetComponentInChildren<FullBodyAnimationListener>().OnDashEndedEvent += OnDashAnimationEnded;
+  }
+
+  private void OnDashAnimationEnded()
+  {
+    StopDash();
+    inputLocked = false;
+    currentDashDirection = Vector2.zero;
   }
 
   // Weapon was used.

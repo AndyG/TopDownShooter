@@ -99,9 +99,7 @@ public class BarneyRenderer : MonoBehaviour
 
   private void UpdateDash(Vector2 moveDirection)
   {
-    Debug.Log("moveDirRaw" + moveDirection.ToString());
     Vector2 bucketedMoveDirection = getBucketedAimDirection(moveDirection);
-    Debug.Log("moveDir" + bucketedMoveDirection.ToString());
     fullBodyAnimator.SetFloat("MovementDirectionX", bucketedMoveDirection.x);
     fullBodyAnimator.SetFloat("MovementDirectionY", bucketedMoveDirection.y);
   }
