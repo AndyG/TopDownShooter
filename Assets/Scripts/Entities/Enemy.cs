@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
+public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
 {
 
   [SerializeField]
@@ -204,5 +204,14 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter
   public void SetTarget(GameObject gameObject)
   {
     this.target = gameObject;
+  }
+
+  public void OnHit(GameObject other)
+  {
+    Rocket rocket = other.GetComponent<Rocket>();
+    if (rocket != null)
+    {
+      die(true);
+    }
   }
 }

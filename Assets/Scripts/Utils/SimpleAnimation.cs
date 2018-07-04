@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SimpleAnimation : MonoBehaviour
 {
-  void OnAnimationComplete()
+  public void OnAnimationEnded()
   {
-    Destroy(gameObject);
+    GameObject.Destroy(this.gameObject);
   }
 }

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 95566495104695292}
   - component: {fileID: 50387645156175640}
   - component: {fileID: 114593865524560258}
+  - component: {fileID: 61052775184780006}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1841252462528814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.652911, y: 25.53, z: 0}
+  m_LocalPosition: {x: -4.058786, y: 3.8019836, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,6 +64,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61052775184780006
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841252462528814}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00000011920929, y: -0.6844119}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.75, y: 2.5}
+    newSize: {x: 0.28, y: 0.4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7544911, y: 1.1311762}
+  m_EdgeRadius: 0
 --- !u!95 &95566495104695292
 Animator:
   serializedVersion: 3
@@ -96,6 +122,8 @@ MonoBehaviour:
   smokePrototype: {fileID: 1509801475677310, guid: 33afb0fca6bea48e0927474ae7ccdb1e,
     type: 2}
   smokeInterval: 0.1
+  explosionPrototype: {fileID: 1262921295499614, guid: 072da4d080da8441aa847e1ec5df4e27,
+    type: 2}
 --- !u!212 &212295264814548572
 SpriteRenderer:
   m_ObjectHideFlags: 1
