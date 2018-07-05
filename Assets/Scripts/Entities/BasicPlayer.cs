@@ -162,7 +162,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
         {
           dropBomb();
         }
-        else if (playerInput.DidPressSkill2())
+        else if (playerInput.DidPressSkill2() && bombCount > 0)
         {
           fireRocket();
         }
@@ -252,11 +252,12 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   public void onPickup()
   {
-    Weapon weapon = weaponSupplier.GetComponent<Weapon>();
-    weapon.powerUp();
-    barneyRenderer.setColorFilter(Color.red);
-    isPoweredUp = true;
-    timeSincePowerUp = 0;
+    setBombCount(bombCount + 1);
+    // Weapon weapon = weaponSupplier.GetComponent<Weapon>();
+    // weapon.powerUp();
+    // barneyRenderer.setColorFilter(Color.red);
+    // isPoweredUp = true;
+    // timeSincePowerUp = 0;
   }
 
   private void die()
@@ -380,6 +381,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       {
         camera.GetComponent<CameraControl>().Shake(0.30f, 15, 500f);
         LockSkills(1f);
+        setBombCount(bombCount - 1);
       }
     }
   }
