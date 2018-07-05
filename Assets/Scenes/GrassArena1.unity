@@ -1943,6 +1943,7 @@ GameObject:
   - component: {fileID: 931027989}
   - component: {fileID: 931027988}
   - component: {fileID: 931027993}
+  - component: {fileID: 931027992}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1984,7 +1985,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2014,6 +2015,22 @@ Transform:
   m_Father: {fileID: 2139468282}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &931027992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 931027987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8007a4a717f064b60900333c35337382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1608742535}
+  target2: {fileID: 0}
+  distance: 15
+  lerpFactor: 0.1
+  isSmooth: 1
 --- !u!114 &931027993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2710,7 +2727,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1609204855}
-  - component: {fileID: 1609204856}
   m_Layer: 0
   m_Name: CameraMainAxis
   m_TagString: Untagged
@@ -2732,22 +2748,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1609204856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1609204854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8007a4a717f064b60900333c35337382, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1608742535}
-  target2: {fileID: 0}
-  distance: 10
-  lerpFactor: 0.8
-  isSmooth: 1
 --- !u!1 &1696948443
 GameObject:
   m_ObjectHideFlags: 0
