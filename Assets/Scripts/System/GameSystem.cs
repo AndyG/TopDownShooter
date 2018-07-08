@@ -7,9 +7,7 @@ public class GameSystem : MonoBehaviour
 
   private float timeAlive;
 
-  [SerializeField]
-  private GameObject inputManagerProvider;
-
+  [Header("Canvases")]
   [SerializeField]
   private Canvas pauseCanvas;
 
@@ -19,11 +17,19 @@ public class GameSystem : MonoBehaviour
   [SerializeField]
   private Canvas uiCanvas;
 
+  [Header("Input")]
+  [SerializeField]
+  private GameObject inputManagerProvider;
+
+  [Header("Game State")]
   [SerializeField]
   private GameState gameState = GameState.RUNNING;
 
   [SerializeField]
   private BasicPlayer basicPlayer;
+
+  [SerializeField]
+  private PurchaseManager purchaseManager;
 
   private Player player;
 
@@ -32,6 +38,7 @@ public class GameSystem : MonoBehaviour
   {
     timeAlive = 0f;
     player = ReInput.players.GetPlayer(0);
+    purchaseManager = GameObject.FindObjectOfType<PurchaseManager>();
   }
 
   void OnEnable()
@@ -48,7 +55,7 @@ public class GameSystem : MonoBehaviour
   void Update()
   {
     timeAlive += Time.deltaTime;
-    if (gameState != GameState.DEAD)
+    if (gameState == GameState.RUNNING)
     {
       if (player.GetButtonDown("Pause"))
       {
@@ -56,16 +63,31 @@ public class GameSystem : MonoBehaviour
         {
           unpauseGame();
         }
-        else if (gameState == GameState.RUNNING)
+        else
         {
-          pauseGame();
+          Time.timeScale = 0;
+          purchaseManager.Open();
+          gameState = GameState.PURCHASING;
+          // pauseGame();
         }
       }
     }
-    else if (player.GetButtonDown("Confirm"))
+    else if (gameState == GameState.DEAD)
     {
-      Debug.Log("pressed confirm");
-      reloadScene();
+      if (player.GetButtonDown("Confirm"))
+      {
+        Debug.Log("pressed confirm");
+        reloadScene();
+      }
+    }
+    else if (gameState == GameState.PURCHASING)
+    {
+      if (player.GetButtonDown("Confirm"))
+      {
+        purchaseManager.Close();
+        Time.timeScale = 1;
+        gameState = GameState.RUNNING;
+      }
     }
   }
 
@@ -99,6 +121,7 @@ public class GameSystem : MonoBehaviour
   {
     RUNNING,
     PAUSED,
+    PURCHASING,
     DEAD
   }
 }
