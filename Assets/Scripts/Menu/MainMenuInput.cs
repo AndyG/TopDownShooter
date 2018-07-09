@@ -9,6 +9,8 @@ public class MainMenuInput : MonoBehaviour
 
   [SerializeField]
   private int playerId;
+  [SerializeField]
+  private bool horizontal;
 
   private Player player;
 
@@ -52,7 +54,8 @@ public class MainMenuInput : MonoBehaviour
 
   private int _GetNavDirection()
   {
-    return Math.Sign(player.GetAxis("Move Vertical"));
+    String axis = horizontal ? "Move Horizontal" : "Move Vertical";
+    return Math.Sign(player.GetAxis(axis));
   }
   #endregion
 }

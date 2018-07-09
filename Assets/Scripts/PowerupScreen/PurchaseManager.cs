@@ -6,6 +6,7 @@ public class PurchaseManager : MonoBehaviour
 {
 
   private Animator animator;
+  private PurchaseSelector purchaseSelector;
 
   [Header("State")]
   [SerializeField]
@@ -15,6 +16,7 @@ public class PurchaseManager : MonoBehaviour
   void Start()
   {
     animator = GetComponent<Animator>();
+    purchaseSelector = GetComponent<PurchaseSelector>();
   }
 
   // Update is called once per frame
@@ -31,11 +33,20 @@ public class PurchaseManager : MonoBehaviour
   public void Close()
   {
     SetState(State.CLOSING);
+    purchaseSelector.Deactivate();
   }
 
   public void OnFinishedOpening()
   {
     SetState(State.OPEN);
+    List<PowerupChoiceDisplay> choices = new List<PowerupChoiceDisplay>();
+    PowerupChoiceDisplay[] choicesArray = GetComponentsInChildren<PowerupChoiceDisplay>();
+    foreach (PowerupChoiceDisplay choice in choicesArray)
+    {
+      choices.Add(choice);
+    }
+
+    purchaseSelector.Activate(choices, OnSelected);
   }
 
   public void OnFinishedClosing()
@@ -47,6 +58,11 @@ public class PurchaseManager : MonoBehaviour
   {
     this.state = state;
     animator.SetInteger("State", (int)state);
+  }
+
+  private void OnSelected(PowerupChoiceDisplay choice)
+  {
+    Debug.Log("selected an item");
   }
 
   public enum State
