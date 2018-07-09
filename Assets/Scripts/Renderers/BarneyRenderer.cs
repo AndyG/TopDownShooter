@@ -35,12 +35,25 @@ public class BarneyRenderer : MonoBehaviour
     defaultMaterial = topSpriteRenderer.material;
   }
 
-  public void update(Vector2 aimDirection, Vector2 moveDirection, bool isDashing)
+  public void update(Vector2 aimDirection, Vector2 moveDirection, bool isDashing, bool isWarpingOut, bool isWarpingIn)
   {
-    fullBodyAnimator.SetBool("PlayerDashing", isDashing);
     if (isDashing)
     {
       UpdateDash(moveDirection);
+      fullBodySprite.SetActive(true);
+      topSprite.SetActive(false);
+      legSprite.SetActive(false);
+    }
+    else if (isWarpingOut)
+    {
+      UpdateWarpOut();
+      fullBodySprite.SetActive(true);
+      topSprite.SetActive(false);
+      legSprite.SetActive(false);
+    }
+    else if (isWarpingIn)
+    {
+      UpdateWarpIn();
       fullBodySprite.SetActive(true);
       topSprite.SetActive(false);
       legSprite.SetActive(false);
@@ -99,9 +112,20 @@ public class BarneyRenderer : MonoBehaviour
 
   private void UpdateDash(Vector2 moveDirection)
   {
+    fullBodyAnimator.SetInteger("State", 0);
     Vector2 bucketedMoveDirection = getBucketedAimDirection(moveDirection);
     fullBodyAnimator.SetFloat("MovementDirectionX", bucketedMoveDirection.x);
     fullBodyAnimator.SetFloat("MovementDirectionY", bucketedMoveDirection.y);
+  }
+
+  public void UpdateWarpOut()
+  {
+    fullBodyAnimator.SetInteger("State", 1);
+  }
+
+  public void UpdateWarpIn()
+  {
+    fullBodyAnimator.SetInteger("State", 2);
   }
 
   private Vector2 getBucketedAimDirection(Vector2 rawDirection)

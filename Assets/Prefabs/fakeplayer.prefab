@@ -526,6 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e432297caa7a7475eac6ae0bfdaaecc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regenTimeSecs: -1
   hitPoints: 3
   maxHitPoints: 3
 --- !u!114 &114559337187501802
@@ -608,7 +609,11 @@ MonoBehaviour:
   isInvulnerable: 0
   flashInterval: 0.05
   dashForce: 30
-  dashDurationSecs: 0.25
+  dashDurationSecs: 0.65
+  isWarpingOut: 0
+  isWarpingIn: 1
+  warpInDurationSecs: 1
+  rocketLauncher: {fileID: 0}
 --- !u!212 &212095117800334738
 SpriteRenderer:
   m_ObjectHideFlags: 1

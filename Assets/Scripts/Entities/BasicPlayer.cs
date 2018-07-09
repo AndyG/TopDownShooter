@@ -81,6 +81,16 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private float dashDurationSecs = 0.25f;
   private bool isDashing;
 
+  [Header("Warp")]
+  [SerializeField]
+  private bool isWarpingOut;
+  private WarpPad warpPad;
+
+  [SerializeField]
+  private bool isWarpingIn = true;
+  [SerializeField]
+  private float warpInDurationSecs = 2f;
+
   [Header("Weapons")]
   [SerializeField]
   private RocketLauncher rocketLauncher;
@@ -105,6 +115,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     setBombCount(bombCount);
     ListenForDashEnded();
+    StartCoroutine(EndWarpIn());
   }
 
   void OnEnable()
@@ -117,6 +128,18 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   {
     if (Time.timeScale <= 0)
     {
+      return;
+    }
+
+    if (isWarpingIn)
+    {
+      ContinueWarpIn();
+      return;
+    }
+
+    if (isWarpingOut)
+    {
+      ContinueWarpOut();
       return;
     }
 
@@ -173,7 +196,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       }
     }
 
-    barneyRenderer.update(aimDirection.Value, moveDirection, isDashing);
+    barneyRenderer.update(aimDirection.Value, moveDirection, isDashing, isWarpingOut, isWarpingIn);
   }
 
   void LateUpdate()
@@ -257,6 +280,35 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     barneyRenderer.setColorFilter(Color.red);
     isPoweredUp = true;
     timeSincePowerUp = 0;
+  }
+
+  public void BeginWarpOut(WarpPad warpPad)
+  {
+    setVelocity(0f, 0f);
+    isWarpingOut = true;
+    isDashing = false;
+    this.warpPad = warpPad;
+  }
+
+  private void ContinueWarpOut()
+  {
+    barneyRenderer.update(Vector2.zero, Vector2.zero, false, true, false);
+    this.transform.position = Vector3.Lerp(this.transform.position, warpPad.transform.position, 0.01f);
+    float distance = Vector3.Distance(this.transform.position, warpPad.transform.position);
+    if (distance < 0.2f)
+    {
+      PerformWarpTransition();
+    }
+  }
+
+  private void ContinueWarpIn()
+  {
+    barneyRenderer.update(Vector2.zero, Vector2.zero, false, false, true);
+  }
+
+  private void PerformWarpTransition()
+  {
+    warpPad.Warp();
   }
 
   private void die()
@@ -442,6 +494,18 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private void ListenForDashEnded()
   {
     gameObject.GetComponentInChildren<FullBodyAnimationListener>().OnDashEndedEvent += OnDashAnimationEnded;
+  }
+
+  private IEnumerator EndWarpIn()
+  {
+    yield return new WaitForSeconds(warpInDurationSecs);
+    isWarpingIn = false;
+  }
+
+  private void OnWarpInAnimationEnded()
+  {
+    inputLocked = false;
+    isWarpingIn = false;
   }
 
   private void OnDashAnimationEnded()
