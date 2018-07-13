@@ -39,4 +39,9 @@ public class PowerupChoiceDisplay : MonoBehaviour
     Debug.Log("setting focused: " + isFocused + " -- " + name);
     animator.SetBool("IsFocused", isFocused);
   }
+
+  public PowerupChoice GetPowerupChoice()
+  {
+    return powerupChoice;
+  }
 }

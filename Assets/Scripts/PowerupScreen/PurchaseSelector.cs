@@ -110,8 +110,6 @@ public class PurchaseSelector : MonoBehaviour
     {
       onSelectedCallback(choices[focusedChoice]);
     }
-
-    // TODO
   }
 
   private void StopUnlockMovesCoroutine()

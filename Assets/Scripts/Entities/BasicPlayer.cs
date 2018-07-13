@@ -100,6 +100,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private bool skillsLocked = false;
   private IEnumerator lockSkillsCoroutine;
 
+  private PlayerConfig playerConfig;
+
   // Use this for initialization
   void Start()
   {
@@ -112,6 +114,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     explosion = gameObject.GetComponent<Explosion>();
     hitPointManager = gameObject.GetComponent<HitPointManager>();
     hitPointManager.OnHitPointsChangedEvent += _OnHitPointsChanged;
+
+    playerConfig = GameObject.FindObjectOfType<PlayerConfig>();
 
     setBombCount(bombCount);
     ListenForDashEnded();
@@ -431,7 +435,9 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       if (used)
       {
         camera.GetComponent<CameraControl>().Shake(0.30f, 15, 500f);
-        LockSkills(1f);
+
+        float lockSkillsTime = playerConfig.getHasGoodRockets() ? 0.25f : 1f;
+        LockSkills(lockSkillsTime);
       }
     }
   }
@@ -479,11 +485,17 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
     setVelocity(0f, 0f);
     rigidBody.AddForce(direction * dashForce, ForceMode2D.Impulse);
+
+    if (playerConfig.getHasInvincibleRoll())
+    {
+      isInvulnerable = true;
+    }
   }
 
   private void StopDash()
   {
     isDashing = false;
+    isInvulnerable = false;
   }
 
   public int getBombCount()

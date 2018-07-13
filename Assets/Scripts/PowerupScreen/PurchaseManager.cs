@@ -7,6 +7,7 @@ public class PurchaseManager : MonoBehaviour
 
   private Animator animator;
   private PurchaseSelector purchaseSelector;
+  private PlayerConfig playerConfig;
 
   [Header("State")]
   [SerializeField]
@@ -17,6 +18,7 @@ public class PurchaseManager : MonoBehaviour
   {
     animator = GetComponent<Animator>();
     purchaseSelector = GetComponent<PurchaseSelector>();
+    playerConfig = GameObject.FindObjectOfType<PlayerConfig>();
   }
 
   // Update is called once per frame
@@ -62,7 +64,15 @@ public class PurchaseManager : MonoBehaviour
 
   private void OnSelected(PowerupChoiceDisplay choice)
   {
-    Debug.Log("selected an item");
+    PowerupChoice powerupChoice = choice.GetPowerupChoice();
+    if (powerupChoice.name == "InvincibleRoll")
+    {
+      playerConfig.SetHasInvincibleRoll();
+    }
+    else if (powerupChoice.name == "MissileCooldown")
+    {
+      playerConfig.SetHasGoodRockets();
+    }
   }
 
   public enum State
