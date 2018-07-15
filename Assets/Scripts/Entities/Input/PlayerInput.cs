@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
   private Vector2 aimDirection;
   private bool pressedSkill1;
   private bool pressedSkill2;
+  private bool pressedInteract;
   private bool pressedDash;
 
   void Awake()
@@ -28,19 +29,16 @@ public class PlayerInput : MonoBehaviour
     pressedSkill2 = _GetPressedSkill2();
     runDirection = _GetRunDirection();
     aimDirection = _GetAimDirection();
+    pressedInteract = _GetPressedInteract();
     pressedDash = _GetPressedDash();
   }
 
   void LateUpdate()
   {
-
-    if (pressedSkill1)
-    {
-      Debug.Log("pressed skill 1");
-    }
     pressedSkill1 = false;
     runDirection = Vector2.zero;
     aimDirection = Vector2.zero;
+    pressedInteract = false;
     pressedDash = false;
   }
 
@@ -63,6 +61,11 @@ public class PlayerInput : MonoBehaviour
   public Vector2 GetAimDirection()
   {
     return aimDirection;
+  }
+
+  public bool DidPressInteract()
+  {
+    return pressedInteract;
   }
 
   public bool DidPressDash()
@@ -99,6 +102,11 @@ public class PlayerInput : MonoBehaviour
   private bool _GetPressedDash()
   {
     return player.GetButtonDown("Dash");
+  }
+
+  private bool _GetPressedInteract()
+  {
+    return player.GetButtonDown("Interact");
   }
   #endregion
 }

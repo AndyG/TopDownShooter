@@ -102,6 +102,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
 
   private PlayerConfig playerConfig;
 
+  private InteractableDetector interactableDetector;
+
   // Use this for initialization
   void Start()
   {
@@ -109,6 +111,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
     animator = gameObject.GetComponent<Animator>();
     playerInput = gameObject.GetComponent<PlayerInput>();
     barneyRenderer = gameObject.GetComponentInChildren<BarneyRenderer>();
+    interactableDetector = GetComponent<InteractableDetector>();
 
     rocketLauncher = gameObject.GetComponentInChildren<RocketLauncher>();
     explosion = gameObject.GetComponent<Explosion>();
@@ -159,7 +162,6 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       isPoweredUp = false;
     }
 
-    Vector2? aimDirection = getAimDirection();
     Vector2 moveDirection;
     if (isDashing)
     {
@@ -170,10 +172,8 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       moveDirection = playerInput.GetRunDirection();
     }
 
-    if (!aimDirection.HasValue)
-    {
-      aimDirection = moveDirection;
-    }
+    Vector2? aimDirectionInput = getAimDirection();
+    Vector2 aimDirection = aimDirectionInput.HasValue ? aimDirectionInput.Value : moveDirection;
 
     if (playerInput.DidPressDash())
     {
@@ -193,6 +193,10 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
         {
           fireRocket();
         }
+        else if (playerInput.DidPressInteract())
+        {
+          Interact(aimDirection);
+        }
         else
         {
           processShoot();
@@ -200,7 +204,7 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
       }
     }
 
-    barneyRenderer.update(aimDirection.Value, moveDirection, isDashing, isWarpingOut, isWarpingIn);
+    barneyRenderer.update(aimDirection, moveDirection, isDashing, isWarpingOut, isWarpingIn);
   }
 
   void LateUpdate()
@@ -501,6 +505,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   public int getBombCount()
   {
     return bombCount;
+  }
+
+  private void Interact(Vector2 direction)
+  {
+    GameObject interactableObject = interactableDetector.Detect(direction);
+    if (interactableObject != null)
+    {
+      interactableObject.GetComponent<IInteractable>().OnInteract();
+    }
   }
 
   private void ListenForDashEnded()

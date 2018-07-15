@@ -7,15 +7,19 @@ public class Spawner : MonoBehaviour
 
   private SpawnerConfig spawnerConfig;
 
-  public GameObject target;
+  private GameObject target;
   private float timeSince = 0f;
 
   private float secs = 0f;
+
+  [SerializeField]
+  private float distanceThreshold = 16;
 
   // Use this for initialization
   void Start()
   {
     spawnerConfig = GetComponent<SpawnerConfig>();
+    target = GameObject.FindGameObjectWithTag("Player");
   }
 
   // Update is called once per frame
@@ -25,8 +29,12 @@ public class Spawner : MonoBehaviour
     timeSince += Time.deltaTime;
     if (timeSince >= spawnerConfig.getIntervalSeconds())
     {
-      spawn();
-      timeSince = 0f;
+      float distanceFromTarget = Vector3.Distance(target.transform.position, this.transform.position);
+      if (distanceFromTarget > distanceThreshold)
+      {
+        spawn();
+        timeSince = 0f;
+      }
     }
   }
 

@@ -59,17 +59,14 @@ public class GameSystem : MonoBehaviour
     {
       if (player.GetButtonDown("Pause"))
       {
-        if (gameState == GameState.PAUSED)
-        {
-          unpauseGame();
-        }
-        else
-        {
-          Time.timeScale = 0;
-          purchaseManager.Open();
-          gameState = GameState.PURCHASING;
-          // pauseGame();
-        }
+        pauseGame();
+      }
+    }
+    else if (gameState == GameState.PAUSED)
+    {
+      if (player.GetButtonDown("Pause"))
+      {
+        unpauseGame();
       }
     }
     else if (gameState == GameState.DEAD)
@@ -82,12 +79,12 @@ public class GameSystem : MonoBehaviour
     }
     else if (gameState == GameState.PURCHASING)
     {
-      if (player.GetButtonDown("Confirm"))
-      {
-        purchaseManager.Close();
-        Time.timeScale = 1;
-        gameState = GameState.RUNNING;
-      }
+      // if (player.GetButtonDown("Confirm"))
+      // {
+      //   purchaseManager.Close();
+      //   Time.timeScale = 1;
+      //   gameState = GameState.RUNNING;
+      // }
     }
   }
 
@@ -96,6 +93,20 @@ public class GameSystem : MonoBehaviour
     gameState = GameState.DEAD;
     deathScreenCanvas.gameObject.SetActive(true);
     deathScreenCanvas.gameObject.GetComponentInChildren<DeathScreen>().setDead(timeAlive);
+  }
+
+  public void BeginPurchase()
+  {
+    Time.timeScale = 0f;
+    purchaseManager.Open();
+    gameState = GameState.PURCHASING;
+  }
+
+  public void EndPurchase()
+  {
+    Time.timeScale = 1f;
+    purchaseManager.Close();
+    gameState = GameState.RUNNING;
   }
 
   private void pauseGame()
