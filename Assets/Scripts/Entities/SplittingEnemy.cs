@@ -14,15 +14,16 @@ public class SplittingEnemy : MonoBehaviour
   [SerializeField]
   private int numToSpawn;
 
-  public void spawnObjects(GameObject target)
+  // Parent's spawner
+  public void spawnObjects(GameObject target, Spawner spawner)
   {
     for (int i = 0; i <= numToSpawn; i++)
     {
-      _spawnObject(target);
+      _spawnObject(target, spawner);
     }
   }
 
-  private void _spawnObject(GameObject target)
+  private void _spawnObject(GameObject target, Spawner spawner)
   {
     GameObject tempGo = GameObject.Instantiate(spawnObject, Vector3.zero, Quaternion.identity) as GameObject;
     tempGo.transform.position = transform.position;
@@ -34,6 +35,12 @@ public class SplittingEnemy : MonoBehaviour
       {
         targeter.SetTarget(target);
       }
+    }
+
+    Enemy enemy = tempGo.GetComponent<Enemy>();
+    if (enemy != null && spawner != null)
+    {
+      enemy.AttachSpawner(spawner);
     }
   }
 }

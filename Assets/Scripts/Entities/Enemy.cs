@@ -47,6 +47,12 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
   private bool zigZagTargeting = false;
   private bool hasBegunZigZagging = false;
 
+  private Spawner spawner;
+
+  public delegate void OnDeath(Enemy enemy);
+  public event OnDeath OnDeathEvent;
+  private bool reportDeath = true;
+
   // Use this for initialization
   void Start()
   {
@@ -91,6 +97,11 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
     }
   }
 
+  public void SetReportDeath(bool reportDeath)
+  {
+    this.reportDeath = reportDeath;
+  }
+
   public void onBombed()
   {
     die(true);
@@ -118,6 +129,11 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
   void OnTriggerEnter2D(Collider2D other)
   {
     HandleCollision(other);
+  }
+
+  public void AttachSpawner(Spawner spawner)
+  {
+    this.spawner = spawner;
   }
 
   private void HandleCollision(Collider2D other)
@@ -163,12 +179,17 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
 
   private void onDeath(bool wasBomb)
   {
+    if (reportDeath && spawner != null)
+    {
+      spawner.OnEnemyDeath(this);
+    }
+
     if (!wasBomb)
     {
       SplittingEnemy splittingEnemy = gameObject.GetComponent<SplittingEnemy>();
       if (splittingEnemy != null)
       {
-        splittingEnemy.spawnObjects(target);
+        splittingEnemy.spawnObjects(target, spawner);
       }
     }
   }
