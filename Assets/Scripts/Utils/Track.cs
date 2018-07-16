@@ -12,6 +12,8 @@ public class Track : MonoBehaviour
 
   public bool isSmooth = true;
 
+  private bool isTracking = true;
+
   // Use this for initialization
   void Start() { }
 
@@ -19,6 +21,11 @@ public class Track : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (!isTracking)
+    {
+      return;
+    }
+
     if (!isSmooth)
     {
       transform.position = computeTargetPosition();
@@ -27,10 +34,25 @@ public class Track : MonoBehaviour
 
   void FixedUpdate()
   {
+    if (!isTracking)
+    {
+      return;
+    }
+
     if (isSmooth)
     {
       transform.position = Vector3.Lerp(transform.position, computeTargetPosition(), lerpFactor);
     }
+  }
+
+  public void EnableTracking()
+  {
+    isTracking = true;
+  }
+
+  public void DisableTracking()
+  {
+    isTracking = false;
   }
 
   private Vector3 computeTargetPosition()
