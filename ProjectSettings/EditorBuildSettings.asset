@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GrassArena1.unity
     guid: 43d8f5d1eeb384b8993af6e87728e472
+  - enabled: 1
+    path: Assets/Scenes/IndoorArena.unity
+    guid: 24fb3c64bbd8d4a3cba9414c1156cffc
   m_configObjects: {}

@@ -301,11 +301,15 @@ public class BasicPlayer : MonoBehaviour, PickupReceiver, WeaponUser
   private void ContinueWarpOut()
   {
     barneyRenderer.update(Vector2.zero, Vector2.zero, false, true, false);
-    this.transform.position = Vector3.Lerp(this.transform.position, warpPad.transform.position, 0.01f);
+    this.transform.position = Vector3.Lerp(this.transform.position, warpPad.transform.position, 0.03f);
     float distance = Vector3.Distance(this.transform.position, warpPad.transform.position);
-    if (distance < 0.2f)
+    if (distance < 0.25f)
     {
       PerformWarpTransition();
+    }
+    else
+    {
+      Debug.Log("distance: " + distance);
     }
   }
 

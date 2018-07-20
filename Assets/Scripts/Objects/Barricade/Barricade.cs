@@ -15,11 +15,17 @@ public class Barricade : MonoBehaviour
 
   private int state = GONE;
 
+  [SerializeField]
+  private float warpOutAnimDurationSecs = 1f;
+
+  private IEnumerator forceStateEnumerator;
+
   // Use this for initialization
   void Start()
   {
     collider = GetComponent<BoxCollider2D>();
     animator = GetComponent<Animator>();
+    SetState(GONE);
   }
 
   public void Appear()
@@ -30,10 +36,14 @@ public class Barricade : MonoBehaviour
   public void Disappear()
   {
     SetState(DISAPPEARING);
+    // hack to get around the fact that animation events sometimes fail to fire.
+    forceStateEnumerator = ForceState(GONE, warpOutAnimDurationSecs);
+    StartCoroutine(forceStateEnumerator);
   }
 
   public void OnAppearCompleted()
   {
+    Debug.Log("appear completed");
     SetState(IDLE);
   }
 
@@ -47,5 +57,16 @@ public class Barricade : MonoBehaviour
     this.state = state;
     animator.SetInteger("State", state);
     collider.enabled = state != GONE;
+    if (forceStateEnumerator != null)
+    {
+      StopCoroutine(forceStateEnumerator);
+      forceStateEnumerator = null;
+    }
+  }
+
+  private IEnumerator ForceState(int state, float delaySecs)
+  {
+    yield return new WaitForSecondsRealtime(delaySecs);
+    SetState(state);
   }
 }
