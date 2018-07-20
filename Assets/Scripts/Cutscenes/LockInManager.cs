@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class LockInManager : MonoBehaviour
 {
+
+  public delegate void OnLockInCompleted();
+  public event OnLockInCompleted OnLockInCompletedEvent;
+
   private Camera camera;
   private Track cameraTrack;
 
   private BarricadeGroup[] barricadeGroups;
   private int nextIndex = -1;
   private int onDeckIndex = 0;
-  private bool isLockingIn = false;
 
   [SerializeField]
   private float distanceThreshold;
@@ -27,6 +30,15 @@ public class LockInManager : MonoBehaviour
   [SerializeField]
   private List<BarricadeGroup> testBarricadeGroups;
 
+  private LockInState lockInState = LockInState.NONE;
+
+  private enum LockInState
+  {
+    LOCKING,
+    RELEASING,
+    NONE
+  }
+
   void Start()
   {
     camera = GameObject.FindObjectOfType<Camera>();
@@ -35,24 +47,13 @@ public class LockInManager : MonoBehaviour
 
   void Update()
   {
-    if (isLockingIn && nextIndex >= 0)
+    if (lockInState == LockInState.LOCKING && nextIndex >= 0)
     {
-      Vector3 targetPosition = computeTargetPosition();
-      camera.transform.position = Vector3.Lerp(camera.transform.position, targetPosition, lerpFactor);
-      float distance = Vector3.Distance(camera.transform.position, targetPosition);
-      if (distance < distanceThreshold)
-      {
-        barricadeGroups[nextIndex].Appear();
-        bool hasMore = nextIndex < barricadeGroups.Length - 1;
-        if (hasMore)
-        {
-          StartCoroutine(TrackNext(nextIndex + 1));
-        }
-        else
-        {
-          StartCoroutine(EndLockIn());
-        }
-      }
+      ContinueLockIn();
+    }
+    else if (lockInState == LockInState.RELEASING && nextIndex >= 0)
+    {
+      ContinueRelease();
     }
   }
 
@@ -74,7 +75,68 @@ public class LockInManager : MonoBehaviour
     cameraTrack.DisableTracking();
     nextIndex = 0;
     onDeckIndex = 0;
-    isLockingIn = true;
+    lockInState = LockInState.LOCKING;
+  }
+
+  public void Release()
+  {
+    Release(testBarricadeGroups.ToArray());
+  }
+
+  public void Release(BarricadeGroup barricadeGroup)
+  {
+    BarricadeGroup[] barricadeGroups = new BarricadeGroup[] { barricadeGroup };
+    Release(barricadeGroups);
+  }
+
+  public void Release(BarricadeGroup[] barricadeGroups)
+  {
+    Time.timeScale = 0f;
+    this.barricadeGroups = barricadeGroups;
+    cameraTrack.DisableTracking();
+    nextIndex = 0;
+    onDeckIndex = 0;
+    lockInState = LockInState.RELEASING;
+  }
+
+  private void ContinueLockIn()
+  {
+    Vector3 targetPosition = computeTargetPosition();
+    camera.transform.position = Vector3.Lerp(camera.transform.position, targetPosition, lerpFactor);
+    float distance = Vector3.Distance(camera.transform.position, targetPosition);
+    if (distance < distanceThreshold)
+    {
+      barricadeGroups[nextIndex].Appear();
+      bool hasMore = nextIndex < barricadeGroups.Length - 1;
+      if (hasMore)
+      {
+        StartCoroutine(TrackNext(nextIndex + 1));
+      }
+      else
+      {
+        StartCoroutine(EndLockIn());
+      }
+    }
+  }
+
+  private void ContinueRelease()
+  {
+    Vector3 targetPosition = computeTargetPosition();
+    camera.transform.position = Vector3.Lerp(camera.transform.position, targetPosition, lerpFactor);
+    float distance = Vector3.Distance(camera.transform.position, targetPosition);
+    if (distance < distanceThreshold)
+    {
+      barricadeGroups[nextIndex].Disappear();
+      bool hasMore = nextIndex < barricadeGroups.Length - 1;
+      if (hasMore)
+      {
+        StartCoroutine(TrackNext(nextIndex + 1));
+      }
+      else
+      {
+        StartCoroutine(EndLockInRelease());
+      }
+    }
   }
 
   private IEnumerator EndLockIn()
@@ -82,7 +144,22 @@ public class LockInManager : MonoBehaviour
     yield return new WaitForSecondsRealtime(lingerSecs);
     cameraTrack.EnableTracking();
     barricadeGroups = null;
-    isLockingIn = false;
+    lockInState = LockInState.NONE;
+    nextIndex = -1;
+    onDeckIndex = -1;
+    Time.timeScale = 1f;
+    if (OnLockInCompletedEvent != null)
+    {
+      OnLockInCompletedEvent();
+    }
+  }
+
+  private IEnumerator EndLockInRelease()
+  {
+    yield return new WaitForSecondsRealtime(lingerSecs);
+    cameraTrack.EnableTracking();
+    barricadeGroups = null;
+    lockInState = LockInState.NONE;
     nextIndex = -1;
     onDeckIndex = -1;
     Time.timeScale = 1f;

@@ -5,6 +5,9 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
 
+  public delegate void OnWaveEnded();
+  public event OnWaveEnded OnWaveEndedEvent;
+
   [Header("Wave Configuration")]
   [SerializeField]
   private float durationSecs;
@@ -14,6 +17,7 @@ public class WaveManager : MonoBehaviour
   private List<Spawner> spawners;
 
   private float timeRemainingSecs;
+  private bool isStarted;
   private bool isEnded;
 
   // Use this for initialization
@@ -25,7 +29,7 @@ public class WaveManager : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (!isEnded)
+    if (isStarted && !isEnded)
     {
       timeRemainingSecs -= Time.deltaTime;
       if (timeRemainingSecs <= 0)
@@ -35,12 +39,26 @@ public class WaveManager : MonoBehaviour
     }
   }
 
+  public void BeginWave()
+  {
+    isStarted = true;
+    foreach (Spawner spawner in spawners)
+    {
+      spawner.StartSpawning();
+    }
+  }
+
   private void EndWave()
   {
     isEnded = true;
     foreach (Spawner spawner in spawners)
     {
       spawner.OnWaveEnded();
+    }
+
+    if (OnWaveEndedEvent != null)
+    {
+      OnWaveEndedEvent();
     }
   }
 }

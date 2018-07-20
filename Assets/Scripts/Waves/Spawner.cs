@@ -20,26 +20,35 @@ public class Spawner : MonoBehaviour
   [SerializeField]
   private bool isEnemies;
 
+  [SerializeField]
+  private bool startActive = true;
+
+  private bool isSpawningObjects;
+
   // Use this for initialization
   void Start()
   {
     enemies = new HashSet<Enemy>();
     spawnerConfig = GetComponent<SpawnerConfig>();
     target = GameObject.FindGameObjectWithTag("Player");
+    isSpawningObjects = startActive;
   }
 
   // Update is called once per frame
   void Update()
   {
-    secs += Time.deltaTime;
-    timeSince += Time.deltaTime;
-    if (timeSince >= spawnerConfig.getIntervalSeconds())
+    if (isSpawningObjects)
     {
-      float distanceFromTarget = Vector3.Distance(target.transform.position, this.transform.position);
-      if (distanceFromTarget > distanceThreshold)
+      secs += Time.deltaTime;
+      timeSince += Time.deltaTime;
+      if (timeSince >= spawnerConfig.getIntervalSeconds())
       {
-        spawn();
-        timeSince = 0f;
+        float distanceFromTarget = Vector3.Distance(target.transform.position, this.transform.position);
+        if (distanceFromTarget > distanceThreshold)
+        {
+          spawn();
+          timeSince = 0f;
+        }
       }
     }
   }
@@ -51,12 +60,23 @@ public class Spawner : MonoBehaviour
       enemy.SetReportDeath(false);
       enemy.onBombed();
     }
-    this.enabled = false;
+    StopSpawning();
   }
 
   public void OnEnemyDeath(Enemy enemy)
   {
     enemies.Remove(enemy);
+  }
+
+  public void StartSpawning()
+  {
+    this.isSpawningObjects = true;
+  }
+
+  public void StopSpawning()
+  {
+    this.isSpawningObjects = false;
+    timeSince = 0f;
   }
 
   private void spawn()
