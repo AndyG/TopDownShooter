@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
-public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable
+public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable, Targeter, Spawnable
 {
 
   [SerializeField]
@@ -53,13 +54,22 @@ public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable
   public event OnDeath OnDeathEvent;
   private bool reportDeath = true;
 
+  private AIDestinationSetter destinationSetter;
+
+  private bool isDestroyed;
+
   // Use this for initialization
   void Start()
   {
+    Debug.LogWarning("Started");
     spriteRenderer = GetComponent<SpriteRenderer>();
     baseMaterial = spriteRenderer.material;
     zigZagTargetPos = transform.position;
     explosion = GetComponent<Explosion>();
+    destinationSetter = gameObject.GetComponent<AIDestinationSetter>();
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    Debug.LogWarning("found player: " + player.name);
+    // destinationSetter.target = player.transform;
   }
 
   // Update is called once per frame
@@ -146,11 +156,11 @@ public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable
       return;
     }
 
-    // BasicPlayer player = other.GetComponent<BasicPlayer>();
-    // if (player != null)
-    // {
-    //   player.onHit(gameObject);
-    // }
+    BasicPlayer player = other.GetComponent<BasicPlayer>();
+    if (player != null)
+    {
+      player.onHit(gameObject);
+    }
 
     Bomb bomb = other.GetComponent<Bomb>();
     if (bomb != null)
@@ -161,6 +171,12 @@ public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable
 
   private void die(bool wasBomb)
   {
+    if (isDestroyed)
+    {
+      return;
+    }
+
+    isDestroyed = true;
     if (explosion != null)
     {
       explosion.Explode();
@@ -224,7 +240,7 @@ public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable
 
   public void SetTarget(GameObject gameObject)
   {
-    this.target = gameObject;
+    GetComponent<AIDestinationSetter>().target = gameObject.transform;
   }
 
   public void OnHit(GameObject other)
@@ -234,5 +250,11 @@ public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable
     {
       die(true);
     }
+  }
+
+  public void OnSpawnerDeactivated()
+  {
+    SetReportDeath(false);
+    onBombed();
   }
 }

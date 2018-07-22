@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
+public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable, Spawnable
 {
 
   [SerializeField]
@@ -234,5 +234,11 @@ public class Enemy : MonoBehaviour, Shootable, Bombable, Targeter, IHittable
     {
       die(true);
     }
+  }
+
+  public void OnSpawnerDeactivated()
+  {
+    SetReportDeath(false);
+    onBombed();
   }
 }

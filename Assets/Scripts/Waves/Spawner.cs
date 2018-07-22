@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
   [SerializeField]
   private float distanceThreshold = 16;
 
-  private HashSet<Enemy> enemies;
+  private HashSet<Spawnable> spawnables;
 
   [SerializeField]
   private bool isEnemies;
@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
   // Use this for initialization
   void Start()
   {
-    enemies = new HashSet<Enemy>();
+    spawnables = new HashSet<Spawnable>();
     spawnerConfig = GetComponent<SpawnerConfig>();
     target = GameObject.FindGameObjectWithTag("Player");
     isSpawningObjects = startActive;
@@ -55,17 +55,16 @@ public class Spawner : MonoBehaviour
 
   public void OnWaveEnded()
   {
-    foreach (Enemy enemy in enemies)
+    foreach (Spawnable spawnable in spawnables)
     {
-      enemy.SetReportDeath(false);
-      enemy.onBombed();
+      spawnable.OnSpawnerDeactivated();
     }
     StopSpawning();
   }
 
-  public void OnEnemyDeath(Enemy enemy)
+  public void OnEnemyDeath(Spawnable spawnable)
   {
-    enemies.Remove(enemy);
+    spawnables.Remove(spawnable);
   }
 
   public void StartSpawning()
@@ -93,9 +92,9 @@ public class Spawner : MonoBehaviour
 
     if (isEnemies)
     {
-      Enemy enemy = tempGo.GetComponent<Enemy>();
-      enemy.AttachSpawner(this);
-      enemies.Add(enemy);
+      Spawnable spawnable = tempGo.GetComponent<Spawnable>();
+      spawnable.AttachSpawner(this);
+      spawnables.Add(spawnable);
     }
   }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-interface Targeter
+public interface Targeter
 {
   void SetTarget(GameObject gameObject);
 }
