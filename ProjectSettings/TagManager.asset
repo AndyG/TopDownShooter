@@ -18,8 +18,8 @@ TagManager:
   - LevelBoundaries
   - Interactables
   - AIPathing
-  - 
-  - 
+  - WallHalfway
+  - Projectiles
   - 
   - 
   - 

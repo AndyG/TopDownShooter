@@ -61,14 +61,12 @@ public class PathfindingEnemy : MonoBehaviour, Shootable, Bombable, IHittable, T
   // Use this for initialization
   void Start()
   {
-    Debug.LogWarning("Started");
     spriteRenderer = GetComponent<SpriteRenderer>();
     baseMaterial = spriteRenderer.material;
     zigZagTargetPos = transform.position;
     explosion = GetComponent<Explosion>();
     destinationSetter = gameObject.GetComponent<AIDestinationSetter>();
     GameObject player = GameObject.FindGameObjectWithTag("Player");
-    Debug.LogWarning("found player: " + player.name);
     // destinationSetter.target = player.transform;
   }
 
